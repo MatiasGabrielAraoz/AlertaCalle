@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Mi Cuenta — ALERTACALLE</title>
+
+    <!-- Estilos propios -->
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Configuración de Tailwind (ver js/app.js) -->
+    <script src="js/app.js"></script>
+  </head>
+  <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+    <!-- ================= TOP NAV BAR ================= -->
+    <header class="site-header-nav w-full bg-surface-container-lowest sticky top-0 z-50 border-b border-surface-container-high/80 backdrop-blur-md bg-white/95">
+      <div class="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 py-3.5 max-w-7xl mx-auto">
+        <!-- Brandmark -->
+        <div class="flex items-center gap-3">
+          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="inicio.html">
+            ALERTA<span class="text-primary">CALLE</span>
+          </a>
+        </div>
+        <!-- Navigation Links desacoplados a páginas dedicadas -->
+        <nav class="hidden md:flex items-center gap-6">
+          <a class="text-primary font-bold font-label-caps text-label-caps uppercase tracking-wider border-b-2 border-primary pb-0.5" href="home.html">
+            Inicio
+          </a>
+          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="mapa.html">
+            Mapa
+          </a>
+          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="noticias.html">
+            Noticias y Obras
+          </a>
+          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="ayuda.html">
+            Ayuda Y FEEDBACK
+          </a>
+        </nav>
+        <!-- Trailing Action Cluster -->
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          <a class="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 font-label-caps text-label-caps uppercase glow-red-button transition-all rounded-lg font-bold text-xs" href="reportar.html">
+            <span class="material-symbols-outlined text-sm font-bold">add</span>
+            <span class="hidden sm:inline">REPORTAR INCIDENCIA</span>
+            <span class="sm:hidden">REPORTAR</span>
+          </a>
+        </div>
+        <!-- User / Account Button (activo en esta página) -->
+        <a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary text-primary bg-primary/5 font-label-code text-xs font-bold transition-colors" href="cuenta.html">
+          <span class="material-symbols-outlined text-base text-primary">account_circle</span>
+          <span>Mi Cuenta</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ================= MAIN CANVAS ================= -->
+    <main class="view-cuenta-container flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+      <!-- ================= 1. PERFIL DEL USUARIO ================= -->
+      <section class="module-perfil-usuario">
+        <div class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
+          <!-- Cabecera / cover con halos ambientales -->
+          <div class="relative h-28 sm:h-36 bg-surface-container-low overflow-hidden">
+            <div class="absolute -top-10 -right-10 w-52 h-52 bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-14 -left-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
+            <div class="absolute inset-0 map-grid-pattern opacity-60"></div>
+          </div>
+
+          <div class="px-6 sm:px-8 pb-6">
+            <div class="flex flex-col sm:flex-row sm:items-end gap-4 -mt-10 sm:-mt-12">
+              <!-- Avatar con iniciales -->
+              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0">
+                MG
+              </div>
+              <div class="flex-1 space-y-0.5 pb-1">
+                <h1 class="font-headline-lg text-xl sm:text-2xl font-extrabold text-on-surface leading-tight">
+                  Martina González
+                </h1>
+                <p class="text-xs font-label-code text-secondary">Vecina verificada · Barrio San Andrés Centro · Miembro desde Marzo 2025</p>
+              </div>
+              <div class="pb-1">
+                <a class="inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-4 py-2.5 rounded-xl hover:bg-surface-container-low transition-all border border-surface-container-high soft-card-shadow text-xs font-bold" href="#">
+                  <span class="material-symbols-outlined text-base text-secondary">edit</span>
+                  <span>Editar Perfil</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Métricas del perfil (mismo patrón que el dashboard del home) -->
+            <div class="grid grid-cols-3 gap-3.5 pt-8 mt-2 border-t border-surface-container-high">
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Reportes</p>
+                <div class="flex items-baseline justify-center sm:justify-between">
+                  <p class="font-headline-md text-2xl font-extrabold text-on-surface">8</p>
+                  <span class="material-symbols-outlined text-secondary text-lg hidden sm:inline">inbox</span>
+                </div>
+                <span class="text-[11px] font-label-code text-secondary block mt-1">Cargados por vos</span>
+              </div>
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Soluciones</p>
+                <div class="flex items-baseline justify-center sm:justify-between">
+                  <p class="font-headline-md text-2xl font-extrabold text-emerald-700">5</p>
+                  <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold hidden sm:inline">63%</span>
+                </div>
+                <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Con conformidad vecinal</span>
+              </div>
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Apoyos</p>
+                <div class="flex items-baseline justify-center sm:justify-between">
+                  <p class="font-headline-md text-2xl font-extrabold text-primary">132</p>
+                  <span class="material-symbols-outlined text-primary text-lg hidden sm:inline">thumb_up</span>
+                </div>
+                <span class="text-[11px] font-label-code text-primary block mt-1">Veces que apoyaron tus reclamos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. MIS REPORTES ================= -->
+      <section class="module-mis-reportes space-y-6 pt-2">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
+          <div>
+            <span class="font-label-code text-label-code uppercase text-primary font-bold">HISTORIAL PERSONAL</span>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md font-extrabold text-on-surface uppercase tracking-tight">
+              MIS REPORTES
+            </h2>
+          </div>
+          <div class="inline-flex items-center gap-2.5 bg-surface-container-lowest border border-surface-container-high rounded-lg px-3 py-1.5 font-label-code text-label-code shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+            <span>8 REPORTES EN TU CUENTA</span>
+          </div>
+        </div>
+
+        <!-- Buscador reutilizado del home, ahora acotado a los reportes del usuario -->
+        <div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-4 space-y-3 soft-card-shadow">
+          <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
+            <div class="relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span class="material-symbols-outlined text-secondary text-base">search</span>
+              </div>
+              <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="mis-reportes-search" placeholder="Buscar en mis reportes por código, calle o descripción..." type="text"/>
+            </div>
+            <div class="flex items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
+              <span class="px-2 py-0.5 text-secondary text-xs">ESTADO:</span>
+              <button class="filtro-estado px-2 py-0.5 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
+              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="pendiente">PENDIENTES</button>
+              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="proceso">EN PROCESO</button>
+              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="resuelta">RESUELTAS</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feed de reportes propios, formato "post" -->
+        <div class="space-y-5" id="mis-reportes-feed">
+
+          <!-- Post / Reporte 1 -->
+          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="proceso" data-busqueda="inc-8492 av. belgrano 1420 luminaria led intermitente cable expuesto alumbrado">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
+                  EN PROCESO
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Luminaria LED intermitente y cable expuesto
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hoy 09:15 hs</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
+              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+                <span class="btn-seguimiento-label">Ver seguimiento</span>
+                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
+              </button>
+            </div>
+
+            <!-- Panel de seguimiento (línea de tiempo), oculto por defecto -->
+            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="space-y-0.5">
+                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
+                  <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #02 Electromecánica · Vencimiento SLA: 30hs</p>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface text-on-secondary bg-secondary border border-secondary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  EN PROCESO
+                </span>
+              </div>
+
+              <div class="relative pt-2 pb-1 overflow-x-auto">
+                <div class="min-w-[560px] flex items-center justify-between relative">
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-[55%] z-0 transition-all duration-500"></div>
+
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Reportado</span>
+                    <span class="text-[10px] text-secondary">Hoy 09:15</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Recibido</span>
+                    <span class="text-[10px] text-secondary">Hoy 09:40</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm ring-4 ring-secondary/20 animate-pulse">
+                      <span class="material-symbols-outlined text-base">engineering</span>
+                    </div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Asignado</span>
+                    <span class="text-[10px] text-on-surface font-bold">Cuadrilla #02</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">En Reparación</span>
+                    <span class="text-[10px] text-secondary">Próximo paso</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">Solucionado</span>
+                    <span class="text-[10px] text-secondary">Pendiente cierre</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
+                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
+                <span class="text-secondary">Última actualización por cuadrilla técnica hace 40 minutos: "Se coordinó recambio de artefacto para mañana a la mañana."</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post / Reporte 2 -->
+          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="pendiente" data-busqueda="inc-8501 parque moreno senda norte tablero electrico abierto peligro corte alumbrado">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8501</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
+                  PENDIENTE
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Tablero eléctrico abierto con peligro de corte
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Parque Moreno - Senda Norte (Parque Norte)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hoy 11:20 hs</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-primary font-bold">CRÍTICO / ENERGÍA</span>
+              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+                <span class="btn-seguimiento-label">Ver seguimiento</span>
+                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
+              </button>
+            </div>
+
+            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="space-y-0.5">
+                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
+                  <p class="text-xs font-label-code text-secondary">Barrio Parque Norte · Triage técnico municipal · Vencimiento SLA: 2hs</p>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary-container text-on-primary border border-primary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
+                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  PENDIENTE
+                </span>
+              </div>
+
+              <div class="relative pt-2 pb-1 overflow-x-auto">
+                <div class="min-w-[560px] flex items-center justify-between relative">
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-[10%] z-0 transition-all duration-500"></div>
+
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm glow-red ring-4 ring-primary-container/20 animate-pulse">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-primary">Reportado</span>
+                    <span class="text-[10px] text-primary font-bold">Hoy 11:20</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">Recibido</span>
+                    <span class="text-[10px] text-secondary">En cola</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">Asignado</span>
+                    <span class="text-[10px] text-secondary">Pendiente</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">En Reparación</span>
+                    <span class="text-[10px] text-secondary">Pendiente</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                    <span class="font-label-code text-[11px] text-secondary font-medium">Solucionado</span>
+                    <span class="text-[10px] text-secondary">Pendiente</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
+                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
+                <span class="text-secondary">Reporte recibido por el sistema, en cola de triage por riesgo eléctrico prioritario.</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Post / Reporte 3 -->
+          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="resuelta" data-busqueda="inc-8430 bartolome mitre urquiza cordon cuneta destruido losa desnivelada baches calzadas">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8430</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
+                  RESUELTA
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Cordón cuneta destruido y losa desnivelada
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Bartolomé Mitre esq. Urquiza (San Andrés Centro)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hace 3 días</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">Reparación Hormigón Finalizada</span>
+              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+                <span class="btn-seguimiento-label">Ver seguimiento</span>
+                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
+              </button>
+            </div>
+
+            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div class="space-y-0.5">
+                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
+                  <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #04 Obras Viales · Cerrado con conformidad</p>
+                </div>
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-700 text-white rounded-full font-label-code text-[11px] font-bold w-fit">
+                  <span class="w-2 h-2 rounded-full bg-white"></span>
+                  RESUELTA
+                </span>
+              </div>
+
+              <div class="relative pt-2 pb-1 overflow-x-auto">
+                <div class="min-w-[560px] flex items-center justify-between relative">
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
+                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-full z-0 transition-all duration-500"></div>
+
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Reportado</span>
+                    <span class="text-[10px] text-secondary">Hace 3 días</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Recibido</span>
+                    <span class="text-[10px] text-secondary">Hace 3 días</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">Asignado</span>
+                    <span class="text-[10px] text-secondary">Hace 2 días</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
+                    <span class="font-label-code text-[11px] font-bold text-on-surface">En Reparación</span>
+                    <span class="text-[10px] text-secondary">Ayer</span>
+                  </div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                    <div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                      <span class="material-symbols-outlined text-base">check</span>
+                    </div>
+                    <span class="font-label-code text-[11px] font-bold text-emerald-700">Solucionado</span>
+                    <span class="text-[10px] text-emerald-700 font-bold">Hoy 08:10</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
+                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
+                <span class="text-secondary">Cerrado por inspector técnico con foto de verificación final. 12 vecinos apoyaron este reclamo.</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Estado vacío al filtrar/buscar sin resultados -->
+        <div class="hidden text-center py-10 border border-dashed border-surface-container-high rounded-xl" id="mis-reportes-vacio">
+          <span class="material-symbols-outlined text-3xl text-secondary">search_off</span>
+          <p class="text-sm text-secondary mt-2">No encontramos reportes que coincidan con tu búsqueda.</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ================= FOOTER INSTITUCIONAL ================= -->
+    <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+        <div class="space-y-3 max-w-xl">
+          <div class="text-headline-md font-headline-md font-extrabold uppercase text-surface border-l-4 border-primary pl-3">
+            ALERTACALLE
+          </div>
+          <p class="font-label-code text-label-code text-secondary-fixed-dim leading-relaxed">
+            © 2026 ALERTACALLE — DESAROLLO DE LAS OLIMPIADAS INSTITUCIONALES TECNOLOGICAS PROFECIONALES • PROGRAMACION.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="flex flex-wrap gap-4 font-label-caps text-label-caps uppercase text-xs">
+            <a class="text-primary-fixed-dim hover:text-primary-fixed underline transition-colors" href="tel:911">
+              Línea 911 Emergencia
+            </a>
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="tel:103">
+              Defensa Civil (103)
+            </a>
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="ayuda.html">
+              Consorcio Auditor
+            </a>
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="mis-reportes.html">
+              Matriz de Incidencias ABIERTA
+            </a>
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="cuenta.html">
+              Términos y Telemetría
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Toggle de los paneles de seguimiento (uno por reporte, independientes entre sí)
+      document.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const post = btn.closest(".reporte-post");
+          const panel = post.querySelector(".panel-seguimiento");
+          const icon = btn.querySelector(".btn-seguimiento-icon");
+          const label = btn.querySelector(".btn-seguimiento-label");
+          const abierto = !panel.classList.contains("hidden");
+
+          if (abierto) {
+            panel.classList.add("hidden");
+            icon.style.transform = "rotate(0deg)";
+            label.textContent = "Ver seguimiento";
+          } else {
+            panel.classList.remove("hidden");
+            icon.style.transform = "rotate(180deg)";
+            label.textContent = "Ocultar seguimiento";
+          }
+        });
+      });
+
+      // Buscador + filtro de estado, acotado a los reportes del usuario
+      const searchInput = document.getElementById("mis-reportes-search");
+      const filtroButtons = document.querySelectorAll(".filtro-estado");
+      const posts = document.querySelectorAll(".reporte-post");
+      const vacioMsg = document.getElementById("mis-reportes-vacio");
+      let estadoActivo = "todos";
+
+      function aplicarFiltros() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibles = 0;
+
+        posts.forEach(function (post) {
+          const coincideTexto = post.dataset.busqueda.includes(query);
+          const coincideEstado = estadoActivo === "todos" || post.dataset.estado === estadoActivo;
+          const mostrar = coincideTexto && coincideEstado;
+          post.classList.toggle("hidden", !mostrar);
+          if (mostrar) visibles++;
+        });
+
+        vacioMsg.classList.toggle("hidden", visibles !== 0);
+      }
+
+      searchInput.addEventListener("input", aplicarFiltros);
+
+      filtroButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          estadoActivo = btn.dataset.estado;
+          filtroButtons.forEach(function (b) {
+            b.classList.remove("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+            b.classList.add("text-secondary");
+          });
+          btn.classList.add("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+          btn.classList.remove("text-secondary");
+          aplicarFiltros();
+        });
+      });
+    </script>
+  </body>
+</html>

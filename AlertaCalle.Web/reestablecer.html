@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Reestablecer Contraseña — CIUDADCONECTADA</title>
+
+    <!-- Estilos propios -->
+    <link href="css/styles.css" rel="stylesheet"/>
+
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Configuración de Tailwind (ver js/app.js) -->
+    <script src="js/app.js"></script>
+  </head>
+  <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+    <!-- ================= REESTABLECER CONTRASEÑA ================= -->
+    <main class="relative flex-grow w-full flex items-center justify-center px-4 py-10 overflow-hidden">
+      <!-- Halos ambientales, igual que en el hero de home.html -->
+      <div class="absolute -top-16 -right-16 w-72 h-72 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-60 h-60 bg-primary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 w-full max-w-md space-y-6">
+        <!-- Brandmark -->
+        <div class="flex flex-col items-center text-center gap-3">
+          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="home.html">
+            CIUDAD<span class="text-primary">CONECTADA</span>
+          </a>
+        </div>
+
+        <!-- Card de Reestablecer Contraseña -->
+        <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 sm:p-8 soft-card-shadow space-y-6">
+          <div class="space-y-1 text-center">
+            <h1 class="font-headline-sm text-lg font-bold text-on-surface">Reestablecer Contraseña</h1>
+            <p class="text-xs text-secondary">Ingresá tu correo de Gmail y te enviaremos un enlace para crear una nueva contraseña.</p>
+          </div>
+
+          <form class="space-y-4" id="recover-form">
+            <!-- Gmail -->
+            <div class="space-y-1.5">
+              <label class="font-label-code text-label-code uppercase text-secondary" for="recover-email">E-mail</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-secondary text-base">mail</span>
+                </div>
+                <input class="w-full pl-9 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="recover-email" name="email" placeholder="nombre@gmail.com" required="" type="email"/>
+              </div>
+            </div>
+
+            <!-- Mensaje de error (oculto por defecto) -->
+            <p class="hidden font-label-code text-label-code text-primary text-center" id="recover-error">Ingresá una dirección de Gmail válida para continuar.</p>
+
+            <!-- Mensaje de éxito (oculto por defecto) -->
+            <p class="hidden font-label-code text-label-code text-secondary text-center" id="recover-success">Te enviamos un enlace a tu Gmail para reestablecer tu contraseña.</p>
+
+            <!-- Submit -->
+            <button class="w-full inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-6 py-3 rounded-xl font-bold glow-red-button transition-all" type="submit">
+              <span>Enviar enlace</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+
+          <div class="pt-2 border-t border-surface-container-high text-center">
+            <span class="text-xs text-secondary">¿Ya recordaste tu contraseña?</span>
+            <a class="text-xs font-bold text-primary hover:underline" href="login.html">Iniciar sesión</a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Simulación de recuperación de contraseña: valida que sea un email de Gmail,
+      // muestra confirmación y redirige a login.html.
+      document.getElementById("recover-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const emailInput = document.getElementById("recover-email");
+        const email = emailInput.value.trim().toLowerCase();
+        const errorMsg = document.getElementById("recover-error");
+        const successMsg = document.getElementById("recover-success");
+
+        const isGmail = /^[^\s@]+@gmail\.com$/.test(email);
+
+        if (!email || !isGmail) {
+          successMsg.classList.add("hidden");
+          errorMsg.classList.remove("hidden");
+          return;
+        }
+
+        errorMsg.classList.add("hidden");
+        successMsg.classList.remove("hidden");
+
+        // Acá iría la llamada real al backend para enviar el email de recuperación.
+        // Por ahora, redirige a login.html luego de un breve instante.
+        setTimeout(function () {
+          window.location.href = "login.html";
+        }, 1800);
+      });
+    </script>
+  </body>
+</html>

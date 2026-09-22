@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="es">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Registrarse — CIUDADCONECTADA</title>
+ 
+    <!-- Estilos propios -->
+    <link href="css/styles.css" rel="stylesheet"/>
+ 
+    <!-- Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+ 
+    <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+ 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+ 
+    <!-- Configuración de Tailwind (ver js/app.js) -->
+    <script src="js/app.js"></script>
+  </head>
+  <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+    <!-- ================= REGISTRO ================= -->
+    <main class="relative flex-grow w-full flex items-center justify-center px-4 py-10 overflow-hidden">
+      <!-- Halos ambientales -->
+      <div class="absolute -top-16 -right-16 w-72 h-72 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -left-16 w-60 h-60 bg-primary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+ 
+      <div class="relative z-10 w-full max-w-md space-y-6">
+        <!-- Brandmark -->
+        <div class="flex flex-col items-center text-center gap-3">
+          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="home.html">
+            CIUDAD<span class="text-primary">CONECTADA</span>
+          </a>
+        </div>
+ 
+        <!-- Card de Registro -->
+        <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 sm:p-8 soft-card-shadow space-y-6">
+          <div class="space-y-1 text-center">
+            <h1 class="font-headline-sm text-lg font-bold text-on-surface">Registrarse</h1>
+            <p class="text-xs text-secondary">Creá tu cuenta para reportar y hacer seguimiento de incidencias.</p>
+          </div>
+ 
+          <form class="space-y-4" id="register-form">
+            <!-- Nombre y Apellido -->
+            <div class="grid grid-cols-2 gap-3">
+              <div class="space-y-1.5">
+                <label class="font-label-code text-label-code uppercase text-secondary" for="reg-nombre">Nombre</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="material-symbols-outlined text-secondary text-base">person</span>
+                  </div>
+                  <input class="w-full pl-9 pr-3 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="reg-nombre" name="nombre" placeholder="Juan" required="" type="text"/>
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <label class="font-label-code text-label-code uppercase text-secondary" for="reg-apellido">Apellido</label>
+                <input class="w-full px-3 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="reg-apellido" name="apellido" placeholder="Pérez" required="" type="text"/>
+              </div>
+            </div>
+ 
+            <!-- DNI -->
+            <div class="space-y-1.5">
+              <label class="font-label-code text-label-code uppercase text-secondary" for="reg-dni">DNI</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-secondary text-base">badge</span>
+                </div>
+                <input class="w-full pl-9 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="reg-dni" inputmode="numeric" maxlength="8" name="dni" pattern="\d{7,8}" placeholder="30123456" required="" type="text"/>
+              </div>
+            </div>
+ 
+            <!-- Correo -->
+            <div class="space-y-1.5">
+              <label class="font-label-code text-label-code uppercase text-secondary" for="reg-email">E-mail</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-secondary text-base">mail</span>
+                </div>
+                <input class="w-full pl-9 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="reg-email" name="email" placeholder="nombre@correo.com" required="" type="email"/>
+              </div>
+            </div>
+ 
+            <!-- Contraseña -->
+            <div class="space-y-1.5">
+              <label class="font-label-code text-label-code uppercase text-secondary" for="reg-password">Contraseña</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <span class="material-symbols-outlined text-secondary text-base">lock</span>
+                </div>
+                <input class="w-full pl-9 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="reg-password" minlength="8" name="password" placeholder="••••••••" required="" type="password"/>
+              </div>
+            </div>
+ 
+            <!-- Mensaje de error (oculto por defecto) -->
+            <p class="hidden font-label-code text-label-code text-primary text-center" id="register-error">Completá todos los campos correctamente.</p>
+ 
+            <!-- Submit -->
+            <button class="w-full inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-6 py-3 rounded-xl font-bold glow-red-button transition-all" type="submit">
+              <span>Crear Cuenta</span>
+              <span class="material-symbols-outlined text-base">arrow_forward</span>
+            </button>
+          </form>
+ 
+          <div class="pt-2 border-t border-surface-container-high text-center">
+            <span class="text-xs text-secondary">¿Ya tenés cuenta?</span>
+            <a class="text-xs font-bold text-primary hover:underline" href="login.html">Iniciar Sesión</a>
+          </div>
+        </div>
+      </div>
+    </main>
+ 
+    <script>
+      // Simulación de registro: valida los campos y redirige a login.html
+      // para que el usuario inicie sesión con su nueva cuenta.
+      document.getElementById("register-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+ 
+        const nombre = document.getElementById("reg-nombre").value.trim();
+        const apellido = document.getElementById("reg-apellido").value.trim();
+        const dni = document.getElementById("reg-dni").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const password = document.getElementById("reg-password").value.trim();
+        const errorMsg = document.getElementById("register-error");
+ 
+        const dniValido = /^\d{7,8}$/.test(dni);
+ 
+        if (!nombre || !apellido || !dniValido || !email || password.length < 8) {
+          errorMsg.classList.remove("hidden");
+          return;
+        }
+ 
+        errorMsg.classList.add("hidden");
+ 
+        // Acá iría la llamada real de registro (fetch a tu backend).
+        // Por ahora, redirige a login.html para que inicie sesión.
+        window.location.href = "login.html";
+      });
+    </script>
+  </body>
+</html>
+ 
