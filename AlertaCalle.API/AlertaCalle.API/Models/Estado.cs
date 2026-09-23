@@ -1,4 +1,4 @@
-using EstadoValor = AlertaCalle.API.Models.Enums.Estado;
+using EstadoValor = AlertaCalle.API.Models.Enums.EstadoEnum;
 
 namespace AlertaCalle.API.Models;
 
