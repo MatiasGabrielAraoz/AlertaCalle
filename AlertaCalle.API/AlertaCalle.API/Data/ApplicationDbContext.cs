@@ -46,12 +46,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(x => x.Valor)
                 .HasConversion(
                     value =>
-                        value == EstadoValor.EnProceso ? "en proceso"
-                        : value == EstadoValor.Resuelto ? "resuelto"
-                        : "sin resolver",
+                        value == EstadoValor.EnProceso ? "En proceso"
+                        : value == EstadoValor.Resuelto ? "Resuelto"
+                        : "Sin resolver",
                     value =>
-                        value == "en proceso" ? EstadoValor.EnProceso
-                        : value == "resuelto" ? EstadoValor.Resuelto
+                        value == "En proceso" ? EstadoValor.EnProceso
+                        : value == "Resuelto" ? EstadoValor.Resuelto
                         : EstadoValor.SinResolver
                 )
                 .HasMaxLength(30)

@@ -37,20 +37,24 @@ public class IncidenciasController(ApplicationDbContext db) : ControllerBase
     [HttpPost]
     [Authorize]
     public async Task<ActionResult<Incidencia>> Post(
-        Incidencia incidencia,
+        PostIncidenciaDto dto,
         CancellationToken cancellationToken)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        incidencia.FechaCreacion =
-            incidencia.FechaCreacion == default
-                ? DateTime.UtcNow
-                : incidencia.FechaCreacion;
-        incidencia.FechaActualizacion =
-            incidencia.FechaActualizacion == default
-                ? incidencia.FechaCreacion
-                : incidencia.FechaActualizacion;
+        var incidencia = new Incidencia
+        {
+            Direccion = dto.Direccion,
+            FotoUrl = dto.FotoUrl,
+            Titulo = dto.Titulo,
+            Descr = dto.Descr,
+            FechaCreacion = DateTime.UtcNow,
+            FechaActualizacion = DateTime.UtcNow,
+            IdEstado = 1,
+            IdCategoria = dto.IdCategoria,
+            IdUsuario = dto.IdUsuario
+        };
 
         db.Add(incidencia);
         await db.SaveChangesAsync(cancellationToken);

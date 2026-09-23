@@ -4,7 +4,7 @@ public class Incidencia
 {
     public int Id { get; set; }
     public string Direccion { get; set; } = string.Empty;
-    public string FotoUrl { get; set; } = string.Empty;
+    public string? FotoUrl { get; set; }
     public string Titulo { get; set; } = string.Empty;
     public string Descr { get; set; } = string.Empty;
     public DateTime FechaCreacion { get; set; }
