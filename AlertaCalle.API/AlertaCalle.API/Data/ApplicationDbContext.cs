@@ -1,6 +1,6 @@
 using AlertaCalle.API.Models;
 using Microsoft.EntityFrameworkCore;
-using EstadoValor = AlertaCalle.API.Models.Enums.Estado;
+using EstadoValor = AlertaCalle.API.Models.Enums.EstadoEnum;
 
 namespace AlertaCalle.API.Data;
 
@@ -22,7 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(x => x.Apellido).HasMaxLength(150).IsRequired();
             e.Property(x => x.Email).HasMaxLength(320).IsRequired();
             e.HasIndex(x => x.Email).IsUnique();
-            e.Property(x => x.Pass).HasMaxLength(500).IsRequired();
+            e.Property(x => x.Password).HasMaxLength(500).IsRequired();
             e.HasOne(x => x.Rol)
                 .WithMany(x => x.Usuarios)
                 .HasForeignKey(x => x.IdRol)
@@ -38,7 +38,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Nombre).HasMaxLength(100).IsRequired();
-            e.Property(x => x.Desc).HasMaxLength(1000).IsRequired();
+            e.Property(x => x.Descr).HasMaxLength(1000).IsRequired();
         });
         modelBuilder.Entity<Estado>(e =>
         {
@@ -63,7 +63,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(x => x.Direccion).HasMaxLength(300).IsRequired();
             e.Property(x => x.FotoUrl).HasMaxLength(1000).IsRequired();
             e.Property(x => x.Titulo).HasMaxLength(200).IsRequired();
-            e.Property(x => x.Desc).HasMaxLength(2000).IsRequired();
+            e.Property(x => x.Descr).HasMaxLength(2000).IsRequired();
             e.HasOne(x => x.Estado)
                 .WithMany(x => x.Incidencias)
                 .HasForeignKey(x => x.IdEstado)

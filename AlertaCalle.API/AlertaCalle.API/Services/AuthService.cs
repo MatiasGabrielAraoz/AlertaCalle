@@ -25,7 +25,7 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
             .SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
         if (
             user is null
-            || hasher.VerifyHashedPassword(user, user.Pass, password)
+            || hasher.VerifyHashedPassword(user, user.Password, password)
                 == PasswordVerificationResult.Failed
             || string.IsNullOrWhiteSpace(options.Key)
         )
@@ -64,11 +64,11 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
         var user = await db.Usuarios.SingleOrDefaultAsync(x => x.Id == userId, cancellationToken);
         if (
             user is null
-            || hasher.VerifyHashedPassword(user, user.Pass, currentPassword)
+            || hasher.VerifyHashedPassword(user, user.Password, currentPassword)
                 == PasswordVerificationResult.Failed
         )
             return false;
-        user.Pass = hasher.HashPassword(user, newPassword);
+        user.Password = hasher.HashPassword(user, newPassword);
         await db.SaveChangesAsync(cancellationToken);
         return true;
     }

@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlertaCalle.Web", "AlertaCalle.Web\AlertaCalle.Web.csproj", "{BFED8637-7997-4457-9E9A-922F6CF5AB83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlertaCalle.API", "..\AlertaCalle.API\AlertaCalle.API\AlertaCalle.API.csproj", "{A5582151-6B32-455F-8538-2CB763312A12}"

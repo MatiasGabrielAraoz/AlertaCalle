@@ -1,6 +1,6 @@
 namespace AlertaCalle.API.Models.Enums;
 
-public enum Estado
+public enum EstadoEnum
 {
     EnProceso,
     Resuelto,

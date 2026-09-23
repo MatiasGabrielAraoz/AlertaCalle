@@ -29,7 +29,7 @@ public class UsuariosController(ApplicationDbContext db) : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
         x.FechaCreacion = x.FechaCreacion == default ? DateTime.UtcNow : x.FechaCreacion;
-        x.Pass = passwordHasher.HashPassword(x, x.Pass);
+        x.Password = passwordHasher.HashPassword(x, x.Password);
         db.Usuarios.Add(x);
         await db.SaveChangesAsync(ct);
         return CreatedAtAction(nameof(Get), new { id = x.Id }, x);
@@ -45,7 +45,7 @@ public class UsuariosController(ApplicationDbContext db) : ControllerBase
         var current = await db.Usuarios.FindAsync([id], ct);
         if (current is null)
             return NotFound();
-        x.Pass = passwordHasher.HashPassword(x, x.Pass);
+        x.Password = passwordHasher.HashPassword(x, x.Password);
         db.Entry(current).CurrentValues.SetValues(x);
         await db.SaveChangesAsync(ct);
         return NoContent();

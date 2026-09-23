@@ -1,11 +1,13 @@
-using System.Text;
 using AlertaCalle.API.Configuration;
 using AlertaCalle.API.Data;
 using AlertaCalle.API.Services;
+using AlertaCalle.API.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +48,7 @@ else
     builder.Services.AddAuthentication();
 }
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IPasswordHasher<Usuario>, PasswordHasher<Usuario>>();
 builder.Services.AddAuthorization();
 
 builder.Services.AddSwaggerGen(options =>
