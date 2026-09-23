@@ -15,4 +15,9 @@ public interface IAuthService
         string newPassword,
         CancellationToken cancellationToken
     );
+    Task<bool> RegisterAsync(
+        string email,
+        string password,
+        CancellationToken cancellationToken
+    );
 }

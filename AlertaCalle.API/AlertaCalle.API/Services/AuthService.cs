@@ -72,4 +72,23 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
         await db.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    public async Task<bool> RegisterAsync(
+        string email,
+        string password,
+        CancellationToken cancellationToken
+    )
+    {
+        // acá
+        var user = new Usuario
+        {
+            Email = email,
+            Pass = hasher.HashPassword(null!, password),
+            
+        };
+        await db.Usuarios.AddAsync(user, cancellationToken);
+        await db.SaveChangesAsync(cancellationToken);
+        
+        return true;
+    }
 }

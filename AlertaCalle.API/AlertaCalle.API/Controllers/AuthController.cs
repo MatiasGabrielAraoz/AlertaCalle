@@ -28,6 +28,21 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
             : Ok(result.Token);
     }
 
+    [HttpPost("register"), AllowAnonymous]
+    public async Task<IActionResult> Register(
+        PostLoginDto request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await authService.RegisterAsync(
+            request.Email,
+            request.Password,
+            cancellationToken);
+        if (result) return NoContent();
+        else return BadRequest();
+
+    }
+
     [HttpPost("change-password"), Authorize]
     public async Task<IActionResult> ChangePassword(
         ChangePasswordDto request,
