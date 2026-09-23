@@ -24,7 +24,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.HasIndex(x => x.Email).IsUnique();
             e.Property(x => x.Password).HasMaxLength(500).IsRequired();
             e.HasOne(x => x.Rol)
-                .WithMany(x => x.Usuarios)
+                .WithMany()
                 .HasForeignKey(x => x.IdRol)
                 .OnDelete(DeleteBehavior.Restrict);
         });

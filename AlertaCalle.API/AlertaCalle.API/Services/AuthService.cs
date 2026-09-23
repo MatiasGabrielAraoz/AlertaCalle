@@ -74,18 +74,23 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
     }
 
     public async Task<bool> RegisterAsync(
+        int? idRol,
         string email,
         string password,
         CancellationToken cancellationToken
     )
     {
-        // acá
+        if (db.Usuarios.Any(u => u.Email == email)) return false;
+        
         var user = new Usuario
         {
             Email = email,
-            Pass = hasher.HashPassword(null!, password),
+            Password = hasher.HashPassword(null!, password),
+            FechaCreacion = DateTime.UtcNow,
+            IdRol = idRol ?? 2 // si es null se toma como usuario
             
         };
+        
         await db.Usuarios.AddAsync(user, cancellationToken);
         await db.SaveChangesAsync(cancellationToken);
         

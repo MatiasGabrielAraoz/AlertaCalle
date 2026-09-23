@@ -34,12 +34,14 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
         CancellationToken cancellationToken
     )
     {
+        
         var result = await authService.RegisterAsync(
+            null,
             request.Email,
             request.Password,
             cancellationToken);
         if (result) return NoContent();
-        else return BadRequest();
+        else return Conflict();
 
     }
 

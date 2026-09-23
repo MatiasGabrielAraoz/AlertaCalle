@@ -16,6 +16,7 @@ public interface IAuthService
         CancellationToken cancellationToken
     );
     Task<bool> RegisterAsync(
+        int? idRol,
         string email,
         string password,
         CancellationToken cancellationToken
