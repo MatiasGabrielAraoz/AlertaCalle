@@ -38,7 +38,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Nombre).HasMaxLength(100).IsRequired();
-            e.Property(x => x.Desc).HasMaxLength(1000).IsRequired();
+            e.Property(x => x.Descr).HasMaxLength(1000).IsRequired();
         });
         modelBuilder.Entity<Estado>(e =>
         {
@@ -63,7 +63,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(x => x.Direccion).HasMaxLength(300).IsRequired();
             e.Property(x => x.FotoUrl).HasMaxLength(1000).IsRequired();
             e.Property(x => x.Titulo).HasMaxLength(200).IsRequired();
-            e.Property(x => x.Desc).HasMaxLength(2000).IsRequired();
+            e.Property(x => x.Descr).HasMaxLength(2000).IsRequired();
             e.HasOne(x => x.Estado)
                 .WithMany(x => x.Incidencias)
                 .HasForeignKey(x => x.IdEstado)

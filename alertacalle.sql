@@ -2,12 +2,12 @@
 -- PostgreSQL database dump
 --
 
-\restrict m23ixRrqfwXLnpfydmKgfHQiHWdfya4jL0ceCE83V9LO08gm6lJxrxtBdQyJSgr
+\restrict Rpl965wfxPbVYVlYyoDAH9yfGt5iVRyWyTxccJXNfb1fRhd7eR2xBKvE9UhDGeD
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
 
--- Started on 2026-09-23 02:07:55
+-- Started on 2026-09-23 12:37:41
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -71,8 +71,8 @@ ALTER SEQUENCE public.categoria_id_seq OWNED BY public.categorias.id;
 
 CREATE TABLE public.estados (
     id integer CONSTRAINT estado_id_not_null NOT NULL,
-    estado character varying(20) DEFAULT 'Sin resolver'::character varying CONSTRAINT estado_estado_not_null NOT NULL,
-    CONSTRAINT estado_estado_check CHECK (((estado)::text = ANY ((ARRAY['Sin resolver'::character varying, 'En proceso'::character varying, 'Resuelto'::character varying])::text[])))
+    valor character varying(20) DEFAULT 'Sin resolver'::character varying CONSTRAINT estado_estado_not_null NOT NULL,
+    CONSTRAINT estado_estado_check CHECK (((valor)::text = ANY ((ARRAY['Sin resolver'::character varying, 'En proceso'::character varying, 'Resuelto'::character varying])::text[])))
 );
 
 
@@ -337,7 +337,7 @@ COPY public.categorias (id, nombre, descr) FROM stdin;
 -- Data for Name: estados; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.estados (id, estado) FROM stdin;
+COPY public.estados (id, valor) FROM stdin;
 \.
 
 
@@ -611,11 +611,11 @@ ALTER TABLE ONLY public.usuarios
     ADD CONSTRAINT usuario_ibfk_1 FOREIGN KEY (id_rol) REFERENCES public.roles(id);
 
 
--- Completed on 2026-09-23 02:07:55
+-- Completed on 2026-09-23 12:37:42
 
 --
 -- PostgreSQL database dump complete
 --
 
-\unrestrict m23ixRrqfwXLnpfydmKgfHQiHWdfya4jL0ceCE83V9LO08gm6lJxrxtBdQyJSgr
+\unrestrict Rpl965wfxPbVYVlYyoDAH9yfGt5iVRyWyTxccJXNfb1fRhd7eR2xBKvE9UhDGeD
 
