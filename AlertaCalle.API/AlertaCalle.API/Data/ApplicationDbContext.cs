@@ -22,7 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             e.Property(x => x.Apellido).HasMaxLength(150).IsRequired();
             e.Property(x => x.Email).HasMaxLength(320).IsRequired();
             e.HasIndex(x => x.Email).IsUnique();
-            e.Property(x => x.Pass).HasMaxLength(500).IsRequired();
+            e.Property(x => x.Password).HasMaxLength(500).IsRequired();
             e.HasOne(x => x.Rol)
                 .WithMany(x => x.Usuarios)
                 .HasForeignKey(x => x.IdRol)
