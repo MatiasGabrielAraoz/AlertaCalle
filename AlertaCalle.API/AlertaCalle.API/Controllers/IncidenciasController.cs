@@ -15,6 +15,8 @@ public class IncidenciasController(ApplicationDbContext db) : ControllerBase
     {
         return Ok(await db.Incidencias
             .AsNoTracking()
+            .Include(x => x.Estado)
+            .Include(x => x.Categoria)
             .ToListAsync(cancellationToken));
     }
 

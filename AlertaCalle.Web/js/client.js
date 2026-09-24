@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5208/";
+const API_BASE_URL = "http://localhost:5208";
 
 export const ApiClient = {
   async crearAlerta(data) {
