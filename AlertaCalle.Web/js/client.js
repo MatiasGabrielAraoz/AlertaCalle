@@ -1,6 +1,80 @@
 const API_BASE_URL = "http://localhost:5208/";
 
+function cookieOptions(maxAge) {
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+  return `Path=/; SameSite=Lax${maxAge === undefined ? "" : `; Max-Age=${maxAge}`}${secure}`;
+}
+
+function setCookie(name, value, maxAge) {
+  document.cookie = `${name}=${encodeURIComponent(value)}; ${cookieOptions(maxAge)}`;
+}
+
+function getCookie(name) {
+  const prefix = `${name}=`;
+  const cookie = document.cookie.split("; ").find((item) => item.startsWith(prefix));
+  return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : null;
+}
+
+function removeCookie(name) {
+  document.cookie = `${name}=; ${cookieOptions(0)}`;
+}
+
 export const ApiClient = {
+  async iniciarSesion(email, password) {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.message || "Las credenciales no son válidas.");
+    }
+    return res.json();
+  },
+
+  async obtenerUsuarioActual(token) {
+    const res = await fetch(`${API_BASE_URL}/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  },
+
+  guardarSesion(token, usuario, recordar) {
+    const usuarioJson = JSON.stringify(usuario);
+    const storage = recordar ? localStorage : sessionStorage;
+    const otherStorage = recordar ? sessionStorage : localStorage;
+
+    otherStorage.removeItem("token");
+    otherStorage.removeItem("usuario");
+    storage.setItem("token", token);
+    storage.setItem("usuario", usuarioJson);
+    setCookie("alertacalle_token", token, recordar ? 60 * 60 * 24 * 30 : undefined);
+    setCookie("alertacalle_usuario", usuarioJson, recordar ? 60 * 60 * 24 * 30 : undefined);
+  },
+
+  obtenerSesion() {
+    const token = localStorage.getItem("token")
+      || sessionStorage.getItem("token")
+      || getCookie("alertacalle_token");
+    const usuarioJson = localStorage.getItem("usuario")
+      || sessionStorage.getItem("usuario")
+      || getCookie("alertacalle_usuario");
+
+    if (!token) return null;
+    return { token, usuario: usuarioJson ? JSON.parse(usuarioJson) : null };
+  },
+
+  cerrarSesion() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("usuario");
+    removeCookie("alertacalle_token");
+    removeCookie("alertacalle_usuario");
+  },
+
   async crearAlerta(data) {
     const res = await fetch(`${API_BASE_URL}/incidencias`, {
       method: "POST",

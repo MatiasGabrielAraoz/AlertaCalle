@@ -430,15 +430,109 @@
       `;
     }
 
-    document.querySelector(".btn-enviar-reporte").addEventListener("click", function () {
+    async function enviarReporteAPI(datos, info) {
+      const leerCookie = function (nombre) {
+        const prefijo = nombre + "=";
+        const cookie = document.cookie.split("; ").find(function (item) {
+          return item.indexOf(prefijo) === 0;
+        });
+        return cookie ? decodeURIComponent(cookie.slice(prefijo.length)) : null;
+      };
+      const token = localStorage.getItem("token")
+        || sessionStorage.getItem("token")
+        || leerCookie("alertacalle_token");
+      const usuarioGuardado = localStorage.getItem("usuario")
+        || sessionStorage.getItem("usuario")
+        || leerCookie("alertacalle_usuario");
+      let idUsuario = 0;
+
+      if (usuarioGuardado) {
+        try {
+          const usuario = JSON.parse(usuarioGuardado);
+          idUsuario = Number(usuario.id || usuario.Id);
+        } catch (error) {
+          console.warn("No se pudo interpretar el usuario guardado.", error);
+        }
+      }
+
+      if (!idUsuario && token) {
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+          idUsuario = Number(payload.sub);
+        } catch (error) {
+          console.warn("No se pudo obtener el usuario del token.", error);
+        }
+      }
+
+      if (!token || !idUsuario) {
+        throw new Error("Iniciá sesión para poder enviar un reporte.");
+      }
+
+      const categoriasResponse = await fetch("http://localhost:5208/categorias");
+      if (!categoriasResponse.ok) {
+        throw new Error("No se pudieron obtener las categorías de incidencias.");
+      }
+
+      const categorias = await categoriasResponse.json();
+      const nombreBuscado = (info.label || "").toLowerCase();
+      const categoria = categorias.find(function (item) {
+        return (item.nombre || "").toLowerCase() === nombreBuscado
+          || (item.nombre || "").toLowerCase().includes((datos.tipo || "").toLowerCase());
+      });
+
+      if (!categoria) {
+        throw new Error("La categoría seleccionada no está disponible en la API.");
+      }
+
+      const response = await fetch("http://localhost:5208/incidencias", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+          direccion: datos.direccion + (datos.barrio ? " (" + datos.barrio + ")" : ""),
+          titulo: datos.titulo,
+          descr: datos.descripcion,
+          fotoUrl: "",
+          idCategoria: categoria.id,
+          idUsuario: idUsuario
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("La API rechazó el reporte (" + response.status + ").");
+      }
+
+      return response.json();
+    }
+
+    document.querySelector(".btn-enviar-reporte").addEventListener("click", async function (event) {
+      const botonEnviar = event.currentTarget;
+      botonEnviar.disabled = true;
       const tipoSeleccionado = document.querySelector('input[name="incident_type"]:checked').value;
       const info = CATEGORIAS[tipoSeleccionado] || { emoji: "⚠️", label: tipoSeleccionado, categoria: "otros" };
       const direccion = document.getElementById("modal-direccion").value.trim();
       const barrio = document.getElementById("modal-barrio").value;
       const titulo = document.getElementById("modal-titulo").value.trim();
+      const descripcion = document.getElementById("modal-descripcion").value.trim();
 
-      const codigo = "#INC-" + contadorIncidencias;
-      contadorIncidencias++;
+      try {
+        await enviarReporteAPI({
+          tipo: tipoSeleccionado,
+          direccion: direccion,
+          barrio: barrio,
+          titulo: titulo,
+          descripcion: descripcion
+        }, info);
+      } catch (error) {
+        console.error("No se pudo enviar el reporte.", error);
+        window.alert(error.message);
+        botonEnviar.disabled = false;
+        return;
+      }
+
+      const codigo = "#INC-" + contadorIncidencias++;
 
       const ahora = new Date();
       const hora = String(ahora.getHours()).padStart(2, "0") + ":" + String(ahora.getMinutes()).padStart(2, "0");
@@ -455,6 +549,7 @@
           titulo: titulo,
           direccion: direccion,
           barrio: barrio,
+          descripcion: descripcion,
           hora: hora,
           busqueda: busqueda
         });
