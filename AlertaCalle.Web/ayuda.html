@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ayuda — ALERTACALLE</title>
+
+    <!-- Estilos propios -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/navbar.js"></script>
+    <!-- Overlay reportar-->
+    <script src="js/reportar-modal.js"></script>
+</head>
+
+
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md">
+
+    <!-- ================= NAVBAR GLOBAL ================= -->
+    <alerta-navbar></alerta-navbar>
+
+
+    <!-- ================= CONTENIDO ================= -->
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+
+        <!-- =====================================================
+             ENCABEZADO DE SUBPÁGINA
+             Más discreto que el HERO de inicio.html
+             ===================================================== -->
+        <section class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl soft-card-shadow overflow-hidden">
+
+            <div class="p-6 sm:p-8 md:p-10">
+
+                <!-- Ruta -->
+                <div class="flex items-center gap-2 mb-6">
+                    <a
+                        href="inicio.html"
+                        class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors"
+                    >
+                        Inicio
+                    </a>
+
+                    <span class="material-symbols-outlined text-base text-secondary">
+                        chevron_right
+                    </span>
+
+                    <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
+                        Ayuda
+                    </span>
+                </div>
+
+
+                <!-- Encabezado -->
+                <div class="flex flex-col sm:flex-row sm:items-start gap-5">
+
+                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary">
+                        <span class="material-symbols-outlined text-2xl">
+                            help
+                        </span>
+                    </div>
+
+                    <div class="max-w-3xl">
+
+                        <span class="font-label-code text-label-code uppercase tracking-widest text-primary font-bold">
+                            CENTRO DE SOPORTE VECINAL
+                        </span>
+
+                        <h1 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-on-surface">
+                            Ayuda y preguntas frecuentes
+                        </h1>
+
+                        <p class="mt-3 text-sm sm:text-base leading-relaxed text-secondary max-w-2xl">
+                            Consultá información sobre los reportes, su seguimiento,
+                            los estados de las incidencias y el funcionamiento de la plataforma.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PREGUNTAS FRECUENTES
+             ===================================================== -->
+        <section class="max-w-5xl mx-auto w-full space-y-10">
+
+
+            <!-- ================= REPORTES ================= -->
+            <div class="space-y-4">
+
+                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+
+                    <div>
+                        <span class="font-label-code text-label-code uppercase text-primary font-bold">
+                            MÓDULO 01
+                        </span>
+
+                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
+                            SOBRE LOS REPORTES
+                        </h2>
+                    </div>
+
+                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
+                        report
+                    </span>
+
+                </div>
+
+
+                <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
+
+                    <!-- FAQ -->
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    01
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Qué tipo de problemas puedo reportar?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Podés reportar problemas relacionados con el espacio
+                            público, como baches, iluminación, árboles caídos,
+                            residuos, semáforos, calles dañadas, ruidos molestos
+                            y otras incidencias urbanas.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    02
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Cómo puedo realizar un reporte?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Ingresá a la sección de reportes, seleccioná el tipo
+                            de problema, indicá su ubicación y agregá la información
+                            necesaria para que pueda ser analizado.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    03
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Puedo modificar un reporte después de enviarlo?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Una vez enviado, el reporte pasa a revisión. Si necesitás
+                            corregir información, podés comunicarte con el soporte
+                            correspondiente.
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= SEGUIMIENTO ================= -->
+            <div class="space-y-4">
+
+                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+
+                    <div>
+                        <span class="font-label-code text-label-code uppercase text-primary font-bold">
+                            MÓDULO 02
+                        </span>
+
+                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
+                            ESTADOS Y SEGUIMIENTO
+                        </h2>
+                    </div>
+
+                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
+                        track_changes
+                    </span>
+
+                </div>
+
+
+                <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    01
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Cómo puedo hacer seguimiento de mi reporte?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Podés consultar el estado de tu reporte desde la
+                            sección de seguimiento utilizando el identificador
+                            correspondiente.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    02
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Qué significan los estados de mi reporte?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Los estados permiten conocer en qué etapa se encuentra
+                            el reporte, desde su recepción hasta su resolución o
+                            cierre.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    03
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Quién controla los estados de los reportes?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Los reportes son revisados y gestionados por las áreas
+                            correspondientes según el tipo de incidencia.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    04
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Qué sucede después de enviar mi reporte?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            El reporte es recibido, analizado y derivado al área
+                            correspondiente. Su estado se actualiza a medida que
+                            avanza el proceso.
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CUENTA Y DATOS ================= -->
+            <div class="space-y-4">
+
+                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+
+                    <div>
+                        <span class="font-label-code text-label-code uppercase text-primary font-bold">
+                            MÓDULO 03
+                        </span>
+
+                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
+                            CUENTA Y DATOS
+                        </h2>
+                    </div>
+
+                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
+                        person
+                    </span>
+
+                </div>
+
+
+                <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    01
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Qué pasa con mis datos personales?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Los datos proporcionados se utilizan para gestionar
+                            los reportes y brindar los servicios correspondientes
+                            dentro de la plataforma.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group border-b border-surface-container-high">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    02
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Necesito una cuenta para realizar un reporte?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Dependiendo de la modalidad habilitada, algunos
+                            reportes pueden realizarse sin una cuenta y otros
+                            pueden requerir identificación.
+                        </div>
+
+                    </details>
+
+
+                    <details class="group">
+
+                        <summary class="flex items-center justify-between gap-4 px-5 sm:px-6 py-5 bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer list-none">
+
+                            <div class="flex items-center gap-3">
+                                <span class="font-label-code text-xs text-primary font-bold">
+                                    03
+                                </span>
+
+                                <span class="text-sm font-bold text-on-surface">
+                                    ¿Puedo consultar reportes realizados anteriormente?
+                                </span>
+                            </div>
+
+                            <span class="material-symbols-outlined shrink-0 text-secondary transition-transform duration-200 group-open:rotate-180">
+                                expand_more
+                            </span>
+
+                        </summary>
+
+                        <div class="px-5 sm:px-6 py-5 text-sm leading-6 text-secondary border-t border-surface-container-high bg-surface-container-lowest">
+                            Sí. Desde el apartado correspondiente podés consultar
+                            los reportes asociados a tu cuenta y revisar su estado.
+                        </div>
+
+                    </details>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                 SOPORTE
+                 Más pequeño y técnico que el CTA original
+                 ===================================================== -->
+            <section class="bg-surface-container-low border border-surface-container-high rounded-2xl p-5 sm:p-6 soft-card-shadow">
+
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+
+                    <div class="flex items-start gap-4">
+
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-on-primary">
+                            <span class="material-symbols-outlined">
+                                support_agent
+                            </span>
+                        </div>
+
+                        <div>
+
+                            <span class="font-label-code text-[11px] uppercase tracking-wider text-primary font-bold">
+                                SOPORTE
+                            </span>
+
+                            <h2 class="mt-1 text-base font-bold text-on-surface">
+                                ¿No encontraste lo que buscabas?
+                            </h2>
+
+                            <p class="mt-1 text-sm leading-6 text-secondary">
+                                Si tenés una consulta que no aparece en esta sección,
+                                podés comunicarte con el área de soporte.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="mailto:soporte@alertacalle.com"
+                        class="btn-shine inline-flex shrink-0 items-center justify-center gap-2 bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-label-caps text-xs uppercase font-bold glow-red-button transition-all hover:brightness-110"
+                    >
+                        <span class="material-symbols-outlined text-lg">
+                            mail
+                        </span>
+
+                        Contactar soporte
+                    </a>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-on-surface text-surface border-t-4 border-primary mt-10">
+
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+
+                <div class="space-y-2">
+
+                    <div class="font-headline-md font-extrabold uppercase border-l-4 border-primary pl-3">
+                        ALERTACALLE
+                    </div>
+
+                    <p class="font-label-code text-xs text-secondary-fixed-dim">
+                        © 2026 ALERTACALLE — CENTRO DE SOPORTE VECINAL
+                    </p>
+
+                </div>
+
+
+                <div class="flex flex-wrap gap-4 font-label-caps uppercase text-xs">
+
+                    <a
+                        href="tel:911"
+                        class="text-primary-fixed-dim hover:text-primary-fixed underline transition-colors"
+                    >
+                        Línea Emergencia (911)
+                    </a>
+
+                    <a
+                        href="tel:103"
+                        class="text-surface-variant hover:text-primary underline transition-colors"
+                    >
+                        Defensa Civil (103)
+                    </a>
+
+                    <a
+                        href="https://wa.me/"
+                        class="text-surface-variant hover:text-primary underline transition-colors"
+                    >
+                        WhatsApp 24hs
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
+

@@ -21,83 +21,73 @@
 
     <!-- Configuración de Tailwind (ver js/app.js) -->
     <script src="js/app.js"></script>
+
+    <!-- Navbar reutilizable: una sola fuente de verdad para todo el sitio -->
+    <script src="js/navbar.js"></script>
+    
+    <!-- Overlay reportar-->
+    <script src="js/reportar-modal.js"></script>
+
+
   </head>
   <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
-    <!-- ================= TOP NAV BAR ================= -->
-    <header class="site-header-nav w-full bg-surface-container-lowest sticky top-0 z-50 border-b border-surface-container-high/80 backdrop-blur-md bg-white/95">
-      <div class="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 py-3.5 max-w-7xl mx-auto">
-        <!-- Brandmark -->
-        <div class="flex items-center gap-3">
-          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="inicio.html">
-            ALERTA<span class="text-primary">CALLE</span>
-          </a>
-        </div>
-        <!-- Navigation Links desacoplados a páginas dedicadas -->
-        <nav class="hidden md:flex items-center gap-6">
-          <a class="text-primary font-bold font-label-caps text-label-caps uppercase tracking-wider border-b-2 border-primary pb-0.5" href="home.html">
-            Inicio
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="mapa.html">
-            Mapa
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="noticias.html">
-            Noticias y Obras
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="ayuda.html">
-            Ayuda Y FEEDBACK
-          </a>
-        </nav>
-        <!-- Trailing Action Cluster -->
-        <div class="flex items-center gap-2.5 sm:gap-3">
-          <a class="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 font-label-caps text-label-caps uppercase glow-red-button transition-all rounded-lg font-bold text-xs" href="reportar.html">
-            <span class="material-symbols-outlined text-sm font-bold">add</span>
-            <span class="hidden sm:inline">REPORTAR INCIDENCIA</span>
-            <span class="sm:hidden">REPORTAR</span>
-          </a>
-        </div>
-        <!-- User / Account Button (activo en esta página) -->
-        <a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary text-primary bg-primary/5 font-label-code text-xs font-bold transition-colors" href="cuenta.html">
-          <span class="material-symbols-outlined text-base text-primary">account_circle</span>
-          <span>Mi Cuenta</span>
-        </a>
-      </div>
-    </header>
+    <!-- ================= TOP NAV BAR (componente global, ver js/navbar.js) ================= -->
+    <alerta-navbar></alerta-navbar>
 
     <!-- ================= MAIN CANVAS ================= -->
     <main class="view-cuenta-container flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+      <!-- Ruta -->
+      <div class="flex items-center gap-2 mb-6">
+          <a
+              href="inicio.html"
+              class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors"
+          >
+              Inicio
+          </a>
+
+          <span class="material-symbols-outlined text-base text-secondary">
+              chevron_right
+          </span>
+
+          <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
+              Cuenta
+          </span>
+      </div>
 
       <!-- ================= 1. PERFIL DEL USUARIO ================= -->
       <section class="module-perfil-usuario">
         <div class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
-          <!-- Cabecera / cover con halos ambientales -->
-          <div class="relative h-28 sm:h-36 bg-surface-container-low overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-52 h-52 bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-14 -left-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
-            <div class="absolute inset-0 map-grid-pattern opacity-60"></div>
+          <!-- Cabecera / cover con degradé de marca -->
+          <div class="relative h-32 sm:h-44 overflow-hidden bg-gradient-to-br from-primary-container via-primary-container/80 to-on-surface">
+            <div class="absolute inset-0 map-grid-pattern opacity-20 mix-blend-overlay"></div>
+            <div class="absolute -top-12 -right-12 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-10 w-52 h-52 bg-on-surface/20 rounded-full blur-2xl pointer-events-none"></div>
           </div>
 
           <div class="px-6 sm:px-8 pb-6">
-            <div class="flex flex-col sm:flex-row sm:items-end gap-4 -mt-10 sm:-mt-12">
-              <!-- Avatar con iniciales -->
-              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0">
+            <!-- Avatar: solo él se superpone a la portada -->
+            <div class="-mt-12 sm:-mt-14">
+              <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0">
                 MG
               </div>
-              <div class="flex-1 space-y-0.5 pb-1">
+            </div>
+
+            <!-- Nombre + botón, en flujo normal (no pisan la portada) -->
+            <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mt-3">
+              <div class="space-y-0.5">
                 <h1 class="font-headline-lg text-xl sm:text-2xl font-extrabold text-on-surface leading-tight">
                   Martina González
                 </h1>
                 <p class="text-xs font-label-code text-secondary">Vecina verificada · Barrio San Andrés Centro · Miembro desde Marzo 2025</p>
               </div>
-              <div class="pb-1">
-                <a class="inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-4 py-2.5 rounded-xl hover:bg-surface-container-low transition-all border border-surface-container-high soft-card-shadow text-xs font-bold" href="#">
-                  <span class="material-symbols-outlined text-base text-secondary">edit</span>
-                  <span>Editar Perfil</span>
-                </a>
-              </div>
+              <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-4 py-2.5 rounded-xl hover:bg-surface-container-low transition-all border border-surface-container-high soft-card-shadow text-xs font-bold shrink-0" href="#">
+                <span class="material-symbols-outlined text-base text-secondary">edit</span>
+                <span>Editar Perfil</span>
+              </a>
             </div>
 
             <!-- Métricas del perfil (mismo patrón que el dashboard del home) -->
-            <div class="grid grid-cols-3 gap-3.5 pt-8 mt-2 border-t border-surface-container-high">
+            <div class="grid grid-cols-3 gap-3.5 pt-8 mt-6 border-t border-surface-container-high">
               <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
                 <p class="font-label-code text-label-code uppercase text-secondary mb-1">Reportes</p>
                 <div class="flex items-baseline justify-center sm:justify-between">
@@ -151,12 +141,12 @@
               </div>
               <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="mis-reportes-search" placeholder="Buscar en mis reportes por código, calle o descripción..." type="text"/>
             </div>
-            <div class="flex items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
-              <span class="px-2 py-0.5 text-secondary text-xs">ESTADO:</span>
-              <button class="filtro-estado px-2 py-0.5 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="pendiente">PENDIENTES</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="proceso">EN PROCESO</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="resuelta">RESUELTAS</button>
+            <div class="flex flex-wrap items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
+              <span class="px-2 py-0.5 text-secondary text-xs w-full sm:w-auto">ESTADO:</span>
+              <button class="filtro-estado px-2 py-1 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="pendiente">PENDIENTES</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="proceso">EN PROCESO</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="resuelta">RESUELTAS</button>
             </div>
           </div>
         </div>
