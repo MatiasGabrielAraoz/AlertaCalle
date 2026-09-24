@@ -21,113 +21,208 @@
 
     <!-- Configuración de Tailwind (ver js/app.js) -->
     <script src="js/app.js"></script>
+
+    <!-- Navbar reutilizable -->
+    <script src="js/navbar.js"></script>
+    
+    <!-- Overlay reportar-->
+    <script src="js/reportar-modal.js"></script>
   </head>
   <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
     <!-- ================= TOP NAV BAR ================= -->
-    <header class="site-header-nav w-full bg-surface-container-lowest sticky top-0 z-50 border-b border-surface-container-high/80 backdrop-blur-md bg-white/95">
-      <div class="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 py-3.5 max-w-7xl mx-auto">
-        <!-- Brandmark -->
-        <div class="flex items-center gap-3">
-          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="inicio.html">
-            ALERTA<span class="text-primary">CALLE</span>
-          </a>
-        </div>
-        <!-- Navigation Links desacoplados a páginas dedicadas -->
-        <nav class="hidden md:flex items-center gap-6">
-          <a class="text-primary font-bold font-label-caps text-label-caps uppercase tracking-wider border-b-2 border-primary pb-0.5" href="home.html">
-            Inicio
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="mapa.html">
-            Mapa
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="noticias.html">
-            Noticias y Obras
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="ayuda.html">
-            Ayuda Y FEEDBACK
-          </a>
-        </nav>
-        <!-- Trailing Action Cluster -->
-        <div class="flex items-center gap-2.5 sm:gap-3">
-          <a class="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 font-label-caps text-label-caps uppercase glow-red-button transition-all rounded-lg font-bold text-xs" href="reportar.html">
-            <span class="material-symbols-outlined text-sm font-bold">add</span>
-            <span class="hidden sm:inline">REPORTAR INCIDENCIA</span>
-            <span class="sm:hidden">REPORTAR</span>
-          </a>
-        </div>
-        <!-- User / Account Button (activo en esta página) -->
-        <a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary text-primary bg-primary/5 font-label-code text-xs font-bold transition-colors" href="cuenta.html">
-          <span class="material-symbols-outlined text-base text-primary">account_circle</span>
-          <span>Mi Cuenta</span>
-        </a>
-      </div>
-    </header>
+    <alerta-navbar></alerta-navbar>
 
     <!-- ================= MAIN CANVAS ================= -->
-    <main class="view-cuenta-container flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <main class="view-cuenta-container flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <!-- Ruta -->
+      <div class="flex items-center gap-2 mb-6">
+          <a
+              href="inicio.html"
+              class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors"
+          >
+              Inicio
+          </a>
+
+          <span class="material-symbols-outlined text-base text-secondary">
+              chevron_right
+          </span>
+
+          <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
+              Cuenta
+          </span>
+      </div>
 
       <!-- ================= 1. PERFIL DEL USUARIO ================= -->
       <section class="module-perfil-usuario">
         <div class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
-          <!-- Cabecera / cover con halos ambientales -->
-          <div class="relative h-28 sm:h-36 bg-surface-container-low overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-52 h-52 bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-14 -left-10 w-44 h-44 bg-primary-container/10 rounded-full blur-2xl pointer-events-none"></div>
-            <div class="absolute inset-0 map-grid-pattern opacity-60"></div>
+          
+          <!-- Cabecera decorativa -->
+          <div class="relative h-28 sm:h-36 bg-surface-container-low border-b border-surface-container-high overflow-hidden">
+            <div class="absolute inset-0 map-grid-pattern opacity-40"></div>
+            <div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+            <div class="absolute top-4 right-6 flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest border border-surface-container-high rounded-full font-label-code text-xs text-emerald-700 font-bold">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                CIUDADANO VERIFICADO
+              </span>
+            </div>
           </div>
 
-          <div class="px-6 sm:px-8 pb-6">
-            <div class="flex flex-col sm:flex-row sm:items-end gap-4 -mt-10 sm:-mt-12">
-              <!-- Avatar con iniciales -->
-              <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0">
-                MG
+          <div class="px-6 sm:px-8 pb-8">
+            <!-- Avatar, identidad y botones principales -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 -mt-12 sm:-mt-14 mb-6">
+              <div class="flex flex-col sm:flex-row items-start sm:items-end gap-5">
+                <div class="relative">
+                  <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0 shadow-lg">
+                    MG
+                  </div>
+                  <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-surface-container-lowest" title="Usuario activo"></span>
+                </div>
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2.5">
+                    <h1 id="user-display-name" class="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface leading-tight">
+                      Martina González
+                    </h1>
+                    <span class="material-symbols-outlined text-emerald-600 text-xl" title="Identidad Validada">verified</span>
+                  </div>
+                  <p class="text-xs font-label-code text-secondary flex flex-wrap items-center gap-2">
+                    <span>Barrio San Andrés Centro</span>
+                    <span>•</span>
+                    <span>Miembro desde Marzo 2025</span>
+                  </p>
+                </div>
               </div>
-              <div class="flex-1 space-y-0.5 pb-1">
-                <h1 class="font-headline-lg text-xl sm:text-2xl font-extrabold text-on-surface leading-tight">
-                  Martina González
-                </h1>
-                <p class="text-xs font-label-code text-secondary">Vecina verificada · Barrio San Andrés Centro · Miembro desde Marzo 2025</p>
-              </div>
-              <div class="pb-1">
-                <a class="inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-4 py-2.5 rounded-xl hover:bg-surface-container-low transition-all border border-surface-container-high soft-card-shadow text-xs font-bold" href="#">
-                  <span class="material-symbols-outlined text-base text-secondary">edit</span>
-                  <span>Editar Perfil</span>
+
+              <!-- BOTONES: CONFIGURACIÓN DE PERFIL Y CERRAR SESIÓN -->
+              <div class="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+                <button
+                  type="button"
+                  id="btn-abrir-configuracion"
+                  class="inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface border border-surface-container-high hover:border-primary/50 hover:bg-surface-container-low px-4 py-2.5 rounded-xl font-label-code text-xs font-bold shadow-xs transition-all cursor-pointer"
+                >
+                  <span class="material-symbols-outlined text-primary text-base">settings</span>
+                  <span>Configuración de Perfil</span>
+                </button>
+
+                <a
+                  href="login.html"
+                  id="btn-cerrar-sesion"
+                  class="inline-flex items-center gap-2 bg-surface-container-low text-secondary hover:text-primary hover:bg-surface-container-lowest border border-surface-container-high px-4 py-2.5 rounded-xl font-label-code text-xs font-bold transition-all cursor-pointer"
+                >
+                  <span class="material-symbols-outlined text-base text-primary">logout</span>
+                  <span>Cerrar Sesión</span>
                 </a>
               </div>
             </div>
 
-            <!-- Métricas del perfil (mismo patrón que el dashboard del home) -->
-            <div class="grid grid-cols-3 gap-3.5 pt-8 mt-2 border-t border-surface-container-high">
-              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
-                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Reportes</p>
-                <div class="flex items-baseline justify-center sm:justify-between">
+            <!-- Métricas resumidas -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Cargados</p>
+                <div class="flex items-baseline justify-between">
                   <p class="font-headline-md text-2xl font-extrabold text-on-surface">8</p>
-                  <span class="material-symbols-outlined text-secondary text-lg hidden sm:inline">inbox</span>
+                  <span class="material-symbols-outlined text-secondary text-lg">inbox</span>
                 </div>
-                <span class="text-[11px] font-label-code text-secondary block mt-1">Cargados por vos</span>
+                <span class="text-[11px] font-label-code text-secondary block mt-1">Total de reportes</span>
               </div>
-              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
-                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Soluciones</p>
-                <div class="flex items-baseline justify-center sm:justify-between">
+              
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Solucionados</p>
+                <div class="flex items-baseline justify-between">
                   <p class="font-headline-md text-2xl font-extrabold text-emerald-700">5</p>
-                  <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold hidden sm:inline">63%</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold">63%</span>
                 </div>
-                <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Con conformidad vecinal</span>
+                <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Finalizados por municipio</span>
               </div>
-              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all text-center sm:text-left">
-                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Apoyos</p>
-                <div class="flex items-baseline justify-center sm:justify-between">
-                  <p class="font-headline-md text-2xl font-extrabold text-primary">132</p>
-                  <span class="material-symbols-outlined text-primary text-lg hidden sm:inline">thumb_up</span>
+
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">En Proceso</p>
+                <div class="flex items-baseline justify-between">
+                  <p class="font-headline-md text-2xl font-extrabold text-on-surface">2</p>
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
                 </div>
-                <span class="text-[11px] font-label-code text-primary block mt-1">Veces que apoyaron tus reclamos</span>
+                <span class="text-[11px] font-label-code text-secondary block mt-1">Cuadrilla en terreno</span>
+              </div>
+
+              <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
+                <p class="font-label-code text-label-code uppercase text-secondary mb-1">Pendientes</p>
+                <div class="flex items-baseline justify-between">
+                  <p class="font-headline-md text-2xl font-extrabold text-primary">1</p>
+                  <span class="material-symbols-outlined text-primary text-lg">pending</span>
+                </div>
+                <span class="text-[11px] font-label-code text-primary block mt-1">En triage técnico</span>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      <!-- ================= 2. MIS REPORTES ================= -->
+      <!-- ================= 2. SECCIÓN: ESTADÍSTICAS DE REPORTE DETALLADAS ================= -->
+      <section class="module-estadisticas space-y-6 pt-2">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
+          <div>
+            <span class="font-label-code text-label-code uppercase text-primary font-bold">ANALÍTICA Y RENDIMIENTO</span>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md font-extrabold text-on-surface uppercase tracking-tight">
+              ESTADÍSTICAS DE REPORTE DETALLADAS
+            </h2>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 soft-card-shadow space-y-6">
+          
+          <!-- Barras de Progreso e Índices -->
+          <div class="space-y-4 bg-surface-container-low border border-surface-container-high rounded-xl p-5">
+            <div class="flex items-center justify-between text-xs font-label-code">
+              <span class="font-bold text-on-surface">Tasa de Efectividad Comunal</span>
+              <span class="text-emerald-700 font-bold">62.5% Resueltas</span>
+            </div>
+            
+            <!-- Barra de distribución -->
+            <div class="h-4 w-full bg-surface-container-high rounded-full overflow-hidden flex">
+              <div class="bg-emerald-500 h-full" style="width: 62.5%" title="Resueltas: 5 (62.5%)"></div>
+              <div class="bg-amber-500 h-full" style="width: 25%" title="En Proceso: 2 (25%)"></div>
+              <div class="bg-primary-container h-full" style="width: 12.5%" title="Pendientes: 1 (12.5%)"></div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between text-[11px] font-label-code text-secondary pt-1">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Resueltas (5)</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500"></span> En Proceso (2)</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-container"></span> Pendientes (1)</span>
+            </div>
+          </div>
+
+          <!-- Tarjetas métricas detalladas -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+            <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
+              <span class="font-label-code text-[11px] uppercase text-secondary block">Categoría Más Reportada</span>
+              <p class="font-bold text-on-surface text-sm">💡 Alumbrado Público</p>
+              <p class="text-secondary text-[11px]">5 reportes (62.5% del total cargado).</p>
+            </div>
+
+            <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
+              <span class="font-label-code text-[11px] uppercase text-secondary block">Tiempo Promedio de Respuesta</span>
+              <p class="font-bold text-on-surface text-sm">⏱️ 36 Horas Reloj</p>
+              <p class="text-emerald-700 text-[11px] font-bold">Cumplimiento SLA del 87%</p>
+            </div>
+
+            <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
+              <span class="font-label-code text-[11px] uppercase text-secondary block">Barrio Principal Auditado</span>
+              <p class="font-bold text-on-surface text-sm">📍 San Andrés Centro</p>
+              <p class="text-secondary text-[11px]">7 de 8 reportes geolocalizados.</p>
+            </div>
+
+            <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
+              <span class="font-label-code text-[11px] uppercase text-secondary block">Estado de Auditoría</span>
+              <p class="font-bold text-emerald-700 text-sm">✓ Conformidad Confirmada</p>
+              <p class="text-secondary text-[11px]">Verificación hoy a las 08:10 hs.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= 3. SECCIÓN: HISTORIAL PERSONAL MIS REPORTES ================= -->
       <section class="module-mis-reportes space-y-6 pt-2">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
           <div>
@@ -142,7 +237,7 @@
           </div>
         </div>
 
-        <!-- Buscador reutilizado del home, ahora acotado a los reportes del usuario -->
+        <!-- Buscador -->
         <div class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-4 space-y-3 soft-card-shadow">
           <div class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
             <div class="relative flex-1">
@@ -151,17 +246,17 @@
               </div>
               <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="mis-reportes-search" placeholder="Buscar en mis reportes por código, calle o descripción..." type="text"/>
             </div>
-            <div class="flex items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
-              <span class="px-2 py-0.5 text-secondary text-xs">ESTADO:</span>
-              <button class="filtro-estado px-2 py-0.5 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="pendiente">PENDIENTES</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="proceso">EN PROCESO</button>
-              <button class="filtro-estado px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="resuelta">RESUELTAS</button>
+            <div class="flex flex-wrap items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
+              <span class="px-2 py-0.5 text-secondary text-xs w-full sm:w-auto">ESTADO:</span>
+              <button class="filtro-estado px-2 py-1 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="pendiente">PENDIENTES</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="proceso">EN PROCESO</button>
+              <button class="filtro-estado px-2 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="resuelta">RESUELTAS</button>
             </div>
           </div>
         </div>
 
-        <!-- Feed de reportes propios, formato "post" -->
+        <!-- Feed de reportes propios -->
         <div class="space-y-5" id="mis-reportes-feed">
 
           <!-- Post / Reporte 1 -->
@@ -198,14 +293,14 @@
               </button>
             </div>
 
-            <!-- Panel de seguimiento (línea de tiempo), oculto por defecto -->
+            <!-- Panel de seguimiento -->
             <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div class="space-y-0.5">
                   <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
                   <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #02 Electromecánica · Vencimiento SLA: 30hs</p>
                 </div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface text-on-secondary bg-secondary border border-secondary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary text-on-secondary border border-secondary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
                   <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
                   EN PROCESO
                 </span>
@@ -422,7 +517,7 @@
 
               <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
                 <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
-                <span class="text-secondary">Cerrado por inspector técnico con foto de verificación final. 12 vecinos apoyaron este reclamo.</span>
+                <span class="text-secondary">Cerrado por inspector técnico con foto de verificación final.</span>
               </div>
             </div>
           </article>
@@ -438,6 +533,155 @@
 
     </main>
 
+    <!-- ================= MODAL DE CONFIGURACIÓN DE PERFIL ================= -->
+    <div id="modal-configuracion" class="fixed inset-0 z-[100] hidden">
+      <div class="absolute inset-0 bg-on-surface/60 backdrop-blur-sm" id="modal-config-overlay"></div>
+      <div class="relative z-10 min-h-screen flex items-center justify-center p-3 sm:p-6 py-6 sm:py-10">
+        <div class="relative w-full max-w-2xl bg-surface-container-lowest border border-surface-container-high rounded-2xl soft-card-shadow max-h-[90vh] overflow-y-auto">
+          
+          <!-- Encabezado del Modal -->
+          <div class="sticky top-0 bg-surface-container-lowest/95 backdrop-blur border-b border-surface-container-high p-4 sm:p-6 flex items-center justify-between gap-3 z-10">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-primary-container/20 border border-primary/20 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-xl">settings</span>
+              </div>
+              <div>
+                <span class="font-label-code text-label-code uppercase text-primary font-bold">AJUSTES DE CUENTA</span>
+                <h2 class="font-headline-lg text-lg sm:text-xl font-extrabold text-on-surface uppercase tracking-tight">
+                  CONFIGURACIÓN DE PERFIL
+                </h2>
+              </div>
+            </div>
+            <button id="btn-cerrar-configuracion" class="shrink-0 w-9 h-9 inline-flex items-center justify-center rounded-lg border border-surface-container-high text-secondary hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+              <span class="material-symbols-outlined text-xl">close</span>
+            </button>
+          </div>
+
+          <!-- Pestañas de Navegación del Modal -->
+          <div class="p-4 sm:p-6 space-y-6">
+            <div class="border-b border-surface-container-high flex flex-wrap gap-2 pb-1 font-label-code text-xs">
+              <button type="button" class="tab-config active px-3.5 py-2 rounded-lg font-bold bg-primary-container text-on-primary transition-all flex items-center gap-1.5" data-config-tab="datos">
+                <span class="material-symbols-outlined text-sm">badge</span>
+                <span>Datos & Nombre</span>
+              </button>
+              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5" data-config-tab="correo">
+                <span class="material-symbols-outlined text-sm">mail</span>
+                <span>Cambiar Correo</span>
+              </button>
+              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5" data-config-tab="password">
+                <span class="material-symbols-outlined text-sm">lock</span>
+                <span>Cambiar Contraseña</span>
+              </button>
+            </div>
+
+            <!-- TAB 1: VISUALIZAR DATOS Y NOMBRE -->
+            <div class="panel-config-tab space-y-5" data-tab-panel="datos">
+              <div>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface flex items-center gap-2">
+                  <span>Visualización de Identidad Ciudadana</span>
+                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-label-code px-2 py-0.5 rounded-full font-bold">VERIFICADO</span>
+                </h3>
+                <p class="text-xs text-secondary mt-1">Los datos de identidad se encuentran validados mediante el Registro Comunal de Vecinos.</p>
+              </div>
+
+              <div class="bg-surface-container-low border border-surface-container-high rounded-xl p-5 space-y-4">
+                <div class="flex items-center gap-4 pb-4 border-b border-surface-container-high">
+                  <div class="w-14 h-14 rounded-xl bg-primary-container text-white flex items-center justify-center font-bold text-xl glow-red">
+                    MG
+                  </div>
+                  <div>
+                    <span class="font-label-code text-[11px] uppercase text-secondary">Nombre Registrado</span>
+                    <h4 class="font-headline-sm text-lg font-extrabold text-on-surface">Martina González</h4>
+                    <span class="text-xs text-secondary font-label-code">ID VECINO: #VEC-9042</span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-body-sm pt-1">
+                  <div class="space-y-1">
+                    <span class="font-label-code text-[11px] uppercase text-secondary">DNI Auditado</span>
+                    <p class="font-bold text-on-surface">38.492.104</p>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="font-label-code text-[11px] uppercase text-secondary">Alta en Sistema</span>
+                    <p class="font-bold text-on-surface">15 de Marzo de 2025</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 2: CAMBIAR CORREO -->
+            <div class="panel-config-tab hidden space-y-5" data-tab-panel="correo">
+              <div>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface">Cambiar Correo Electrónico</h3>
+                <p class="text-xs text-secondary mt-1">Ingresá tu nuevo correo para recibir notificaciones sobre el estado de tus reclamos.</p>
+              </div>
+
+              <form id="form-cambiar-correo" class="space-y-4">
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-correo-actual">Correo Actual</label>
+                  <input type="email" id="input-correo-actual" value="m.gonzalez@email.com" disabled class="w-full px-4 py-2.5 bg-surface-container-high/40 border border-surface-container-high rounded-lg text-sm text-secondary font-label-code cursor-not-allowed"/>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-correo-nuevo">Nuevo Correo Electrónico</label>
+                  <input type="email" id="input-correo-nuevo" required placeholder="ejemplo@correo.com" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-correo-confirmar">Confirmar Nuevo Correo</label>
+                  <input type="email" id="input-correo-confirmar" required placeholder="Confirmá tu nuevo correo" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+                </div>
+
+                <div id="alerta-correo" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
+
+                <div class="pt-2 flex justify-end">
+                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all">
+                    <span class="material-symbols-outlined text-sm">save</span>
+                    <span>Guardar Nuevo Correo</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- TAB 3: CAMBIAR CONTRASEÑA -->
+            <div class="panel-config-tab hidden space-y-5" data-tab-panel="password">
+              <div>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface">Cambiar Contraseña de Acceso</h3>
+                <p class="text-xs text-secondary mt-1">Recomendamos utilizar una contraseña segura de al menos 8 caracteres con letras y números.</p>
+              </div>
+
+              <form id="form-cambiar-password" class="space-y-4">
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-pass-actual">Contraseña Actual</label>
+                  <input type="password" id="input-pass-actual" required placeholder="••••••••" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-pass-nueva">Nueva Contraseña</label>
+                  <input type="password" id="input-pass-nueva" required minlength="8" placeholder="Ingresá al menos 8 caracteres" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+                </div>
+
+                <div class="space-y-1.5">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="input-pass-confirmar">Confirmar Nueva Contraseña</label>
+                  <input type="password" id="input-pass-confirmar" required minlength="8" placeholder="Repetí tu nueva contraseña" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+                </div>
+
+                <div id="alerta-password" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
+
+                <div class="pt-2 flex justify-end">
+                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all">
+                    <span class="material-symbols-outlined text-sm">key</span>
+                    <span>Actualizar Contraseña</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ================= FOOTER INSTITUCIONAL ================= -->
     <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -452,27 +696,22 @@
         <div class="space-y-4">
           <div class="flex flex-wrap gap-4 font-label-caps text-label-caps uppercase text-xs">
             <a class="text-primary-fixed-dim hover:text-primary-fixed underline transition-colors" href="tel:911">
-              Línea 911 Emergencia
+              Línea Emergencia (911)
             </a>
             <a class="text-surface-variant hover:text-primary underline transition-colors" href="tel:103">
               Defensa Civil (103)
             </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="ayuda.html">
-              Consorcio Auditor
-            </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="mis-reportes.html">
-              Matriz de Incidencias ABIERTA
-            </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="cuenta.html">
-              Términos y Telemetría
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="https://wa.me/">
+              WhatsApp 24hs
             </a>
           </div>
         </div>
       </div>
     </footer>
 
+    <!-- ================= SCRIPTS DE PÁGINA Y MODAL ================= -->
     <script>
-      // Toggle de los paneles de seguimiento (uno por reporte, independientes entre sí)
+      // Toggle de los paneles de seguimiento
       document.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
         btn.addEventListener("click", function () {
           const post = btn.closest(".reporte-post");
@@ -493,7 +732,7 @@
         });
       });
 
-      // Buscador + filtro de estado, acotado a los reportes del usuario
+      // Buscador + filtro de estado en mis reportes
       const searchInput = document.getElementById("mis-reportes-search");
       const filtroButtons = document.querySelectorAll(".filtro-estado");
       const posts = document.querySelectorAll(".reporte-post");
@@ -515,7 +754,7 @@
         vacioMsg.classList.toggle("hidden", visibles !== 0);
       }
 
-      searchInput.addEventListener("input", aplicarFiltros);
+      if (searchInput) searchInput.addEventListener("input", aplicarFiltros);
 
       filtroButtons.forEach(function (btn) {
         btn.addEventListener("click", function () {
@@ -529,6 +768,102 @@
           aplicarFiltros();
         });
       });
+
+      // ================= MODAL CONFIGURACIÓN DE PERFIL =================
+      const modalConfig = document.getElementById("modal-configuracion");
+      const modalOverlay = document.getElementById("modal-config-overlay");
+      const btnAbrirConfig = document.getElementById("btn-abrir-configuracion");
+      const btnCerrarConfig = document.getElementById("btn-cerrar-configuracion");
+      const tabConfigBtns = document.querySelectorAll(".tab-config");
+      const tabConfigPanels = document.querySelectorAll(".panel-config-tab");
+
+      function abrirConfiguracion() {
+        if (modalConfig) {
+          modalConfig.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function cerrarConfiguracion() {
+        if (modalConfig) {
+          modalConfig.classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+      }
+
+      if (btnAbrirConfig) btnAbrirConfig.addEventListener("click", abrirConfiguracion);
+      if (btnCerrarConfig) btnCerrarConfig.addEventListener("click", cerrarConfiguracion);
+      if (modalOverlay) modalOverlay.addEventListener("click", cerrarConfiguracion);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") cerrarConfiguracion();
+      });
+
+      // Cambio de Pestañas del Modal
+      tabConfigBtns.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const targetTab = tab.dataset.configTab;
+
+          tabConfigBtns.forEach(function (t) {
+            t.classList.remove("active", "bg-primary-container", "text-on-primary", "font-bold");
+            t.classList.add("text-secondary");
+          });
+
+          tab.classList.add("active", "bg-primary-container", "text-on-primary", "font-bold");
+          tab.classList.remove("text-secondary");
+
+          tabConfigPanels.forEach(function (panel) {
+            panel.classList.toggle("hidden", panel.dataset.tabPanel !== targetTab);
+          });
+        });
+      });
+
+      // Formulario Cambiar Correo
+      const formCorreo = document.getElementById("form-cambiar-correo");
+      const alertaCorreo = document.getElementById("alerta-correo");
+
+      if (formCorreo) {
+        formCorreo.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nuevo = document.getElementById("input-correo-nuevo").value.trim();
+          const confirmar = document.getElementById("input-correo-confirmar").value.trim();
+
+          if (nuevo !== confirmar) {
+            alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
+            alertaCorreo.textContent = "❌ Los correos no coinciden. Verificá la información ingresada.";
+            return;
+          }
+
+          document.getElementById("input-correo-actual").value = nuevo;
+          document.getElementById("user-display-email").textContent = nuevo;
+
+          alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+          alertaCorreo.textContent = "✓ Correo electrónico actualizado con éxito.";
+          formCorreo.reset();
+        });
+      }
+
+      // Formulario Cambiar Contraseña
+      const formPassword = document.getElementById("form-cambiar-password");
+      const alertaPassword = document.getElementById("alerta-password");
+
+      if (formPassword) {
+        formPassword.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nueva = document.getElementById("input-pass-nueva").value;
+          const confirmar = document.getElementById("input-pass-confirmar").value;
+
+          if (nueva !== confirmar) {
+            alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
+            alertaPassword.textContent = "❌ Las nuevas contraseñas no coinciden.";
+            return;
+          }
+
+          alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+          alertaPassword.textContent = "✓ Contraseña actualizada correctamente.";
+          formPassword.reset();
+        });
+      }
     </script>
   </body>
 </html>

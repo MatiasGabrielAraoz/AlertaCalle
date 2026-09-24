@@ -21,52 +21,23 @@
 
     <!-- Configuración de Tailwind (ver js/app.js) -->
     <script src="js/app.js"></script>
+
+    <!-- Navbar reutilizable: una sola fuente de verdad para todo el sitio -->
+    <script src="js/navbar.js"></script>
+
+    <!-- Overlay reportar-->
+    <script src="js/reportar-modal.js"></script>
+
   </head>
   <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
-    <!-- ================= TOP NAV BAR ================= -->
-    <header class="site-header-nav w-full bg-surface-container-lowest sticky top-0 z-50 border-b border-surface-container-high/80 backdrop-blur-md bg-white/95">
-      <div class="flex justify-between items-center w-full px-4 sm:px-6 lg:px-8 py-3.5 max-w-7xl mx-auto">
-        <!-- Brandmark & Status Badge -->
-        <div class="flex items-center gap-3">
-          <a class="text-headline-sm font-headline-sm font-extrabold uppercase tracking-tight text-on-surface border-l-4 border-primary pl-3 flex items-center gap-1.5" href="inicio.html">
-            ALERTA<span class="text-primary">CALLE</span>
-          </a>
-          <br><br>
-        </div>
-        <!-- Navigation Links -->
-        <nav class="hidden md:flex items-center gap-6">
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="inicio.html">
-            Inicio
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="mapa.html">
-            Mapa
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="noticias.html">
-            Noticias y Obras
-          </a>
-          <a class="text-secondary hover:text-primary font-label-caps text-label-caps uppercase tracking-wider transition-colors" href="ayuda.html">
-            Ayuda Y FEEDBACK
-          </a>
-        </nav>
-        <!-- Trailing Action Cluster & Mode Toggle -->
-        <div class="flex items-center gap-2.5 sm:gap-3">
-          <!-- Quick Primary Action -->
-          <a class="inline-flex items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 font-label-caps text-label-caps uppercase glow-red-button transition-all rounded-lg font-bold text-xs" href="reportar.html">
-            <span class="material-symbols-outlined text-sm font-bold">add</span>
-            <span class="hidden sm:inline">REPORTAR INCIDENCIA</span>
-            <span class="sm:hidden">REPORTAR</span>
-          </a>
-        </div>
-          <!-- User / Account Button -->
-          <a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-container-high text-on-surface font-label-code text-xs hover:bg-surface-container-low transition-colors" href="cuenta.html">
-            <span class="material-symbols-outlined text-base text-secondary">account_circle</span>
-            <span>Mi Cuenta</span>
-          </a>
-        </div>
-    </header>
+
+    <!-- ================= TOP NAV BAR (componente global, ver js/navbar.js) ================= -->
+    <alerta-navbar></alerta-navbar>
+
     <!-- ================= MAIN CANVAS ================= -->
     <main class="view-home-container flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-14">
-      <!-- ================= 2. HERO / DASHBOARD CIUDADANO ================= -->
+
+      <!-- ================= 1. HERO / DASHBOARD CIUDADANO ================= -->
       <section class="module-hero relative bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 sm:p-10 md:p-14 overflow-hidden soft-card-shadow">
         <div class="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 relative z-10">
           <div class="inline-flex items-center gap-2 bg-surface-container-low border border-surface-container-high rounded-full px-4 py-1.5 font-label-code text-label-code text-on-surface">
@@ -84,21 +55,10 @@
           <p class="font-body-lg text-body-md sm:text-body-lg text-secondary max-w-2xl mx-auto leading-relaxed">
             Plataforma comunitaria de fiscalización y resolución de infraestructura urbana en tiempo real. Reportá baches, luminarias, pérdidas de agua y residuos con geolocalización satelital y cuadrillas auditables.
           </p>
-          <!-- CTA Buttons desacoplados -->
-          <div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a class="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-primary-container text-on-primary font-headline-sm text-lg uppercase px-8 py-4 rounded-xl glow-red-button transition-all transform hover:-translate-y-0.5 active:translate-y-0 font-bold" href="reportar.html">
-              <span>REPORTAR UNA INCIDENCIA</span>
-              <span class="material-symbols-outlined text-2xl group-hover:rotate-90 transition-transform">add</span>
-            </a>
-            <a class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-6 py-4 rounded-xl hover:bg-surface-container-low transition-all border border-surface-container-high soft-card-shadow" href="mapa.html">
-              <span class="material-symbols-outlined text-primary text-xl">explore</span>
-              <span>EXPLORAR MAPA Y REPORTES</span>
-            </a>
-          </div>
         </div>
-        <!-- Real-time metrics grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 pt-10 mt-6 max-w-5xl mx-auto border-t border-surface-container-high relative z-10">
-          <!-- 124 Reportes Recibidos -->
+
+        <!-- Métricas en tiempo real: Recibidos / Solucionados / En Proceso / Pendientes -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5 pt-10 mt-6 max-w-4xl mx-auto border-t border-surface-container-high relative z-10">
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Recibidos</p>
             <div class="flex items-baseline justify-between">
@@ -107,7 +67,6 @@
             </div>
             <span class="text-[11px] font-label-code text-secondary block mt-1">Totales este mes</span>
           </div>
-          <!-- 87 Solucionados (70%) -->
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Solucionados</p>
             <div class="flex items-baseline justify-between">
@@ -116,7 +75,6 @@
             </div>
             <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Con conformidad vecinal</span>
           </div>
-          <!-- 32 En Proceso -->
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">En Proceso</p>
             <div class="flex items-baseline justify-between">
@@ -125,130 +83,22 @@
             </div>
             <span class="text-[11px] font-label-code text-secondary block mt-1">Cuadrillas en terreno</span>
           </div>
-          <!-- 5 Pendientes -->
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Pendientes</p>
             <div class="flex items-baseline justify-between">
-              <p class="font-headline-md text-2xl font-extrabold text-primary">5</p>
+              <p class="font-headline-md text-2xl font-extrabold text-primary" id="metrica-pendientes">5</p>
               <span class="material-symbols-outlined text-primary text-lg">pending</span>
             </div>
             <span class="text-[11px] font-label-code text-primary block mt-1">En triage técnico</span>
           </div>
         </div>
       </section>
-      <!-- ================= 3. SECCIÓN: FORMULARIO INTERACTIVO REPORTAR ================= -->
-      <section class="module-reportar-flow space-y-6 pt-4">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
-          <div>
-            <span class="font-label-code text-label-code uppercase text-primary font-bold">ASISTENTE GUIADO</span>
-            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md font-extrabold text-on-surface uppercase tracking-tight">
-              REPORTAR UNA INCIDENCIA URBANA
-            </h2>
-          </div>
-          <span class="text-xs font-label-code text-secondary bg-surface-container-low px-3 py-1.5 rounded-lg border border-surface-container-high">
-            Trazabilidad satelital y confirmación instantánea
-          </span>
-        </div>
-        <!-- Step Indicator Bar -->
-        <div class="bg-surface-container-lowest p-4 rounded-xl border border-surface-container-high soft-card-shadow">
-          <div class="grid grid-cols-4 gap-2 text-center text-xs font-label-code">
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 py-2 px-1 rounded-lg bg-primary-container text-on-primary font-bold transition-all">
-              <span class="w-5 h-5 rounded-full bg-white text-primary text-xs flex items-center justify-center">1</span>
-              <span class="truncate">Tipo</span>
-            </div>
-            <a class="flex flex-col sm:flex-row items-center justify-center gap-1.5 py-2 px-1 rounded-lg bg-surface-container-low text-secondary hover:text-on-surface transition-all" href="reportar-paso2.html">
-              <span class="w-5 h-5 rounded-full bg-surface-container-highest text-secondary text-xs flex items-center justify-center">2</span>
-              <span class="truncate">Ubicación</span>
-            </a>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 py-2 px-1 rounded-lg bg-surface-container-low text-secondary transition-all opacity-60">
-              <span class="w-5 h-5 rounded-full bg-surface-container-highest text-secondary text-xs flex items-center justify-center">3</span>
-              <span class="truncate">Detalles</span>
-            </div>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-1.5 py-2 px-1 rounded-lg bg-surface-container-low text-secondary transition-all opacity-60">
-              <span class="w-5 h-5 rounded-full bg-surface-container-highest text-secondary text-xs flex items-center justify-center">4</span>
-              <span class="truncate">Confirmar</span>
-            </div>
-          </div>
-        </div>
-        <!-- Form Card Container -->
-        <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 md:p-8 soft-card-shadow">
-          <div class="space-y-6">
-            <div>
-              <h3 class="font-headline-sm text-lg font-bold text-on-surface">Paso 1: Seleccioná el tipo de problema urbano</h3>
-              <p class="text-sm text-secondary">Elegí la categoría más adecuada para asignar automáticamente el área municipal competente.</p>
-            </div>
-            <!-- Selectable category grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-              <label class="cursor-pointer border border-primary bg-primary/5 rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input checked="" class="hidden" name="incident_type" type="radio" value="Bache"/>
-                <span class="text-3xl">🕳️</span>
-                <span class="font-label-code text-xs font-bold">Bache</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Alumbrado público"/>
-                <span class="text-3xl">💡</span>
-                <span class="font-label-code text-xs font-bold">Alumbrado público</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Basura / Residuos"/>
-                <span class="text-3xl">🗑️</span>
-                <span class="font-label-code text-xs font-bold">Basura / Residuos</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Árbol caído"/>
-                <span class="text-3xl">🌳</span>
-                <span class="font-label-code text-xs font-bold">Árbol caído</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Pérdida de agua"/>
-                <span class="text-3xl">🚰</span>
-                <span class="font-label-code text-xs font-bold">Pérdida de agua</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Semáforo"/>
-                <span class="text-3xl">🚦</span>
-                <span class="font-label-code text-xs font-bold">Semáforo</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Calzada dañada"/>
-                <span class="text-3xl">🛣️</span>
-                <span class="font-label-code text-xs font-bold">Calzada dañada</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Obra irregular"/>
-                <span class="text-3xl">🏗️</span>
-                <span class="font-label-code text-xs font-bold">Obra irregular</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Animales"/>
-                <span class="text-3xl">🐕</span>
-                <span class="font-label-code text-xs font-bold">Animales</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface">
-                <input class="hidden" name="incident_type" type="radio" value="Ruido molesto"/>
-                <span class="text-3xl">🔊</span>
-                <span class="font-label-code text-xs font-bold">Ruido molesto</span>
-              </label>
-              <label class="cursor-pointer border border-surface-container-high bg-surface-container-lowest rounded-xl p-3.5 flex flex-col items-center text-center gap-2 transition-all hover:border-primary text-on-surface col-span-2 sm:col-span-1">
-                <input class="hidden" name="incident_type" type="radio" value="Otro"/>
-                <span class="text-3xl">⚠️</span>
-                <span class="font-label-code text-xs font-bold">Otro reclamo</span>
-              </label>
-            </div>
-            <div class="flex justify-end pt-4">
-              <a class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-6 py-3 rounded-lg font-bold glow-red-button transition-all" href="reportar-paso2.html">
-                <span>CONTINUAR A UBICACIÓN</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- ================= 4. RADAR & SEGUIMIENTO CIUDADANO ================= -->
+
+      <!-- ================= 2. RESUMEN DE REPORTES RECIENTES ================= -->
       <section class="module-radar-incidencias space-y-6 pt-4">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-surface-container-high">
           <div>
-            <span class="font-label-code text-label-code uppercase text-primary font-bold">CONSULTE LAS ULTIMAS INCIDENCIAS &amp; SEGUIMIENTO</span>
+            <span class="font-label-code text-label-code uppercase text-primary font-bold">ULTIMAS INCIDENCIAS &amp; SEGUIMIENTO</span>
             <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md font-extrabold text-on-surface uppercase tracking-tight">
               RADAR DE INCIDENCIAS &amp; SEGUIMIENTO DE LOS VECINOS
             </h2>
@@ -390,154 +240,209 @@
           </div>
         </div>
         <!-- GRID DE TARJETAS DE INCIDENCIAS URBANAS -->
-        <div class="loader" id ="card-loader"></div> 
-        <div id="incidencias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-           <template id="card">
-            <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-              <div class="p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                  <span class="idCard font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
-                  <span class="estado font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                    EN PROCESO
-                  </span>
-                </div>
-                <div class="space-y-1">
-                  <span class="categoria font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                  <h3 class="titulo font-headline-sm text-base font-bold text-on-surface leading-snug">
-                    Luminaria LED intermitente y cable expuesto
-                  </h3>
-                </div>
-                <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                    <span class="direccion font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm">schedule</span>
-                    <span class = "tiempoRegistrado">Registrado Hoy 09:15 hs</span>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-                <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                  Ver seguimiento →
-                </a>
-              </div>
-            </article>
-          </template>
-          
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 1 -->
           <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-              <div class="p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                  <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
-                  <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                    EN PROCESO
-                  </span>
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
+                  EN PROCESO
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Luminaria LED intermitente y cable expuesto
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
                 </div>
-                <div class="space-y-1">
-                  <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                  <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                    Luminaria LED intermitente y cable expuesto
-                  </h3>
-                </div>
-                <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                    <span class="font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm">schedule</span>
-                    <span>Registrado Hoy 09:15 hs</span>
-                  </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hoy 09:15 hs</span>
                 </div>
               </div>
-              <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-                <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                  Ver seguimiento →
-                </a>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
+          <!-- Card 2 -->
+          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8488</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
+                  PENDIENTE
+                </span>
               </div>
-            </article>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Bache profundo en calzada principal
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Calle 9 de Julio 480 (Villa Belgrano)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Ayer 18:30 hs</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-primary font-bold">ALERTA TRÁNSITO</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
+          <!-- Card 3 -->
+          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8461</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
+                  RESUELTA
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🗑️ Higiene y Residuos</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Contenedor desbordado y residuos en vereda
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Av. Rivadavia 3200 (Distrito Sur)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hace 2 días</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-emerald-700 font-bold">Verificado x Auditoría</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
+          <!-- Card 4 -->
+          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8495</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
+                  EN PROCESO
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🌳 Arbolado y Plazas</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Rama de gran porte con riesgo de caída
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Plaza Central (Sector Juegos) (Parque Norte)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hoy 07:45 hs</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">Defensa Civil en Zona</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
+          <!-- Card 5 -->
+          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8430</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
+                  RESUELTA
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Cordón cuneta destruido y losa desnivelada
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Bartolomé Mitre esq. Urquiza (San Andrés Centro)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hace 3 días</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">Reparación Hormigón Finalizada</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
+          <!-- Card 6 -->
+          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+            <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8501</span>
+                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
+                  PENDIENTE
+                </span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
+                  Tablero eléctrico abierto con peligro de corte
+                </h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                  <span class="font-medium text-on-surface">Parque Moreno - Senda Norte (Parque Norte)</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>Registrado Hoy 11:20 hs</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-primary font-bold">CRÍTICO / ENERGÍA</span>
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                Ver seguimiento →
+              </a>
+            </div>
+          </article>
         </div>
       </section>
-      <!-- ================= 5. SECCIÓN DE MAPA INTERACTIVO ================= -->
-      <section class="module-mapa-cartografico space-y-6 pt-4">
-        <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
-          <div>
-            <span class="font-label-code text-label-code uppercase text-primary font-bold">VISOR CARTOGRÁFICO URBANO</span>
-            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-md font-extrabold text-on-surface uppercase tracking-tight">
-              MAPA INTERACTIVO DE INCIDENCIAS
-            </h2>
-          </div>
-          <p class="text-xs font-label-code text-secondary">Puntos georreferenciados en tiempo real con cuadrillas de inspección técnica.</p>
-        </div>
-        <!-- Map Display Canvas -->
-        <div class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow h-[460px] map-grid-pattern">
-          <!-- Simulated urban avenues & labels -->
-          <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute left-0 right-0 top-1/3 h-5 bg-surface-container-high flex items-center px-4">
-              <span class="text-[10px] font-label-code text-secondary tracking-widest uppercase">AVENIDA SAN MARTÍN (CORREDOR NORTE)</span>
-            </div>
-            <div class="absolute left-0 right-0 bottom-1/4 h-5 bg-surface-container-high flex items-center px-4">
-              <span class="text-[10px] font-label-code text-secondary tracking-widest uppercase">AVENIDA RIVADAVIA (EJE SUR)</span>
-            </div>
-            <div class="absolute top-0 bottom-0 left-1/4 w-5 bg-surface-container-high flex items-center justify-center">
-              <span class="text-[9px] font-label-code text-secondary tracking-widest uppercase -rotate-90">AV. BELGRANO</span>
-            </div>
-            <div class="absolute top-0 bottom-0 right-1/3 w-5 bg-surface-container-high flex items-center justify-center">
-              <span class="text-[9px] font-label-code text-secondary tracking-widest uppercase -rotate-90">CALLE URQUIZA</span>
-            </div>
-            <!-- Green park zone -->
-            <div class="absolute top-8 right-8 w-44 h-32 bg-emerald-50 border border-emerald-200 rounded-xl p-2 flex flex-col justify-between opacity-80">
-              <span class="text-[10px] font-label-code text-emerald-800 font-bold">🌳 PARQUE MORENO</span>
-              <span class="text-[9px] text-emerald-700">Zona Recreativa</span>
-            </div>
-          </div>
-          <!-- Interactive Map Pins desacoplados -->
-          <!-- Pin 1 -->
-          <a class="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20" href="mapa.html?pin=INC-8492" style="top: 32%; left: 25%;">
-            <span class="relative flex h-8 w-8 items-center justify-center">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-40"></span>
-              <span class="relative inline-flex rounded-full h-7 w-7 bg-primary-container text-white items-center justify-center shadow-md font-bold text-xs glow-red">💡</span>
-            </span>
-            <span class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-on-surface text-surface text-[10px] font-label-code px-2 py-0.5 rounded shadow whitespace-nowrap">
-              #INC-8492 (Alumbrado)
-            </span>
-          </a>
-          <!-- Pin 2 -->
-          <a class="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20" href="mapa.html?pin=INC-8488" style="top: 55%; left: 45%;">
-            <span class="relative flex h-8 w-8 items-center justify-center">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-60"></span>
-              <span class="relative inline-flex rounded-full h-7 w-7 bg-primary-container text-white items-center justify-center shadow-md font-bold text-xs glow-red">🚧</span>
-            </span>
-            <span class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-on-surface text-surface text-[10px] font-label-code px-2 py-0.5 rounded shadow whitespace-nowrap">
-              #INC-8488 (Bache crítico)
-            </span>
-          </a>
-          <!-- Pin 3 -->
-          <a class="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20" href="mapa.html?pin=INC-8461" style="top: 74%; left: 68%;">
-            <span class="relative inline-flex rounded-full h-7 w-7 bg-emerald-600 text-white items-center justify-center shadow-md font-bold text-xs">🗑️</span>
-            <span class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-on-surface text-surface text-[10px] font-label-code px-2 py-0.5 rounded shadow whitespace-nowrap">
-              #INC-8461 (Resuelto)
-            </span>
-          </a>
-          <!-- Pin 4 -->
-          <a class="absolute -translate-x-1/2 -translate-y-1/2 group focus:outline-none z-20" href="mapa.html?pin=INC-8495" style="top: 22%; left: 78%;">
-            <span class="relative inline-flex rounded-full h-7 w-7 bg-amber-600 text-white items-center justify-center shadow-md font-bold text-xs">🌳</span>
-            <span class="hidden group-hover:block absolute bottom-full left-1/2 -translate-x-1/2 mb-1 bg-on-surface text-surface text-[10px] font-label-code px-2 py-0.5 rounded shadow whitespace-nowrap">
-              #INC-8495 (Arbolado)
-            </span>
-          </a>
-          <!-- Leyenda Flotante del Mapa -->
-          <div class="absolute bottom-3 right-3 bg-surface-container-lowest/90 backdrop-blur border border-surface-container-high rounded-lg p-2.5 text-[11px] font-label-code text-secondary flex items-center gap-4 z-20">
-            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span> Pendiente</div>
-            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-secondary"></span> En Proceso</div>
-            <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> Resuelta</div>
-          </div>
-        </div>
-      </section>
-      <!-- ================= 6. NOTICIAS Y AVISOS MUNICIPALES ================= -->
+
+      <!-- ================= 3. NOTICIAS Y AVISOS MUNICIPALES ================= -->
       <section class="module-noticias-obras space-y-6 pt-4">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
           <div>
@@ -547,65 +452,81 @@
             </h2>
           </div>
           <a class="text-xs font-label-code text-primary hover:underline font-bold flex items-center gap-1" href="noticias.html">
-            Ver todas las obras en marcha →
+            Leer mas sobre las ultimas obras y noticias →
           </a>
         </div>
-        <!-- Official Notice Cards -->
+        <!-- Official Notice Cards (con foto arriba) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Noticia 1: Corte por repavimentación -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-5 soft-card-shadow soft-card-shadow-hover transition-all space-y-3.5">
-            <div class="flex items-center justify-between">
-              <span class="bg-primary/10 text-primary text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">ALERTA VIAL</span>
-              <span class="text-xs font-label-code text-secondary">Vigente Hoy</span>
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+            <div class="h-44 w-full bg-surface-container">
+              <img src="img/noticias/repavimentacion.jpg" alt="Obras de repavimentación en Av. San Martín" loading="lazy" class="w-full h-full object-cover"/>
             </div>
-            <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
-              Corte total de calzada por repavimentación en Av. San Martín
-            </h3>
-            <p class="text-xs text-secondary leading-relaxed">
-              Se inician las obras de fresado y colocación de carpeta asfáltica en caliente entre calles Belgrano y Moreno. Desvíos señalizados por calle Lavalle.
-            </p>
-            <div class="pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
-              <span>Área: Obras Públicas</span>
-              <span class="text-primary font-bold">Duración: 48 hs</span>
+            <div class="p-5 space-y-3.5 flex flex-col flex-grow">
+              <div class="flex items-center justify-between">
+                <span class="bg-primary/10 text-primary text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">ALERTA VIAL</span>
+                <span class="text-xs font-label-code text-secondary">Vigente Hoy</span>
+              </div>
+              <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
+                Corte total de calzada por repavimentación en Av. San Martín
+              </h3>
+              <p class="text-xs text-secondary leading-relaxed">
+                Se inician las obras de fresado y colocación de carpeta asfáltica en caliente entre calles Belgrano y Moreno. Desvíos señalizados por calle Lavalle.
+              </p>
+              <div class="mt-auto pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
+                <span>Área: Obras Públicas</span>
+                <span class="text-primary font-bold">Duración: 48 hs</span>
+              </div>
             </div>
           </article>
           <!-- Noticia 2: Plan recolección nocturna -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-5 soft-card-shadow soft-card-shadow-hover transition-all space-y-3.5">
-            <div class="flex items-center justify-between">
-              <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">HIGIENE URBANA</span>
-              <span class="text-xs font-label-code text-secondary">Cronograma Semanal</span>
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+            <div class="h-44 w-full bg-surface-container">
+              <img src="img/noticias/recoleccion-nocturna.jpg" alt="Camión recolector en recorrido nocturno" loading="lazy" class="w-full h-full object-cover"/>
             </div>
-            <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
-              Nuevo plan de recolección nocturna y limpieza barrial intensiva
-            </h3>
-            <p class="text-xs text-secondary leading-relaxed">
-              Se amplía el recorrido de camiones recolectores compactadores al cuadrante sur y se suman cuadrillas de hidrolavado en contenedores peatonales.
-            </p>
-            <div class="pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
-              <span>Área: Gestión Ambiental</span>
-              <span class="text-emerald-700 font-bold">Horario: 21:00 a 04:00</span>
+            <div class="p-5 space-y-3.5 flex flex-col flex-grow">
+              <div class="flex items-center justify-between">
+                <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">HIGIENE URBANA</span>
+                <span class="text-xs font-label-code text-secondary">Cronograma Semanal</span>
+              </div>
+              <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
+                Nuevo plan de recolección nocturna y limpieza barrial intensiva
+              </h3>
+              <p class="text-xs text-secondary leading-relaxed">
+                Se amplía el recorrido de camiones recolectores compactadores al cuadrante sur y se suman cuadrillas de hidrolavado en contenedores peatonales.
+              </p>
+              <div class="mt-auto pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
+                <span>Área: Gestión Ambiental</span>
+                <span class="text-emerald-700 font-bold">Horario: 21:00 a 04:00</span>
+              </div>
             </div>
           </article>
           <!-- Noticia 3: Modernización LED -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl p-5 soft-card-shadow soft-card-shadow-hover transition-all space-y-3.5">
-            <div class="flex items-center justify-between">
-              <span class="bg-amber-100 text-amber-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">INFRAESTRUCTURA</span>
-              <span class="text-xs font-label-code text-secondary">En Ejecución</span>
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+            <div class="h-44 w-full bg-surface-container">
+              <img src="img/noticias/luminarias-led.jpg" alt="Instalación de luminarias LED" loading="lazy" class="w-full h-full object-cover"/>
             </div>
-            <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
-              Plan maestro de tendido eléctrico y modernización a luminarias LED
-            </h3>
-            <p class="text-xs text-secondary leading-relaxed">
-              Reemplazo de más de 450 artefactos de sodio por luminarias LED de 150W con telegestión remota, aumentando la seguridad y el ahorro energético barrial.
-            </p>
-            <div class="pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
-              <span>Área: Alumbrado &amp; Energía</span>
-              <span class="text-primary font-bold">Avance: 65%</span>
+            <div class="p-5 space-y-3.5 flex flex-col flex-grow">
+              <div class="flex items-center justify-between">
+                <span class="bg-amber-100 text-amber-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">INFRAESTRUCTURA</span>
+                <span class="text-xs font-label-code text-secondary">En Ejecución</span>
+              </div>
+              <h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight">
+                Plan maestro de tendido eléctrico y modernización a luminarias LED
+              </h3>
+              <p class="text-xs text-secondary leading-relaxed">
+                Reemplazo de más de 450 artefactos de sodio por luminarias LED de 150W con telegestión remota, aumentando la seguridad y el ahorro energético barrial.
+              </p>
+              <div class="mt-auto pt-2 border-t border-surface-container-high flex items-center justify-between text-xs font-label-code text-secondary">
+                <span>Área: Alumbrado &amp; Energía</span>
+                <span class="text-primary font-bold">Avance: 65%</span>
+              </div>
             </div>
           </article>
         </div>
       </section>
-      <!-- ================= 8. CONTACTO / AYUDA, FAQ Y TELÉFONOS ÚTILES ================= -->
+
+      <!-- ================= 4. CONTACTO / AYUDA, FAQ Y TELÉFONOS ÚTILES ================= -->
       <section class="module-faq-contacto space-y-8 pt-4">
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-3 border-b border-surface-container-high pb-4">
           <div>
@@ -615,73 +536,101 @@
             </h2>
           </div>
         </div>
-        <!-- Tarjetas de contacto directo / teléfonos útiles -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <!-- 911 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
-            <span class="material-symbols-outlined text-primary text-3xl">local_police</span>
-            <h4 class="font-headline-sm text-lg font-bold text-on-surface">Línea 911</h4>
-            <p class="text-xs text-secondary">Emergencias policiales y médicas inmediatas.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-primary hover:underline" href="tel:911">Llamar Ahora</a>
-          </div>
-          <!-- 103 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
-            <span class="material-symbols-outlined text-amber-600 text-3xl">warning</span>
-            <h4 class="font-headline-sm text-lg font-bold text-on-surface">103 Defensa Civil</h4>
-            <p class="text-xs text-secondary">Árboles caídos, cables cortados e inundación.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-amber-700 hover:underline" href="tel:103">Llamar Ahora</a>
-          </div>
-          <!-- WhatsApp -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
-            <span class="material-symbols-outlined text-emerald-600 text-3xl">chat</span>
-            <h4 class="font-headline-sm text-lg font-bold text-on-surface">WhatsApp 24hs</h4>
-            <p class="text-xs text-secondary">+54 9 11 4000-CIUDAD Guardia vecinal.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-emerald-700 hover:underline" href="https://wa.me/">Enviar Mensaje</a>
-          </div>
-          <!-- 0800 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
-            <span class="material-symbols-outlined text-secondary text-3xl">support_agent</span>
-            <h4 class="font-headline-sm text-lg font-bold text-on-surface">0800-MUNICIPIO</h4>
-            <p class="text-xs text-secondary">Atención y trámites de lunes a viernes 8-18hs.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-secondary hover:underline" href="tel:080000000">0800-444-2483</a>
-          </div>
-        </div>
+
         <!-- Acordeón de Preguntas Frecuentes -->
         <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 md:p-8 soft-card-shadow space-y-3">
           <h3 class="font-headline-sm text-base font-bold text-on-surface mb-4">Preguntas Frecuentes sobre el Servicio de Fiscalización</h3>
           <!-- FAQ 1 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
-              <span>¿Cómo se audita mi reclamo una vez enviado?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span>¿Qué tipo de problemas puedo reportar?</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              Cada incidencia genera un código único e inalterable registrado en la matriz operativa pública. Las cuadrillas envían fotografía del antes y después al finalizar el trabajo, auditada por un inspector comunal antes de declarar el estado como 'Resuelta'.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Cada incidencia genera un código único e inalterable registrado en la matriz operativa pública. Las cuadrillas envían fotografía del antes y después al finalizar el trabajo, auditada por un inspector comunal antes de declarar el estado como 'Resuelta'.
+                </div>
+              </div>
             </div>
           </details>
           <!-- FAQ 2 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
-              <span>¿Cuánto tarda una cuadrilla en acudir al lugar?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span>¿Cómo puedo hacer seguimiento de mi reporte?</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              El compromiso del Municipio Abierto establece un tiempo promedio máximo de resolución de 48 horas para baches y fallas de alumbrado. Casos urgentes (cables caídos, pérdidas severas) son despachados en menos de 120 minutos por el equipo de guardia.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Una vez enviado el reporte, podés consultar su estado desde tu cuenta utilizando el número o código de seguimiento asignado. Allí podrás ver si fue recibido, revisado, derivado al área correspondiente o solucionado.
+                </div>
+              </div>
             </div>
           </details>
           <!-- FAQ 3 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
-              <span>¿Es necesario registrarse para subir una incidencia?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span>¿Qué significan los estados de mi reporte? ¿Quien los controla?</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              No, la plataforma permite el reporte directo vecinal sin barreras burocráticas. Si deseas recibir notificaciones por SMS o WhatsApp al resolverse, podés ingresar un número telefónico de contacto voluntario.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Los estados permiten conocer en qué etapa se encuentra tu reporte. Por ejemplo: <b>Recibido</b>, cuando fue enviado correctamente; <b>En revisión</b>, cuando está siendo evaluado; En proceso, cuando el área correspondiente está trabajando en la solución; y <b>Resuelto</b>, cuando se informa que el problema fue solucionado. Estos estados son actualizados por las áreas municipales responsables de gestionar cada incidencia.
+                </div>
+              </div>
+            </div>
+            </details>
+          <!-- FAQ 4 -->
+          <details class="border border-surface-container-high rounded-xl overflow-hidden group">
+            <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
+              <span>¿Qué pasa con mis datos personales?</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
+            </summary>
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Los datos proporcionados se utilizan para gestionar tus reportes, permitir su seguimiento y, cuando corresponda, comunicarnos con vos sobre su estado. La información personal debe ser tratada de forma responsable y utilizada únicamente para los fines establecidos por la plataforma y la normativa vigente.
+                </div>
+              </div>
             </div>
           </details>
         </div>
+        <!-- Tarjetas de contacto directo / teléfonos útiles -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <!-- 911 -->
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+            <span class="material-symbols-outlined text-primary text-3xl">local_police</span>
+            <h4 class="font-headline-sm text-lg font-bold text-on-surface">Línea 911</h4>
+            <p class="text-xs text-secondary">Emergencias policiales y médicas inmediatas.</p>
+            <a class="inline-block font-label-code text-xs font-bold text-primary hover:underline" href="tel:911">Llamar Ahora</a>
+          </div>
+          <!-- 103 -->
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+            <span class="material-symbols-outlined text-amber-600 text-3xl">warning</span>
+            <h4 class="font-headline-sm text-lg font-bold text-on-surface">103 Defensa Civil</h4>
+            <p class="text-xs text-secondary">Árboles caídos, cables cortados e inundación.</p>
+            <a class="inline-block font-label-code text-xs font-bold text-amber-700 hover:underline" href="tel:103">Llamar Ahora</a>
+          </div>
+          <!-- WhatsApp -->
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+            <span class="material-symbols-outlined text-emerald-600 text-3xl">chat</span>
+            <h4 class="font-headline-sm text-lg font-bold text-on-surface">WhatsApp 24hs</h4>
+            <p class="text-xs text-secondary">+54 9 11 4000-CIUDAD Guardia vecinal.</p>
+            <a class="inline-block font-label-code text-xs font-bold text-emerald-700 hover:underline" href="https://wa.me/">Enviar Mensaje</a>
+          </div>
+          <!-- 0800 -->
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+            <span class="material-symbols-outlined text-secondary text-3xl">support_agent</span>
+            <h4 class="font-headline-sm text-lg font-bold text-on-surface">0800-MUNICIPIO</h4>
+            <p class="text-xs text-secondary">Atención y trámites de lunes a viernes 8-18hs.</p>
+            <a class="inline-block font-label-code text-xs font-bold text-secondary hover:underline" href="tel:080000000">0800-444-2483</a>
+          </div>
+        </div>
       </section>
     </main>
+
     <!-- ================= FOOTER INSTITUCIONAL ================= -->
     <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
       <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
@@ -698,26 +647,17 @@
         <div class="space-y-4">
           <div class="flex flex-wrap gap-4 font-label-caps text-label-caps uppercase text-xs">
             <a class="text-primary-fixed-dim hover:text-primary-fixed underline transition-colors" href="tel:911">
-              Línea 911 Emergencia
+              Línea Emergencia (911)
             </a>
             <a class="text-surface-variant hover:text-primary underline transition-colors" href="tel:103">
               Defensa Civil (103)
             </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="ayuda.html">
-              Consorcio Auditor
-            </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="mis-reportes.html">
-              Matriz de Incidencias ABIERTA
-            </a>
-            <a class="text-surface-variant hover:text-primary underline transition-colors" href="cuenta.html">
-              Términos y Telemetría
+            <a class="text-surface-variant hover:text-primary underline transition-colors" href="https://wa.me/">
+              WhatsApp 24hs
             </a>
           </div>
         </div>
       </div>
     </footer>
-
-    <script type="module" src="./js/main.js"></script>
   </body>
 </html>
-

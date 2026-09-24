@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: alertacalle-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: AlertaCalleDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - alertacalle-postgres-data:/var/lib/postgresql/data
+      - ./alertacalle.sql:/docker-entrypoint-initdb.d/001-alertacalle.sql:ro
+      - ./seed.sql:/docker-entrypoint-initdb.d/002-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d AlertaCalleDB"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./AlertaCalle.API/AlertaCalle.API
+      dockerfile: Dockerfile
+    container_name: alertacalle-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Host=db;Port=5432;Database=AlertaCalleDB;Username=postgres;Password=postgres
+      Jwt__Key: clavedeprueba123441241241212412412467676767
+      Jwt__Issuer: AlertaCalle.API
+      Jwt__Audience: AlertaCalle.Client
+      Jwt__ExpirationMinutes: 60
+    ports:
+      - "5208:8080"
+
+volumes:
+  alertacalle-postgres-data:

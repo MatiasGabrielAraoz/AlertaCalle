@@ -1,62 +1,35 @@
 /* ==========================================================================
    AlertaCalle — app.js
-   Configuración del tema de Tailwind (design tokens del proyecto).
-   Se ejecuta después del script de Tailwind CDN cargado en el <head>.
+   Configuración del tema de Tailwind. Los VALORES de los colores viven en
+   css/styles.css (variables --c-*), uno para modo claro y otro para oscuro.
    ========================================================================== */
+
+// Nombres de los colores del proyecto. Cada uno apunta a una variable CSS
+// con canales RGB, así siguen funcionando los modificadores tipo bg-primary/5.
+const NOMBRES_COLORES = [
+  "surface-container-lowest", "on-primary-fixed-variant", "outline", "inverse-surface",
+  "on-tertiary-fixed", "on-tertiary-fixed-variant", "surface-container-high",
+  "surface-container-highest", "surface-bright", "primary-container", "primary-fixed-dim",
+  "on-tertiary", "on-secondary-fixed", "inverse-primary", "on-secondary-container",
+  "on-primary", "on-error", "outline-variant", "on-error-container", "surface-dim",
+  "on-secondary", "on-surface-variant", "on-secondary-fixed-variant", "tertiary-container",
+  "surface-variant", "on-primary-container", "surface-tint", "surface-container-low",
+  "background", "tertiary", "secondary-fixed-dim", "secondary-fixed", "tertiary-fixed",
+  "on-surface", "secondary", "inverse-on-surface", "on-background", "secondary-container",
+  "primary-fixed", "on-tertiary-container", "error", "surface-container", "on-primary-fixed",
+  "tertiary-fixed-dim", "primary", "surface", "error-container"
+];
+
+const coloresTema = {};
+NOMBRES_COLORES.forEach(function (n) {
+  coloresTema[n] = "rgb(var(--c-" + n + ") / <alpha-value>)";
+});
 
 tailwind.config = {
   darkMode: "class",
   theme: {
     extend: {
-      colors: {
-        "surface-container-lowest": "#ffffff",
-        "on-primary-fixed-variant": "#930006",
-        "outline": "#936e69",
-        "inverse-surface": "#2f3131",
-        "on-tertiary-fixed": "#410001",
-        "on-tertiary-fixed-variant": "#930003",
-        "surface-container-high": "#e8e8e8",
-        "surface-container-highest": "#e2e2e2",
-        "surface-bright": "#f9f9f9",
-        "primary-container": "#e61919",
-        "primary-fixed-dim": "#ffb4aa",
-        "on-tertiary": "#ffffff",
-        "on-secondary-fixed": "#1b1b20",
-        "inverse-primary": "#ffb4aa",
-        "on-secondary-container": "#65636a",
-        "on-primary": "#ffffff",
-        "on-error": "#ffffff",
-        "outline-variant": "#e8bcb6",
-        "on-error-container": "#93000a",
-        "surface-dim": "#dadada",
-        "on-secondary": "#ffffff",
-        "on-surface-variant": "#5e3f3b",
-        "on-secondary-fixed-variant": "#47464c",
-        "tertiary-container": "#e3221a",
-        "surface-variant": "#e2e2e2",
-        "on-primary-container": "#fffbff",
-        "surface-tint": "#c0000b",
-        "surface-container-low": "#f3f3f4",
-        "background": "#f9f9f9",
-        "tertiary": "#bb0006",
-        "secondary-fixed-dim": "#c8c5cc",
-        "secondary-fixed": "#e4e1e9",
-        "tertiary-fixed": "#ffdad5",
-        "on-surface": "#1a1c1c",
-        "secondary": "#5f5e64",
-        "inverse-on-surface": "#f0f1f1",
-        "on-background": "#1a1c1c",
-        "secondary-container": "#e4e1e9",
-        "primary-fixed": "#ffdad5",
-        "on-tertiary-container": "#fffbff",
-        "error": "#ba1a1a",
-        "surface-container": "#eeeeee",
-        "on-primary-fixed": "#410001",
-        "tertiary-fixed-dim": "#ffb4a9",
-        "primary": "#bc000a",
-        "surface": "#f9f9f9",
-        "error-container": "#ffdad6"
-      },
+      colors: coloresTema,
       borderRadius: {
         DEFAULT: "0.25rem",
         lg: "0.5rem",
