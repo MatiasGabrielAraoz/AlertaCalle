@@ -93,26 +93,40 @@
       </div>
     </main>
  
-    <script>
-      // Simulación de login: valida que haya usuario y contraseña,
-      // y redirige a home.html (antes index.html).
-      document.getElementById("login-form").addEventListener("submit", function (event) {
+    <script type="module">
+      import { ApiClient } from "./js/client.js";
+
+      document.getElementById("login-form").addEventListener("submit", async function (event) {
         event.preventDefault();
- 
+
         const email = document.getElementById("login-email").value.trim();
         const password = document.getElementById("login-password").value.trim();
         const errorMsg = document.getElementById("login-error");
- 
+        const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+        const recordar = event.currentTarget.elements.remember.checked;
+
         if (!email || !password) {
+          errorMsg.textContent = "Completá tu usuario y contraseña para continuar.";
           errorMsg.classList.remove("hidden");
           return;
         }
- 
+
         errorMsg.classList.add("hidden");
- 
-        // Acá iría la llamada real de autenticación (fetch a tu backend).
-        // Por ahora, redirige directo a home.html al "iniciar sesión".
-        window.location.href = "home.html";
+        submitButton.disabled = true;
+
+        try {
+          const tokenResponse = await ApiClient.iniciarSesion(email, password);
+          const token = tokenResponse.token;
+          const usuario = await ApiClient.obtenerUsuarioActual(token);
+
+          ApiClient.guardarSesion(token, usuario, recordar);
+          window.location.href = "inicio.html";
+        } catch (error) {
+          errorMsg.textContent = error.message;
+          errorMsg.classList.remove("hidden");
+          submitButton.disabled = false;
+        }
+
       });
     </script>
   </body>
