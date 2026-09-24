@@ -216,7 +216,7 @@
         <!-- Official Notice Cards (con foto arriba) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Noticia 1: Corte por repavimentación -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/repavimentacion.jpg" alt="Obras de repavimentación en Av. San Martín" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -238,7 +238,7 @@
             </div>
           </article>
           <!-- Noticia 2: Plan recolección nocturna -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/recoleccion-nocturna.jpg" alt="Camión recolector en recorrido nocturno" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -260,7 +260,7 @@
             </div>
           </article>
           <!-- Noticia 3: Modernización LED -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/luminarias-led.jpg" alt="Instalación de luminarias LED" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -302,68 +302,84 @@
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
               <span>¿Qué tipo de problemas puedo reportar?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              Cada incidencia genera un código único e inalterable registrado en la matriz operativa pública. Las cuadrillas envían fotografía del antes y después al finalizar el trabajo, auditada por un inspector comunal antes de declarar el estado como 'Resuelta'.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Cada incidencia genera un código único e inalterable registrado en la matriz operativa pública. Las cuadrillas envían fotografía del antes y después al finalizar el trabajo, auditada por un inspector comunal antes de declarar el estado como 'Resuelta'.
+                </div>
+              </div>
             </div>
           </details>
           <!-- FAQ 2 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
               <span>¿Cómo puedo hacer seguimiento de mi reporte?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              Una vez enviado el reporte, podés consultar su estado desde tu cuenta utilizando el número o código de seguimiento asignado. Allí podrás ver si fue recibido, revisado, derivado al área correspondiente o solucionado.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Una vez enviado el reporte, podés consultar su estado desde tu cuenta utilizando el número o código de seguimiento asignado. Allí podrás ver si fue recibido, revisado, derivado al área correspondiente o solucionado.
+                </div>
+              </div>
             </div>
           </details>
           <!-- FAQ 3 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
               <span>¿Qué significan los estados de mi reporte? ¿Quien los controla?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              Los estados permiten conocer en qué etapa se encuentra tu reporte. Por ejemplo: <b>Recibido</b>, cuando fue enviado correctamente; <b>En revisión</b>, cuando está siendo evaluado; En proceso, cuando el área correspondiente está trabajando en la solución; y <b>Resuelto</b>, cuando se informa que el problema fue solucionado. Estos estados son actualizados por las áreas municipales responsables de gestionar cada incidencia.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Los estados permiten conocer en qué etapa se encuentra tu reporte. Por ejemplo: <b>Recibido</b>, cuando fue enviado correctamente; <b>En revisión</b>, cuando está siendo evaluado; En proceso, cuando el área correspondiente está trabajando en la solución; y <b>Resuelto</b>, cuando se informa que el problema fue solucionado. Estos estados son actualizados por las áreas municipales responsables de gestionar cada incidencia.
+                </div>
+              </div>
             </div>
             </details>
           <!-- FAQ 4 -->
           <details class="border border-surface-container-high rounded-xl overflow-hidden group">
             <summary class="w-full flex items-center justify-between p-4 bg-surface-container-low text-left font-bold text-sm text-on-surface hover:bg-surface-container transition-colors cursor-pointer list-none">
               <span>¿Qué pasa con mis datos personales?</span>
-              <span class="material-symbols-outlined text-base transition-transform group-open:rotate-180">expand_more</span>
+              <span class="material-symbols-outlined text-base transition-transform duration-300 group-open:rotate-180">expand_more</span>
             </summary>
-            <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
-              Los datos proporcionados se utilizan para gestionar tus reportes, permitir su seguimiento y, cuando corresponda, comunicarnos con vos sobre su estado. La información personal debe ser tratada de forma responsable y utilizada únicamente para los fines establecidos por la plataforma y la normativa vigente.
+            <div class="faq-anim-wrap">
+              <div class="faq-anim-inner">
+                <div class="p-4 text-xs text-secondary leading-relaxed bg-surface-container-lowest border-t border-surface-container-high">
+                  Los datos proporcionados se utilizan para gestionar tus reportes, permitir su seguimiento y, cuando corresponda, comunicarnos con vos sobre su estado. La información personal debe ser tratada de forma responsable y utilizada únicamente para los fines establecidos por la plataforma y la normativa vigente.
+                </div>
+              </div>
             </div>
           </details>
         </div>
         <!-- Tarjetas de contacto directo / teléfonos útiles -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <!-- 911 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
             <span class="material-symbols-outlined text-primary text-3xl">local_police</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">Línea 911</h4>
             <p class="text-xs text-secondary">Emergencias policiales y médicas inmediatas.</p>
             <a class="inline-block font-label-code text-xs font-bold text-primary hover:underline" href="tel:911">Llamar Ahora</a>
           </div>
           <!-- 103 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
             <span class="material-symbols-outlined text-amber-600 text-3xl">warning</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">103 Defensa Civil</h4>
             <p class="text-xs text-secondary">Árboles caídos, cables cortados e inundación.</p>
             <a class="inline-block font-label-code text-xs font-bold text-amber-700 hover:underline" href="tel:103">Llamar Ahora</a>
           </div>
           <!-- WhatsApp -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
             <span class="material-symbols-outlined text-emerald-600 text-3xl">chat</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">WhatsApp 24hs</h4>
             <p class="text-xs text-secondary">+54 9 11 4000-CIUDAD Guardia vecinal.</p>
             <a class="inline-block font-label-code text-xs font-bold text-emerald-700 hover:underline" href="https://wa.me/">Enviar Mensaje</a>
           </div>
           <!-- 0800 -->
-          <div class="p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
             <span class="material-symbols-outlined text-secondary text-3xl">support_agent</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">0800-MUNICIPIO</h4>
             <p class="text-xs text-secondary">Atención y trámites de lunes a viernes 8-18hs.</p>
@@ -401,5 +417,99 @@
         </div>
       </div>
     </footer>
+
+    <!-- ================= FAB FLOTANTE: REPORTAR INCIDENCIA ================= -->
+    <button
+      type="button"
+      class="fab-reportar btn-abrir-reportar btn-shine inline-flex items-center gap-2.5 bg-primary-container text-on-primary px-5 py-4 rounded-2xl font-label-caps text-sm uppercase font-bold glow-red-button shadow-2xl"
+    >
+      <span class="material-symbols-outlined text-xl">add_circle</span>
+      Reportar incidencia
+    </button>
+
+    <!-- ================= OVERLAY NOTICIAS ================= -->
+    <div id="overlay-noticia" class="overlay-noticia" onclick="cerrarNoticia()">
+      <div
+        class="overlay-noticia-content bg-surface-container-lowest rounded-2xl border border-surface-container-high shadow-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto mx-4"
+        onclick="event.stopPropagation()"
+      >
+        <div class="relative">
+          <div class="h-56 w-full bg-surface-container rounded-t-2xl overflow-hidden">
+            <img id="overlay-noticia-imagen" src="" alt="" class="w-full h-full object-cover" />
+          </div>
+          <button
+            onclick="cerrarNoticia()"
+            class="absolute top-3 right-3 w-9 h-9 rounded-full bg-on-surface/60 text-surface flex items-center justify-center hover:bg-on-surface/80 transition-colors"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-4">
+          <div id="overlay-noticia-badge"></div>
+          <h2 id="overlay-noticia-titulo" class="font-headline-md text-xl sm:text-2xl font-extrabold text-on-surface leading-tight"></h2>
+          <div id="overlay-noticia-cuerpo" class="text-sm text-secondary leading-relaxed space-y-3"></div>
+          <div id="overlay-noticia-footer" class="pt-4 border-t border-surface-container-high text-xs font-label-code text-secondary"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= SCRIPTS DE PÁGINA ================= -->
+    <script>
+    (function () {
+      /* ---------- DATOS DE NOTICIAS ---------- */
+      var noticias = [
+        {
+          titulo: 'Corte total de calzada por repavimentación en Av. San Martín',
+          badge: '<span class="bg-primary/10 text-primary text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">ALERTA VIAL</span><span class="text-xs font-label-code text-secondary ml-2">Vigente Hoy</span>',
+          imagen: 'img/noticias/repavimentacion.jpg',
+          cuerpo: '<p>El Municipio informa a los vecinos que a partir de la fecha se inician las obras de fresado y colocación de carpeta asfáltica en caliente sobre Av. San Martín, en el tramo comprendido entre las calles Belgrano y Moreno.</p><p>Los trabajos se realizarán en dos etapas: durante la primera semana se procederá al fresado del pavimento existente y la reparación de la base hidráulica dañada. En la segunda etapa se colocará la nueva carpeta asfáltica de 7 cm de espesor, incluyendo la demarcación horizontal y señalización definitiva.</p><p>Se solicita a los conductores circular con precaución por las calles aledañas y respetar los desvíos señalizados por calle Lavalle. El tránsito pesado deberá utilizar la ruta alternativa por Av. Rivadavia hasta nuevo aviso.</p><p>Las tareas se desarrollarán en horario diurno de 7:00 a 17:00 hs, con presencia de personal de tránsito municipal en las intersecciones afectadas. En caso de lluvia, los plazos podrían extenderse.</p>',
+          footer: 'Área: Obras Públicas · Duración estimada: 48 hs · Contacto: obras@municipio.gob.ar'
+        },
+        {
+          titulo: 'Nuevo plan de recolección nocturna y limpieza barrial intensiva',
+          badge: '<span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">HIGIENE URBANA</span><span class="text-xs font-label-code text-secondary ml-2">Cronograma Semanal</span>',
+          imagen: 'img/noticias/recoleccion-nocturna.jpg',
+          cuerpo: '<p>A partir de esta semana entra en vigencia el nuevo cronograma de recolección nocturna, que amplía el recorrido de camiones compactadores al cuadrante sur del municipio, beneficiando a más de 12.000 hogares.</p><p>El servicio operará de lunes a sábados entre las 21:00 y las 04:00 hs, con unidades especialmente equipadas para minimizar el ruido en zonas residenciales. Cada camión contará con sistema GPS de seguimiento en tiempo real.</p><p>Adicionalmente, se incorporan cuadrillas de hidrolavado para la limpieza profunda de contenedores peatonales en las principales arterias comerciales. El cronograma de limpieza se publicará semanalmente en la plataforma y en las redes oficiales del municipio.</p><p>Se recuerda a los vecinos depositar los residuos en bolsas cerradas, separando reciclables de orgánicos, y respetar los horarios establecidos para evitar la acumulación en la vía pública.</p>',
+          footer: 'Área: Gestión Ambiental · Horario: 21:00 a 04:00 hs · Frecuencia: Lunes a Sábados'
+        },
+        {
+          titulo: 'Plan maestro de tendido eléctrico y modernización a luminarias LED',
+          badge: '<span class="bg-amber-100 text-amber-800 text-[11px] font-label-code px-2.5 py-0.5 rounded-full font-bold">INFRAESTRUCTURA</span><span class="text-xs font-label-code text-secondary ml-2">En Ejecución</span>',
+          imagen: 'img/noticias/luminarias-led.jpg',
+          cuerpo: '<p>El municipio avanza con el plan maestro de renovación del alumbrado público, que contempla el reemplazo de más de 450 artefactos de sodio de alta presión por luminarias LED de 150W con sistema de telegestión remota.</p><p>Las nuevas luminarias permiten un ahorro energético del 60% respecto a la tecnología anterior, ofrecen una vida útil superior a las 50.000 horas y mejoran sustancialmente la calidad de iluminación en calles, plazas y espacios públicos.</p><p>El sistema de telegestión incorporado permite monitorear en tiempo real el funcionamiento de cada luminaria, detectar fallas automáticamente y ajustar la intensidad lumínica según los horarios y las condiciones climáticas, optimizando el consumo energético.</p><p>Hasta el momento se completó el 65% del plan, con prioridad en las zonas de mayor tránsito peatonal y vehicular. Se estima que el proyecto estará finalizado en su totalidad durante el próximo trimestre.</p>',
+          footer: 'Área: Alumbrado & Energía · Avance: 65% · Inversión: Programa Nacional de Eficiencia Energética'
+        }
+      ];
+
+      /* ---------- ABRIR / CERRAR OVERLAY ---------- */
+      window.abrirNoticia = function (index) {
+        var data = noticias[index];
+        document.getElementById('overlay-noticia-imagen').src = data.imagen;
+        document.getElementById('overlay-noticia-imagen').alt = data.titulo;
+        document.getElementById('overlay-noticia-badge').innerHTML = data.badge;
+        document.getElementById('overlay-noticia-titulo').textContent = data.titulo;
+        document.getElementById('overlay-noticia-cuerpo').innerHTML = data.cuerpo;
+        document.getElementById('overlay-noticia-footer').textContent = data.footer;
+        document.getElementById('overlay-noticia').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.cerrarNoticia = function () {
+        document.getElementById('overlay-noticia').classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') cerrarNoticia();
+      });
+
+      /* ---------- CLICK EN TARJETAS DE NOTICIAS ---------- */
+      document.querySelectorAll('.noticia-card').forEach(function (card, i) {
+        card.addEventListener('click', function () { abrirNoticia(i); });
+      });
+    })();
+    </script>
+
   </body>
 </html>

@@ -2,133 +2,211 @@
 <html class="light scroll-smooth" lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Ayuda — ALERTACALLE</title>
 
-    <!-- Estilos propios -->
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/styles.css" />
 
     <!-- Material Symbols -->
     <link
+        rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet"
-    >
+    />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
-    >
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    />
 
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
+    <!-- Configuración -->
     <script src="js/app.js"></script>
     <script src="js/navbar.js"></script>
+
     <!-- Overlay reportar-->
     <script src="js/reportar-modal.js"></script>
 </head>
 
-
-<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md">
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
 
     <!-- ================= NAVBAR GLOBAL ================= -->
     <alerta-navbar></alerta-navbar>
 
-
     <!-- ================= CONTENIDO ================= -->
-    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Ruta -->
+        <div class="flex items-center gap-2 mb-6">
+            <a
+                href="inicio.html"
+                class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors"
+            >
+                Inicio
+            </a>
+
+            <span class="material-symbols-outlined text-base text-secondary">
+                chevron_right
+            </span>
+
+            <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
+                Ayuda
+            </span>
+        </div>
 
 
         <!-- =====================================================
-             ENCABEZADO DE SUBPÁGINA
-             Más discreto que el HERO de inicio.html
+             CABECERA HERO (misma estética que reportes.html)
              ===================================================== -->
-        <section class="relative bg-surface-container-lowest border border-surface-container-high rounded-2xl soft-card-shadow overflow-hidden">
+        <section class="relative overflow-hidden bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 sm:p-8 lg:p-10 soft-card-shadow">
 
-            <div class="p-6 sm:p-8 md:p-10">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-primary" aria-hidden="true"></div>
 
-                <!-- Ruta -->
-                <div class="flex items-center gap-2 mb-6">
-                    <a
-                        href="inicio.html"
-                        class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors"
-                    >
-                        Inicio
-                    </a>
+            <div class="relative z-10">
 
-                    <span class="material-symbols-outlined text-base text-secondary">
-                        chevron_right
-                    </span>
+                <!-- Identificador -->
+                <div class="flex flex-wrap items-center gap-2 mb-5">
+                    <span class="inline-flex items-center gap-2 bg-surface-container-low border border-surface-container-high rounded-full px-3.5 py-1.5 font-label-code text-label-code text-secondary">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
 
-                    <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
-                        Ayuda
-                    </span>
-                </div>
-
-
-                <!-- Encabezado -->
-                <div class="flex flex-col sm:flex-row sm:items-start gap-5">
-
-                    <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary">
-                        <span class="material-symbols-outlined text-2xl">
-                            help
-                        </span>
-                    </div>
-
-                    <div class="max-w-3xl">
-
-                        <span class="font-label-code text-label-code uppercase tracking-widest text-primary font-bold">
+                        <span class="text-primary font-bold">
                             CENTRO DE SOPORTE VECINAL
                         </span>
 
-                        <h1 class="mt-2 text-2xl sm:text-3xl font-extrabold tracking-tight text-on-surface">
-                            Ayuda y preguntas frecuentes
-                        </h1>
+                        <span class="text-secondary">//</span>
 
-                        <p class="mt-3 text-sm sm:text-base leading-relaxed text-secondary max-w-2xl">
-                            Consultá información sobre los reportes, su seguimiento,
-                            los estados de las incidencias y el funcionamiento de la plataforma.
-                        </p>
+                        <span class="uppercase tracking-wider">
+                            PREGUNTAS FRECUENTES
+                        </span>
+                    </span>
+                </div>
 
+                <!-- Título -->
+                <div class="max-w-4xl">
+                    <h1 class="font-display-hero text-display-hero-mobile lg:text-display-hero leading-none tracking-tight font-extrabold text-on-surface uppercase">
+                        AYUDA Y
+                        <span class="inline-block mt-2 bg-primary-container text-on-primary px-4 sm:px-6 py-1.5 rounded-xl border border-primary/20 glow-red">
+                            SOPORTE.
+                        </span>
+                    </h1>
+
+                    <p class="font-body-lg text-body-md sm:text-body-lg text-secondary max-w-3xl mt-5 leading-relaxed">
+                        Consultá información sobre los reportes, su seguimiento,
+                        los estados de las incidencias y el funcionamiento de la plataforma.
+                    </p>
+                </div>
+
+                <div class="border-t border-surface-container-high my-7"></div>
+
+                <!-- Funcionamiento -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+
+                    <div class="group p-4 bg-surface-container-low border border-surface-container-high rounded-xl transition-all hover:border-primary/40">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 shrink-0 rounded-lg bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-lg">
+                                    search
+                                </span>
+                            </div>
+
+                            <div>
+                                <p class="font-bold text-sm text-on-surface">
+                                    01 · Buscá
+                                </p>
+
+                                <p class="text-xs text-secondary mt-0.5">
+                                    Encontrá respuestas sobre reportes, estados y tu cuenta.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group p-4 bg-surface-container-low border border-surface-container-high rounded-xl transition-all hover:border-primary/40">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 shrink-0 rounded-lg bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-lg">
+                                    menu_book
+                                </span>
+                            </div>
+
+                            <div>
+                                <p class="font-bold text-sm text-on-surface">
+                                    02 · Consultá
+                                </p>
+
+                                <p class="text-xs text-secondary mt-0.5">
+                                    Desplegá cada pregunta y leé la respuesta completa.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="group p-4 bg-surface-container-low border border-surface-container-high rounded-xl transition-all hover:border-primary/40">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 shrink-0 rounded-lg bg-primary-container/20 border border-primary/20 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary text-lg">
+                                    support_agent
+                                </span>
+                            </div>
+
+                            <div>
+                                <p class="font-bold text-sm text-on-surface">
+                                    03 · Contactá
+                                </p>
+
+                                <p class="text-xs text-secondary mt-0.5">
+                                    Si no encontrás lo que buscás, escribinos.
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
-
             </div>
-
         </section>
 
 
         <!-- =====================================================
              PREGUNTAS FRECUENTES
              ===================================================== -->
-        <section class="max-w-5xl mx-auto w-full space-y-10">
+        <section id="faq-lista" class="space-y-10">
 
 
             <!-- ================= REPORTES ================= -->
             <div class="space-y-4">
 
-                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-5 border-b border-surface-container-high">
 
                     <div>
                         <span class="font-label-code text-label-code uppercase text-primary font-bold">
                             MÓDULO 01
                         </span>
 
-                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
-                            SOBRE LOS REPORTES
+                        <h2 class="font-extrabold text-2xl md:text-3xl text-on-surface uppercase tracking-tight mt-1">
+                            Sobre los reportes
                         </h2>
+
+                        <p class="text-sm text-secondary mt-2 max-w-2xl">
+                            Todo lo que necesitás saber para crear, enviar y gestionar tus reportes de incidencias.
+                        </p>
                     </div>
 
-                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
-                        report
-                    </span>
+                    <div class="inline-flex items-center gap-2 self-start md:self-auto px-3 py-2 rounded-lg bg-surface-container-low border border-surface-container-high">
+                        <span class="material-symbols-outlined text-primary text-lg">
+                            report
+                        </span>
+
+                        <span class="font-label-code text-xs uppercase text-secondary">
+                            Reportes
+                        </span>
+                    </div>
 
                 </div>
 
@@ -231,21 +309,31 @@
             <!-- ================= SEGUIMIENTO ================= -->
             <div class="space-y-4">
 
-                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-5 border-b border-surface-container-high">
 
                     <div>
                         <span class="font-label-code text-label-code uppercase text-primary font-bold">
                             MÓDULO 02
                         </span>
 
-                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
-                            ESTADOS Y SEGUIMIENTO
+                        <h2 class="font-extrabold text-2xl md:text-3xl text-on-surface uppercase tracking-tight mt-1">
+                            Estados y seguimiento
                         </h2>
+
+                        <p class="text-sm text-secondary mt-2 max-w-2xl">
+                            Cómo funcionan los estados de los reportes y de qué manera podés hacer seguimiento.
+                        </p>
                     </div>
 
-                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
-                        track_changes
-                    </span>
+                    <div class="inline-flex items-center gap-2 self-start md:self-auto px-3 py-2 rounded-lg bg-surface-container-low border border-surface-container-high">
+                        <span class="material-symbols-outlined text-primary text-lg">
+                            track_changes
+                        </span>
+
+                        <span class="font-label-code text-xs uppercase text-secondary">
+                            Seguimiento
+                        </span>
+                    </div>
 
                 </div>
 
@@ -374,21 +462,31 @@
             <!-- ================= CUENTA Y DATOS ================= -->
             <div class="space-y-4">
 
-                <div class="flex items-end justify-between gap-4 border-b border-surface-container-high pb-4">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 pb-5 border-b border-surface-container-high">
 
                     <div>
                         <span class="font-label-code text-label-code uppercase text-primary font-bold">
                             MÓDULO 03
                         </span>
 
-                        <h2 class="mt-1 text-xl sm:text-2xl font-extrabold tracking-tight text-on-surface uppercase">
-                            CUENTA Y DATOS
+                        <h2 class="font-extrabold text-2xl md:text-3xl text-on-surface uppercase tracking-tight mt-1">
+                            Cuenta y datos
                         </h2>
+
+                        <p class="text-sm text-secondary mt-2 max-w-2xl">
+                            Información sobre tu cuenta, datos personales y privacidad dentro de la plataforma.
+                        </p>
                     </div>
 
-                    <span class="material-symbols-outlined hidden sm:block text-2xl text-secondary">
-                        person
-                    </span>
+                    <div class="inline-flex items-center gap-2 self-start md:self-auto px-3 py-2 rounded-lg bg-surface-container-low border border-surface-container-high">
+                        <span class="material-symbols-outlined text-primary text-lg">
+                            person
+                        </span>
+
+                        <span class="font-label-code text-xs uppercase text-secondary">
+                            Cuenta
+                        </span>
+                    </div>
 
                 </div>
 
@@ -486,51 +584,50 @@
 
 
             <!-- =====================================================
-                 SOPORTE
-                 Más pequeño y técnico que el CTA original
+                 SOPORTE / CTA
                  ===================================================== -->
-            <section class="bg-surface-container-low border border-surface-container-high rounded-2xl p-5 sm:p-6 soft-card-shadow">
+            <section class="bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow">
 
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                <div class="p-5 sm:p-6">
 
-                    <div class="flex items-start gap-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
 
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-on-primary">
-                            <span class="material-symbols-outlined">
-                                support_agent
-                            </span>
+                        <div class="flex items-start gap-4">
+
+                            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary-container text-on-primary">
+                                <span class="material-symbols-outlined">
+                                    support_agent
+                                </span>
+                            </div>
+
+                            <div>
+
+                                <span class="font-label-code text-[11px] uppercase tracking-wider text-primary font-bold">
+                                    SOPORTE
+                                </span>
+
+                                <h2 class="mt-1 text-base font-bold text-on-surface">
+                                    ¿No encontraste lo que buscabas?
+                                </h2>
+
+                                <p class="mt-1 text-sm leading-6 text-secondary">
+                                    Si tenés una consulta que no aparece en esta sección,
+                                    podés comunicarte con el área de soporte.
+                                </p>
+
+                            </div>
+
                         </div>
 
-                        <div>
 
-                            <span class="font-label-code text-[11px] uppercase tracking-wider text-primary font-bold">
-                                SOPORTE
-                            </span>
-
-                            <h2 class="mt-1 text-base font-bold text-on-surface">
-                                ¿No encontraste lo que buscabas?
-                            </h2>
-
-                            <p class="mt-1 text-sm leading-6 text-secondary">
-                                Si tenés una consulta que no aparece en esta sección,
-                                podés comunicarte con el área de soporte.
-                            </p>
-
-                        </div>
+                        <a
+                            href="https://wa.me/"
+                            class="btn-shine inline-flex shrink-0 items-center justify-center gap-2 bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-label-caps text-xs uppercase font-bold glow-red-button transition-all hover:brightness-110"
+                        >
+                            Escribe al soporte
+                        </a>
 
                     </div>
-
-
-                    <a
-                        href="mailto:soporte@alertacalle.com"
-                        class="btn-shine inline-flex shrink-0 items-center justify-center gap-2 bg-primary-container text-on-primary px-5 py-2.5 rounded-lg font-label-caps text-xs uppercase font-bold glow-red-button transition-all hover:brightness-110"
-                    >
-                        <span class="material-symbols-outlined text-lg">
-                            mail
-                        </span>
-
-                        Contactar soporte
-                    </a>
 
                 </div>
 
@@ -542,26 +639,26 @@
 
 
     <!-- ================= FOOTER ================= -->
-    <footer class="bg-on-surface text-surface border-t-4 border-primary mt-10">
+    <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
 
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
 
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <!-- Identity & Statement -->
+            <div class="space-y-3 max-w-xl">
 
-                <div class="space-y-2">
-
-                    <div class="font-headline-md font-extrabold uppercase border-l-4 border-primary pl-3">
-                        ALERTACALLE
-                    </div>
-
-                    <p class="font-label-code text-xs text-secondary-fixed-dim">
-                        © 2026 ALERTACALLE — CENTRO DE SOPORTE VECINAL
-                    </p>
-
+                <div class="text-headline-md font-headline-md font-extrabold uppercase text-surface border-l-4 border-primary pl-3">
+                    ALERTACALLE
                 </div>
 
+                <p class="font-label-code text-label-code text-secondary-fixed-dim leading-relaxed">
+                    © 2026 ALERTACALLE — CENTRO DE SOPORTE VECINAL
+                </p>
 
-                <div class="flex flex-wrap gap-4 font-label-caps uppercase text-xs">
+            </div>
+
+            <!-- Emergency Hotline & Structural Links -->
+            <div class="space-y-4">
+                <div class="flex flex-wrap gap-4 font-label-caps text-label-caps uppercase text-xs">
 
                     <a
                         href="tel:911"
@@ -585,13 +682,41 @@
                     </a>
 
                 </div>
-
             </div>
 
         </div>
 
     </footer>
 
+    <!-- ================= FAQ ANIMATION SCRIPT ================= -->
+    <script>
+    (function () {
+      // Envuelve el contenido de cada <details> en los divs de animación
+      document.querySelectorAll('details').forEach(function (det) {
+        var summary = det.querySelector('summary');
+        if (!summary) return;
+
+        // Agregar duration-300 al icono del chevron
+        var chevron = summary.querySelector('.material-symbols-outlined');
+        if (chevron) chevron.classList.add('duration-300');
+
+        // Buscar el div de contenido (hermano siguiente del summary)
+        var content = summary.nextElementSibling;
+        if (!content || content.classList.contains('faq-anim-wrap')) return;
+
+        // Crear wrappers
+        var wrap = document.createElement('div');
+        wrap.className = 'faq-anim-wrap';
+        var inner = document.createElement('div');
+        inner.className = 'faq-anim-inner';
+
+        // Mover el contenido al wrapper
+        det.insertBefore(wrap, content);
+        wrap.appendChild(inner);
+        inner.appendChild(content);
+      });
+    })();
+    </script>
+
 </body>
 </html>
-
