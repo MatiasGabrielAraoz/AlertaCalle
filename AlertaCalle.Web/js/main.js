@@ -31,8 +31,18 @@ try{
 
         let estadoIndex = parseInt(item.idEstado-1);
 
+        t.querySelector(".idCard").textContent = `#INC-${item.id}`;
         t.querySelector(".titulo").textContent = item.titulo;
-        t.querySelector(".estado").textContent = estados[estadoIndex];
+
+        let estado = t.querySelector(".estado");
+        estado.textContent = estados[estadoIndex];
+
+        switch(estadoIndex){
+            case 0: estado.classList.add("bg-primary-container", "animate-pulse"); break;
+            case 1: estado.classList.add("bg-secondary"); break;
+            case 2: estado.classList.add("bg-emerald-700"); break;
+        }
+
         t.querySelector(".categoria").textContent = item.categoria.nombre;
         t.querySelector(".direccion").textContent = item.direccion;
         t.querySelector(".tiempoRegistrado").textContent = `Registrado hace ${timeAgo(item.fechaCreacion)}`;

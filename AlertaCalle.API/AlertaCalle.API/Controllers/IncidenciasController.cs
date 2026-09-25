@@ -71,21 +71,21 @@ public class IncidenciasController(ApplicationDbContext db) : ControllerBase
     [Authorize]
     public async Task<IActionResult> Put(
         int id,
-        Incidencia incidencia,
+        PutIncidenciaDto incidenciaDto,
         CancellationToken cancellationToken)
     {
-        if (id != incidencia.Id)
-            return BadRequest();
 
-        if (!await db.Incidencias.AnyAsync(
-                incidenciaDb => incidenciaDb.Id == id,
-                cancellationToken))
-        {
-            return NotFound();
-        }
+        Incidencia? incidencia = await db.Incidencias.FindAsync([id], cancellationToken);
+        if (incidencia == null) return NotFound();
 
+        incidencia.Titulo = incidenciaDto.Titulo ?? incidencia.Titulo;
+        incidencia.Descr = incidenciaDto.Descr ?? incidencia.Descr;
+        incidencia.Direccion = incidenciaDto.Direccion ?? incidencia.Direccion;
+        incidencia.FotoUrl = incidenciaDto.FotoUrl ?? incidencia.FotoUrl;
+        incidencia.IdCategoria = incidenciaDto.IdCategoria ?? incidencia.IdCategoria;
+        incidencia.IdEstado = incidenciaDto.IdEstado ?? incidencia.IdEstado;
         incidencia.FechaActualizacion = DateTime.UtcNow;
-        db.Entry(incidencia).State = EntityState.Modified;
+
         await db.SaveChangesAsync(cancellationToken);
 
         return NoContent();

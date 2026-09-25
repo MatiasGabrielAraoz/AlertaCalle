@@ -66,7 +66,7 @@
             <div class="hidden text-center py-10 space-y-3" id="reportar-exito">
               <span class="material-symbols-outlined text-5xl text-emerald-600">check_circle</span>
               <h3 class="font-headline-sm text-lg font-bold text-on-surface">¡Reporte enviado con éxito!</h3>
-              <p class="text-sm text-secondary">Tu incidencia ya aparece en el Radar con estado <span class="font-bold text-primary">Pendiente</span>.</p>
+              <p class="text-sm text-secondary">Tu incidencia ya aparece en el Radar con estado <span class="font-bold text-primary">SIN RESOLVER</span>.</p>
             </div>
 
             <div class="paso-panel space-y-6" data-paso="1">
@@ -393,43 +393,6 @@
       });
     });
 
-    function construirCardHTML(datos) {
-      return `
-        <article class="incidencia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between" data-estado="pendiente" data-barrio="${datos.barrio}" data-categoria="${datos.categoriaKey}" data-busqueda="${datos.busqueda}">
-          <div class="p-6 space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">${datos.codigo}</span>
-              <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
-                PENDIENTE
-              </span>
-            </div>
-            <div class="space-y-1">
-              <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">${datos.emoji} ${datos.categoriaLabel}</span>
-              <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                ${datos.titulo}
-              </h3>
-            </div>
-            <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-              <div class="flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                <span class="font-medium text-on-surface">${datos.direccion} (${datos.barrio})</span>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-sm">schedule</span>
-                <span>Registrado Hoy ${datos.hora} hs</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-            <span class="font-label-code text-primary font-bold">RECIÉN REPORTADO</span>
-            <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
-              Ver seguimiento →
-            </a>
-          </div>
-        </article>
-      `;
-    }
-
     async function enviarReporteAPI(datos, info) {
       const leerCookie = function (nombre) {
         const prefijo = nombre + "=";
@@ -539,23 +502,6 @@
 
       const busqueda = (codigo + " " + direccion + " " + barrio + " " + titulo + " " + info.label + " pendiente").toLowerCase();
 
-      // Solo agrega la card si el grid de incidencias existe en esta página (inicio.html)
-      if (grid) {
-        const html = construirCardHTML({
-          codigo: codigo,
-          emoji: info.emoji,
-          categoriaLabel: info.label,
-          categoriaKey: info.categoria,
-          titulo: titulo,
-          direccion: direccion,
-          barrio: barrio,
-          descripcion: descripcion,
-          hora: hora,
-          busqueda: busqueda
-        });
-        grid.insertAdjacentHTML("afterbegin", html);
-      }
-
       // Actualiza la métrica de "Pendientes" solo si existe en esta página
       const pendientesEl = document.getElementById("metrica-pendientes");
       if (pendientesEl) {
@@ -567,6 +513,7 @@
 
       setTimeout(function () {
         cerrarModal();
+        window.location.reload();
       }, 1800);
     });
   }

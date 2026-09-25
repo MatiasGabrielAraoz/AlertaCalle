@@ -240,205 +240,75 @@
           </div>
         </div>
         <!-- GRID DE TARJETAS DE INCIDENCIAS URBANAS -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div id="incidencias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <!-- Card 1 -->
+          <template id="card">
+            <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="idCard font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
+                  <span class="estado font-label-code text-xs uppercase px-2.5 py-0.5 text-on-secondary font-bold rounded-full">
+                    EN PROCESO
+                  </span>
+                </div>
+                <div class="space-y-1">
+                  <span class="categoria font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                  <h3 class="titulo font-headline-sm text-base font-bold text-on-surface leading-snug">
+                    Luminaria LED intermitente y cable expuesto
+                  </h3>
+                </div>
+                <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                  <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                    <span class="direccion font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm">schedule</span>
+                    <span class="tiempoRegistrado">Registrado Hoy 09:15 hs</span>
+                  </div>
+                </div>
+              </div>
+              <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+                <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
+                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                  Ver seguimiento →
+                </a>
+              </div>
+            </article>
+          </template>
+
           <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                  EN PROCESO
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Luminaria LED intermitente y cable expuesto
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
+              <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                  <span class="idCard font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
+                  <span class="estado font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
+                    EN PROCESO
+                  </span>
                 </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hoy 09:15 hs</span>
+                <div class="space-y-1">
+                  <span class="categoria font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
+                  <h3 class="titulo font-headline-sm text-base font-bold text-on-surface leading-snug">
+                    Luminaria LED intermitente y cable expuesto
+                  </h3>
                 </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
-          <!-- Card 2 -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8488</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
-                  PENDIENTE
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Bache profundo en calzada principal
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Calle 9 de Julio 480 (Villa Belgrano)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Ayer 18:30 hs</span>
+                <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                  <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                    <span class="direccion font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm">schedule</span>
+                    <span class="tiempoRegistrado">Registrado Hoy 09:15 hs</span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-primary font-bold">ALERTA TRÁNSITO</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
-          <!-- Card 3 -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8461</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
-                  RESUELTA
-                </span>
+              <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+                <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
+                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                  Ver seguimiento →
+                </a>
               </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🗑️ Higiene y Residuos</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Contenedor desbordado y residuos en vereda
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Av. Rivadavia 3200 (Distrito Sur)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hace 2 días</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-emerald-700 font-bold">Verificado x Auditoría</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
-          <!-- Card 4 -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8495</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                  EN PROCESO
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🌳 Arbolado y Plazas</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Rama de gran porte con riesgo de caída
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Plaza Central (Sector Juegos) (Parque Norte)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hoy 07:45 hs</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-secondary">Defensa Civil en Zona</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
-          <!-- Card 5 -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8430</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
-                  RESUELTA
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Cordón cuneta destruido y losa desnivelada
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Bartolomé Mitre esq. Urquiza (San Andrés Centro)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hace 3 días</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-secondary">Reparación Hormigón Finalizada</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
-          <!-- Card 6 -->
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8501</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
-                  PENDIENTE
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Tablero eléctrico abierto con peligro de corte
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Parque Moreno - Senda Norte (Parque Norte)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hoy 11:20 hs</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-primary font-bold">CRÍTICO / ENERGÍA</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                Ver seguimiento →
-              </a>
-            </div>
-          </article>
+            </article>
         </div>
       </section>
 
@@ -659,5 +529,7 @@
         </div>
       </div>
     </footer>
+
+    <script type="module" src="js/main.js"></script>
   </body>
 </html>

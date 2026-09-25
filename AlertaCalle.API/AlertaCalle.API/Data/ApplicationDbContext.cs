@@ -61,7 +61,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Direccion).HasMaxLength(300).IsRequired();
-            e.Property(x => x.FotoUrl).HasMaxLength(1000).IsRequired();
+            e.Property(x => x.FotoUrl).HasMaxLength(1000);
             e.Property(x => x.Titulo).HasMaxLength(200).IsRequired();
             e.Property(x => x.Descr).HasMaxLength(2000).IsRequired();
             e.HasOne(x => x.Estado)

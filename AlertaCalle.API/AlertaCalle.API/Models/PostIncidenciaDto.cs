@@ -2,7 +2,6 @@ namespace AlertaCalle.API.Models;
 
 public class PostIncidenciaDto
 {
-    public int Id { get; set; }
     public string Direccion { get; set; } = string.Empty;
     public string? FotoUrl { get; set; }
     public string Titulo { get; set; } = string.Empty;
