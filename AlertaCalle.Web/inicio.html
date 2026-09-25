@@ -22,9 +22,9 @@
     <!-- Configuración de Tailwind (ver js/app.js) -->
     <script src="js/app.js"></script>
 
-    <!-- Navbar reutilizable: una sola fuente de verdad para todo el sitio -->
+    <!-- Navbar reutilizable -->
     <script type="module" src="js/navbar.js"></script>
-
+      
     <!-- Overlay reportar-->
     <script src="js/reportar-modal.js"></script>
 
@@ -62,7 +62,7 @@
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Recibidos</p>
             <div class="flex items-baseline justify-between">
-              <p class="font-headline-md text-2xl font-extrabold text-on-surface">124</p>
+              <p id="metrica-recibidos" class="font-headline-md text-2xl font-extrabold text-on-surface">0</p>
               <span class="material-symbols-outlined text-secondary text-lg">inbox</span>
             </div>
             <span class="text-[11px] font-label-code text-secondary block mt-1">Totales este mes</span>
@@ -70,15 +70,15 @@
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Solucionados</p>
             <div class="flex items-baseline justify-between">
-              <p class="font-headline-md text-2xl font-extrabold text-emerald-700">87</p>
-              <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold">70%</span>
+              <p id="metrica-solucionados" class="font-headline-md text-2xl font-extrabold text-emerald-700">0</p>
+              <span id="metrica-solucionados-pct" class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold">0%</span>
             </div>
             <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Con conformidad vecinal</span>
           </div>
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">En Proceso</p>
             <div class="flex items-baseline justify-between">
-              <p class="font-headline-md text-2xl font-extrabold text-on-surface">32</p>
+              <p id="metrica-proceso" class="font-headline-md text-2xl font-extrabold text-on-surface">0</p>
               <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
             </div>
             <span class="text-[11px] font-label-code text-secondary block mt-1">Cuadrillas en terreno</span>
@@ -86,7 +86,7 @@
           <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
             <p class="font-label-code text-label-code uppercase text-secondary mb-1">Pendientes</p>
             <div class="flex items-baseline justify-between">
-              <p class="font-headline-md text-2xl font-extrabold text-primary" id="metrica-pendientes">5</p>
+              <p id="metrica-pendientes" class="font-headline-md text-2xl font-extrabold text-primary">0</p>
               <span class="material-symbols-outlined text-primary text-lg">pending</span>
             </div>
             <span class="text-[11px] font-label-code text-primary block mt-1">En triage técnico</span>
@@ -106,7 +106,7 @@
           <!-- Live Count Badge -->
           <div class="inline-flex items-center gap-2.5 bg-surface-container-lowest border border-surface-container-high rounded-lg px-3 py-1.5 font-label-code text-label-code shadow-xs">
             <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
-            <span>6 REPORTES ACTIVOS AUDITADOS</span>
+            <span id="metrica-badge-total">0 REPORTES ACTIVOS AUDITADOS</span>
           </div>
         </div>
         <!-- Controls & Filter Toolbar -->
@@ -188,7 +188,7 @@
               </div>
               <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
                 <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
+                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
                   Ver seguimiento →
                 </a>
               </div>
@@ -227,7 +227,7 @@
         <!-- Official Notice Cards (con foto arriba) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Noticia 1: Corte por repavimentación -->
-          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col cursor-pointer" data-id="noticia-1">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/repavimentacion.jpg" alt="Obras de repavimentación en Av. San Martín" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -249,7 +249,7 @@
             </div>
           </article>
           <!-- Noticia 2: Plan recolección nocturna -->
-          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col cursor-pointer" data-id="noticia-2">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/recoleccion-nocturna.jpg" alt="Camión recolector en recorrido nocturno" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -271,7 +271,7 @@
             </div>
           </article>
           <!-- Noticia 3: Modernización LED -->
-          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col">
+          <article class="noticia-card bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col cursor-pointer" data-id="noticia-3">
             <div class="h-44 w-full bg-surface-container">
               <img src="img/noticias/luminarias-led.jpg" alt="Instalación de luminarias LED" loading="lazy" class="w-full h-full object-cover"/>
             </div>
@@ -366,39 +366,66 @@
             </div>
           </details>
         </div>
-        <!-- Tarjetas de contacto directo / teléfonos útiles -->
+        <!-- Tarjetas de contacto directo / teléfonos útiles (click en cualquier parte redirige) -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <!-- 911 -->
-          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <a href="tel:911" class="contacto-card block p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2 hover:border-primary hover:scale-[1.02] transition-all cursor-pointer">
             <span class="material-symbols-outlined text-primary text-3xl">local_police</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">Línea 911</h4>
             <p class="text-xs text-secondary">Emergencias policiales y médicas inmediatas.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-primary hover:underline" href="tel:911">Llamar Ahora</a>
-          </div>
+            <span class="inline-block font-label-code text-xs font-bold text-primary underline">Llamar Ahora</span>
+          </a>
           <!-- 103 -->
-          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <a href="tel:103" class="contacto-card block p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2 hover:border-amber-600 hover:scale-[1.02] transition-all cursor-pointer">
             <span class="material-symbols-outlined text-amber-600 text-3xl">warning</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">103 Defensa Civil</h4>
             <p class="text-xs text-secondary">Árboles caídos, cables cortados e inundación.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-amber-700 hover:underline" href="tel:103">Llamar Ahora</a>
-          </div>
+            <span class="inline-block font-label-code text-xs font-bold text-amber-700 underline">Llamar Ahora</span>
+          </a>
           <!-- WhatsApp -->
-          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <a href="https://wa.me/" class="contacto-card block p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2 hover:border-emerald-600 hover:scale-[1.02] transition-all cursor-pointer">
             <span class="material-symbols-outlined text-emerald-600 text-3xl">chat</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">WhatsApp 24hs</h4>
             <p class="text-xs text-secondary">+54 9 11 4000-CIUDAD Guardia vecinal.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-emerald-700 hover:underline" href="https://wa.me/">Enviar Mensaje</a>
-          </div>
+            <span class="inline-block font-label-code text-xs font-bold text-emerald-700 underline">Enviar Mensaje</span>
+          </a>
           <!-- 0800 -->
-          <div class="contacto-card p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2">
+          <a href="tel:080000000" class="contacto-card block p-4 bg-surface-container-lowest border border-surface-container-high rounded-xl soft-card-shadow text-center space-y-2 hover:border-primary hover:scale-[1.02] transition-all cursor-pointer">
             <span class="material-symbols-outlined text-secondary text-3xl">support_agent</span>
             <h4 class="font-headline-sm text-lg font-bold text-on-surface">0800-MUNICIPIO</h4>
             <p class="text-xs text-secondary">Atención y trámites de lunes a viernes 8-18hs.</p>
-            <a class="inline-block font-label-code text-xs font-bold text-secondary hover:underline" href="tel:080000000">0800-444-2483</a>
-          </div>
+            <span class="inline-block font-label-code text-xs font-bold text-secondary underline">0800-444-2483</span>
+          </a>
         </div>
       </section>
     </main>
+
+    <!-- ================= OVERLAY MODAL DE NOTICIA EXPLAYADA ================= -->
+    <div id="overlay-noticia" class="overlay-noticia" onclick="window.cerrarNoticia && window.cerrarNoticia()">
+      <div
+        class="overlay-noticia-content bg-surface-container-lowest rounded-2xl border border-surface-container-high shadow-2xl w-full max-w-2xl max-h-[88vh] overflow-y-auto mx-4"
+        onclick="event.stopPropagation()"
+      >
+        <div class="relative">
+          <div class="h-56 w-full bg-surface-container rounded-t-2xl overflow-hidden">
+            <img id="overlay-noticia-imagen" src="" alt="" class="w-full h-full object-cover" />
+          </div>
+          <button
+            onclick="window.cerrarNoticia && window.cerrarNoticia()"
+            class="absolute top-3 right-3 w-9 h-9 rounded-full bg-on-surface/60 text-surface flex items-center justify-center hover:bg-on-surface/80 transition-colors shadow-md cursor-pointer"
+            type="button"
+          >
+            <span class="material-symbols-outlined text-xl">close</span>
+          </button>
+        </div>
+        <div class="p-6 sm:p-8 space-y-4">
+          <div id="overlay-noticia-badge"></div>
+          <h2 id="overlay-noticia-titulo" class="font-headline-md text-xl sm:text-2xl font-extrabold text-on-surface leading-tight"></h2>
+          <div id="overlay-noticia-cuerpo" class="text-sm text-secondary leading-relaxed space-y-3"></div>
+          <div id="overlay-noticia-footer" class="pt-4 border-t border-surface-container-high text-xs font-label-code text-secondary"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- ================= FOOTER INSTITUCIONAL ================= -->
     <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
@@ -430,5 +457,6 @@
     </footer>
 
     <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/noticias.js"></script>
   </body>
 </html>

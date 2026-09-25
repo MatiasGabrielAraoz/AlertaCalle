@@ -35,7 +35,7 @@ services:
       Jwt__Audience: AlertaCalle.Client
       Jwt__ExpirationMinutes: 60
     ports:
-      - "5208:8080"
+      - "8080:8080"
 
 volumes:
   alertacalle-postgres-data:

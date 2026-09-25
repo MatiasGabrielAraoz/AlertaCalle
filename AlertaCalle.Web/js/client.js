@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5208";
+const API_BASE_URL = "http://localhost:8080";
 
 function cookieOptions(maxAge) {
   const secure = window.location.protocol === "https:" ? "; Secure" : "";

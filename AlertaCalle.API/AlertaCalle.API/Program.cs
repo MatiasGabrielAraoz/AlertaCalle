@@ -13,7 +13,17 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLiveServer", policy =>
+    {
+        policy.SetIsOriginAllowed(origin => true) // Permite http://localhost:5500, http://127.0.0.1:5500, etc.
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 builder.Services.AddControllers()
         .AddJsonOptions(options =>
     {
@@ -95,7 +105,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.UseCors("AllowLiveServer");
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -27,27 +27,6 @@
     
     <!-- Overlay reportar-->
     <script src="js/reportar-modal.js"></script>
-
-    <script type="module">
-    import { ApiClient } from "./js/client.js";
-
-    const sesion = ApiClient.obtenerSesion();
-
-    if (!sesion) {
-      window.location.href = "login.html";
-    } else {
-      const usuario = sesion.usuario;
-      document.getElementById("user-display-name").textContent = `${usuario.nombre} ${usuario.apellido}`;
-      const inputCorreoActual = document.getElementById("input-correo-actual");
-      if (inputCorreoActual) inputCorreoActual.value = usuario.email;
-    }
-
-    document.getElementById("btn-cerrar-sesion").addEventListener("click", function (e) {
-      e.preventDefault();
-      ApiClient.cerrarSesion();
-      window.location.href = "login.html";
-    });
-  </script>
   </head>
   <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
     <!-- ================= TOP NAV BAR ================= -->
@@ -82,44 +61,30 @@
             <div class="absolute inset-0 map-grid-pattern opacity-40"></div>
             <div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
             <div class="absolute top-4 right-6 flex items-center gap-2">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest border border-surface-container-high rounded-full font-label-code text-xs text-emerald-700 font-bold">
+              <span id="badge-rol-perfil" class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest border border-surface-container-high rounded-full font-label-code text-xs text-emerald-700 font-bold">
                 <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 CIUDADANO VERIFICADO
               </span>
             </div>
           </div>
 
-          <div class="px-6 sm:px-8 pb-8">
-            <!-- Avatar, identidad y botones principales -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
-                <div class="flex flex-col sm:flex-row items-start sm:items-end gap-5">
-                  <div class="relative -mt-12 sm:-mt-14">
-                    <div id="avatar-iniciales" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0 shadow-lg">
-                      MG
-                    </div>
-                    <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-surface-container-lowest" title="Usuario activo"></span>
-                  </div>
-                  <div class="space-y-1">
-                  <div class="flex items-center gap-2.5">
-                    <h1 id="user-display-name" class="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface leading-tight">
-                      Martina González
-                    </h1>
-                    <span class="material-symbols-outlined text-emerald-600 text-xl" title="Identidad Validada">verified</span>
-                  </div>
-                  <p class="text-xs font-label-code text-secondary flex flex-wrap items-center gap-2">
-                    <span>Barrio San Andrés Centro</span>
-                    <span>•</span>
-                    <span>Miembro desde Marzo 2025</span>
-                  </p>
+          <div class="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+            <!-- Fila superior: Avatar + Botones de Acción -->
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 -mt-12 sm:-mt-14 mb-5">
+              <!-- Avatar superpuesto -->
+              <div class="relative shrink-0">
+                <div id="avatar-iniciales" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shadow-lg">
+                  MG
                 </div>
+                <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-surface-container-lowest" title="Usuario activo"></span>
               </div>
 
-              <!-- BOTONES: CONFIGURACIÓN DE PERFIL Y CERRAR SESIÓN -->
-              <div class="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
+              <!-- Botones principales (Configuración y Cerrar Sesión) -->
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto mt-1 sm:mt-0">
                 <button
                   type="button"
                   id="btn-abrir-configuracion"
-                  class="inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface border border-surface-container-high hover:border-primary/50 hover:bg-surface-container-low px-4 py-2.5 rounded-xl font-label-code text-xs font-bold shadow-xs transition-all cursor-pointer"
+                  class="inline-flex items-center justify-center gap-2 bg-surface-container-lowest text-on-surface border border-surface-container-high hover:border-primary/50 hover:bg-surface-container-low px-4 py-2.5 rounded-xl font-label-code text-xs font-bold shadow-xs transition-all cursor-pointer whitespace-nowrap"
                 >
                   <span class="material-symbols-outlined text-primary text-base">settings</span>
                   <span>Configuración de Perfil</span>
@@ -128,7 +93,7 @@
                 <a
                   href="login.html"
                   id="btn-cerrar-sesion"
-                  class="inline-flex items-center gap-2 bg-surface-container-low text-secondary hover:text-primary hover:bg-surface-container-lowest border border-surface-container-high px-4 py-2.5 rounded-xl font-label-code text-xs font-bold transition-all cursor-pointer"
+                  class="inline-flex items-center justify-center gap-2 bg-surface-container-low text-secondary hover:text-primary hover:bg-surface-container-lowest border border-surface-container-high px-4 py-2.5 rounded-xl font-label-code text-xs font-bold transition-all cursor-pointer whitespace-nowrap"
                 >
                   <span class="material-symbols-outlined text-base text-primary">logout</span>
                   <span>Cerrar Sesión</span>
@@ -136,12 +101,27 @@
               </div>
             </div>
 
-            <!-- Métricas resumidas -->
+            <!-- Fila inferior: Nombre e Identidad -->
+            <div class="space-y-1 mb-6">
+              <div class="flex flex-wrap items-center gap-2 sm:gap-2.5">
+                <h1 id="user-display-name" class="font-headline-lg text-xl sm:text-2xl lg:text-3xl font-extrabold text-on-surface leading-tight">
+                  Martina González
+                </h1>
+                <span class="material-symbols-outlined text-emerald-600 text-lg sm:text-xl" title="Identidad Validada">verified</span>
+              </div>
+              <p class="text-xs font-label-code text-secondary flex flex-wrap items-center gap-2">
+                <span>Barrio San Andrés Centro</span>
+                <span>•</span>
+                <span>Miembro desde Marzo 2025</span>
+              </p>
+            </div>
+
+            <!-- Métricas resumidas vinculadas dinámicamente a los reportes -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
               <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
                 <p class="font-label-code text-label-code uppercase text-secondary mb-1">Cargados</p>
                 <div class="flex items-baseline justify-between">
-                  <p class="font-headline-md text-2xl font-extrabold text-on-surface">8</p>
+                  <p id="stat-cargados" class="font-headline-md text-2xl font-extrabold text-on-surface">3</p>
                   <span class="material-symbols-outlined text-secondary text-lg">inbox</span>
                 </div>
                 <span class="text-[11px] font-label-code text-secondary block mt-1">Total de reportes</span>
@@ -150,8 +130,8 @@
               <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
                 <p class="font-label-code text-label-code uppercase text-secondary mb-1">Solucionados</p>
                 <div class="flex items-baseline justify-between">
-                  <p class="font-headline-md text-2xl font-extrabold text-emerald-700">5</p>
-                  <span class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold">63%</span>
+                  <p id="stat-solucionados" class="font-headline-md text-2xl font-extrabold text-emerald-700">1</p>
+                  <span id="stat-solucionados-pct" class="bg-emerald-100 text-emerald-800 text-[11px] font-label-code px-1.5 py-0.5 rounded font-bold">33%</span>
                 </div>
                 <span class="text-[11px] font-label-code text-emerald-700 block mt-1">Finalizados por municipio</span>
               </div>
@@ -159,7 +139,7 @@
               <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
                 <p class="font-label-code text-label-code uppercase text-secondary mb-1">En Proceso</p>
                 <div class="flex items-baseline justify-between">
-                  <p class="font-headline-md text-2xl font-extrabold text-on-surface">2</p>
+                  <p id="stat-proceso" class="font-headline-md text-2xl font-extrabold text-on-surface">1</p>
                   <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse"></span>
                 </div>
                 <span class="text-[11px] font-label-code text-secondary block mt-1">Cuadrilla en terreno</span>
@@ -168,7 +148,7 @@
               <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/40 transition-all">
                 <p class="font-label-code text-label-code uppercase text-secondary mb-1">Pendientes</p>
                 <div class="flex items-baseline justify-between">
-                  <p class="font-headline-md text-2xl font-extrabold text-primary">1</p>
+                  <p id="stat-pendientes" class="font-headline-md text-2xl font-extrabold text-primary">1</p>
                   <span class="material-symbols-outlined text-primary text-lg">pending</span>
                 </div>
                 <span class="text-[11px] font-label-code text-primary block mt-1">En triage técnico</span>
@@ -188,28 +168,32 @@
               ESTADÍSTICAS DE REPORTE DETALLADAS
             </h2>
           </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-surface-container-high font-label-code text-xs text-secondary shadow-xs">
+            <span class="material-symbols-outlined text-primary text-base">analytics</span>
+            <span id="stat-cumplimiento-sla">CUMPLIMIENTO SLA: 87%</span>
+          </div>
         </div>
 
         <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 soft-card-shadow space-y-6">
           
-          <!-- Barras de Progreso e Índices -->
+          <!-- Barras de Progreso e Índices (Actualizadas en tiempo real) -->
           <div class="space-y-4 bg-surface-container-low border border-surface-container-high rounded-xl p-5">
             <div class="flex items-center justify-between text-xs font-label-code">
               <span class="font-bold text-on-surface">Tasa de Efectividad Comunal</span>
-              <span class="text-emerald-700 font-bold">62.5% Resueltas</span>
+              <span id="stat-efectividad-txt" class="text-emerald-700 font-bold">33.3% Resueltas</span>
             </div>
             
-            <!-- Barra de distribución -->
+            <!-- Barra de distribución dinámica -->
             <div class="h-4 w-full bg-surface-container-high rounded-full overflow-hidden flex">
-              <div class="bg-emerald-500 h-full" style="width: 62.5%" title="Resueltas: 5 (62.5%)"></div>
-              <div class="bg-amber-500 h-full" style="width: 25%" title="En Proceso: 2 (25%)"></div>
-              <div class="bg-primary-container h-full" style="width: 12.5%" title="Pendientes: 1 (12.5%)"></div>
+              <div id="bar-resueltas" class="bg-emerald-500 h-full transition-all duration-500" style="width: 33.3%" title="Resueltas"></div>
+              <div id="bar-proceso" class="bg-amber-500 h-full transition-all duration-500" style="width: 33.3%" title="En Proceso"></div>
+              <div id="bar-pendientes" class="bg-primary-container h-full transition-all duration-500" style="width: 33.4%" title="Pendientes"></div>
             </div>
 
             <div class="flex flex-wrap items-center justify-between text-[11px] font-label-code text-secondary pt-1">
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Resueltas (5)</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500"></span> En Proceso (2)</span>
-              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-container"></span> Pendientes (1)</span>
+              <span id="legend-resueltas" class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Resueltas (1)</span>
+              <span id="legend-proceso" class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-500"></span> En Proceso (1)</span>
+              <span id="legend-pendientes" class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-primary-container"></span> Pendientes (1)</span>
             </div>
           </div>
 
@@ -217,8 +201,8 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
             <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
               <span class="font-label-code text-[11px] uppercase text-secondary block">Categoría Más Reportada</span>
-              <p class="font-bold text-on-surface text-sm">💡 Alumbrado Público</p>
-              <p class="text-secondary text-[11px]">5 reportes (62.5% del total cargado).</p>
+              <p id="detail-cat-nombre" class="font-bold text-on-surface text-sm">💡 Alumbrado Público</p>
+              <p id="detail-cat-desc" class="text-secondary text-[11px]">2 reportes (66.7% de tus cargas).</p>
             </div>
 
             <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
@@ -230,13 +214,13 @@
             <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
               <span class="font-label-code text-[11px] uppercase text-secondary block">Barrio Principal Auditado</span>
               <p class="font-bold text-on-surface text-sm">📍 San Andrés Centro</p>
-              <p class="text-secondary text-[11px]">7 de 8 reportes geolocalizados.</p>
+              <p id="detail-barrio-desc" class="text-secondary text-[11px]">3 reportes geolocalizados.</p>
             </div>
 
             <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl space-y-1 hover:border-primary/40 transition-all">
               <span class="font-label-code text-[11px] uppercase text-secondary block">Estado de Auditoría</span>
               <p class="font-bold text-emerald-700 text-sm">✓ Conformidad Confirmada</p>
-              <p class="text-secondary text-[11px]">Verificación hoy a las 08:10 hs.</p>
+              <p class="text-secondary text-[11px]">Verificación en tiempo real.</p>
             </div>
           </div>
 
@@ -254,7 +238,7 @@
           </div>
           <div class="inline-flex items-center gap-2.5 bg-surface-container-lowest border border-surface-container-high rounded-lg px-3 py-1.5 font-label-code text-label-code shadow-xs">
             <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
-            <span>8 REPORTES EN TU CUENTA</span>
+            <span id="badge-total-reportes">3 REPORTES EN TU CUENTA</span>
           </div>
         </div>
 
@@ -308,10 +292,10 @@
             </div>
             <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
               <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
                 <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
-              </button>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
             </div>
 
             <!-- Panel de seguimiento -->
@@ -397,10 +381,10 @@
             </div>
             <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
               <span class="font-label-code text-primary font-bold">CRÍTICO / ENERGÍA</span>
-              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
                 <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
-              </button>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
             </div>
 
             <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
@@ -435,8 +419,7 @@
                     <span class="font-label-code text-[11px] text-secondary font-medium">Asignado</span>
                     <span class="text-[10px] text-secondary">Pendiente</span>
                   </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
+                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
                     <span class="font-label-code text-[11px] text-secondary font-medium">En Reparación</span>
                     <span class="text-[10px] text-secondary">Pendiente</span>
                   </div>
@@ -483,10 +466,10 @@
             </div>
             <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
               <span class="font-label-code text-secondary">Reparación Hormigón Finalizada</span>
-              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
                 <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
-              </button>
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
             </div>
 
             <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
@@ -573,7 +556,7 @@
                 </h2>
               </div>
             </div>
-            <button id="btn-cerrar-configuracion" class="shrink-0 w-9 h-9 inline-flex items-center justify-center rounded-lg border border-surface-container-high text-secondary hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button">
+            <button id="btn-cerrar-configuracion" class="shrink-0 w-9 h-9 inline-flex items-center justify-center rounded-lg border border-surface-container-high text-secondary hover:text-on-surface hover:bg-surface-container-low transition-colors cursor-pointer" type="button">
               <span class="material-symbols-outlined text-xl">close</span>
             </button>
           </div>
@@ -581,17 +564,21 @@
           <!-- Pestañas de Navegación del Modal -->
           <div class="p-4 sm:p-6 space-y-6">
             <div class="border-b border-surface-container-high flex flex-wrap gap-2 pb-1 font-label-code text-xs">
-              <button type="button" class="tab-config active px-3.5 py-2 rounded-lg font-bold bg-primary-container text-on-primary transition-all flex items-center gap-1.5" data-config-tab="datos">
+              <button type="button" class="tab-config active px-3.5 py-2 rounded-lg font-bold bg-primary-container text-on-primary transition-all flex items-center gap-1.5 cursor-pointer" data-config-tab="datos">
                 <span class="material-symbols-outlined text-sm">badge</span>
                 <span>Datos & Nombre</span>
               </button>
-              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5" data-config-tab="correo">
+              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5 cursor-pointer" data-config-tab="correo">
                 <span class="material-symbols-outlined text-sm">mail</span>
                 <span>Cambiar Correo</span>
               </button>
-              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5" data-config-tab="password">
+              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5 cursor-pointer" data-config-tab="password">
                 <span class="material-symbols-outlined text-sm">lock</span>
                 <span>Cambiar Contraseña</span>
+              </button>
+              <button type="button" class="tab-config px-3.5 py-2 rounded-lg text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all flex items-center gap-1.5 cursor-pointer" data-config-tab="rol">
+                <span class="material-symbols-outlined text-sm">admin_panel_settings</span>
+                <span>Rol & Permisos</span>
               </button>
             </div>
 
@@ -600,7 +587,7 @@
               <div>
                 <h3 class="font-headline-sm text-base font-bold text-on-surface flex items-center gap-2">
                   <span>Visualización de Identidad Ciudadana</span>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-label-code px-2 py-0.5 rounded-full font-bold">VERIFICADO</span>
+                  <span id="badge-rol-datos-tab" class="bg-emerald-100 text-emerald-800 text-[10px] font-label-code px-2 py-0.5 rounded-full font-bold">VERIFICADO</span>
                 </h3>
                 <p class="text-xs text-secondary mt-1">Los datos de identidad se encuentran validados mediante el Registro Comunal de Vecinos.</p>
               </div>
@@ -612,7 +599,7 @@
                   </div>
                   <div>
                     <span class="font-label-code text-[11px] uppercase text-secondary">Nombre Registrado</span>
-                    <h4 class="font-headline-sm text-lg font-extrabold text-on-surface">Martina González</h4>
+                    <h4 id="user-display-name-modal" class="font-headline-sm text-lg font-extrabold text-on-surface">Martina González</h4>
                     <span class="text-xs text-secondary font-label-code">ID VECINO: #VEC-9042</span>
                   </div>
                 </div>
@@ -627,6 +614,21 @@
                     <p class="font-bold text-on-surface">15 de Marzo de 2025</p>
                   </div>
                 </div>
+              </div>
+
+              <!-- Control Rápido de Rol id_rol -->
+              <div class="bg-surface-container-low border border-surface-container-high rounded-xl p-4 space-y-3">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="space-y-0.5">
+                    <span class="font-label-code text-[11px] uppercase text-primary font-bold">ROL & PERMISOS DE DEMOSTRACIÓN</span>
+                    <p id="txt-rol-actual" class="font-bold text-on-surface text-sm">Rol Actual: VECINO / CIUDADANO (id_rol = 2)</p>
+                  </div>
+                  <button type="button" id="btn-toggle-rol" class="inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-4 py-2.5 rounded-lg font-bold glow-red-button transition-all cursor-pointer whitespace-nowrap">
+                    <span class="material-symbols-outlined text-base">admin_panel_settings</span>
+                    <span id="btn-toggle-rol-text">Cambiar id_rol a Admin (1)</span>
+                  </button>
+                </div>
+                <div id="alerta-rol-quick" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
               </div>
             </div>
 
@@ -656,7 +658,7 @@
                 <div id="alerta-correo" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
 
                 <div class="pt-2 flex justify-end">
-                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all">
+                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all cursor-pointer">
                     <span class="material-symbols-outlined text-sm">save</span>
                     <span>Guardar Nuevo Correo</span>
                   </button>
@@ -690,12 +692,47 @@
                 <div id="alerta-password" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
 
                 <div class="pt-2 flex justify-end">
-                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all">
+                  <button type="submit" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all cursor-pointer">
                     <span class="material-symbols-outlined text-sm">key</span>
                     <span>Actualizar Contraseña</span>
                   </button>
                 </div>
               </form>
+            </div>
+
+            <!-- TAB 4: ROL Y PERMISOS DEMO -->
+            <div class="panel-config-tab hidden space-y-5" data-tab-panel="rol">
+              <div>
+                <h3 class="font-headline-sm text-base font-bold text-on-surface flex items-center gap-2">
+                  <span class="material-symbols-outlined text-primary text-xl">admin_panel_settings</span>
+                  <span>Modo Demostración — Gestión de Rol (`id_rol`)</span>
+                </h3>
+                <p class="text-xs text-secondary mt-1">Podés cambiar el `id_rol` de tu usuario para la presentación y pruebas con privilegios administrativos o de vecino.</p>
+              </div>
+
+              <div class="bg-surface-container-low border border-surface-container-high rounded-xl p-5 space-y-4">
+                <div class="flex items-center justify-between pb-4 border-b border-surface-container-high">
+                  <div>
+                    <span class="font-label-code text-[11px] uppercase text-secondary">Estado Actual del Rol</span>
+                    <h4 id="txt-rol-tab" class="font-headline-sm text-lg font-extrabold text-on-surface">VECINO / CIUDADANO (id_rol = 2)</h4>
+                  </div>
+                  <span class="material-symbols-outlined text-3xl text-primary">shield_person</span>
+                </div>
+
+                <div class="space-y-2 text-xs font-body-sm text-secondary">
+                  <p>• <strong class="text-on-surface">id_rol = 1 (Admin)</strong>: Permite gestionar usuarios, cambiar estados de incidencias a resuelto/en proceso y acceder a controles de auditoría.</p>
+                  <p>• <strong class="text-on-surface">id_rol = 2 (Vecino)</strong>: Usuario estándar con capacidad para crear reportes y dar seguimiento.</p>
+                </div>
+
+                <div id="alerta-rol-tab" class="hidden p-3 rounded-lg text-xs font-label-code"></div>
+
+                <div class="pt-2 flex justify-end">
+                  <button type="button" id="btn-toggle-rol-tab" class="inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold glow-red-button transition-all cursor-pointer">
+                    <span class="material-symbols-outlined text-sm">admin_panel_settings</span>
+                    <span id="btn-toggle-rol-tab-text">Cambiar id_rol a Admin (1)</span>
+                  </button>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -732,29 +769,368 @@
 
     <!-- ================= SCRIPTS DE PÁGINA Y MODAL ================= -->
     <script type="module">
-  import { ApiClient } from "./js/client.js";
+      import { ApiClient } from "./js/client.js";
 
-  const sesion = ApiClient.obtenerSesion();
+      // 1. Manejo de Sesión de Usuario y Rol
+      let idRolActual = 2; // Por defecto 2 (Vecino)
 
-  if (!sesion) {
-    window.location.href = "login.html";
-  } else {
-    const usuario = sesion.usuario;
-    document.getElementById("user-display-name").textContent = `${usuario.nombre} ${usuario.apellido}`;
+      function aplicarRolEnUI(idRol) {
+        idRolActual = Number(idRol);
+        const esAdmin = idRolActual === 1;
 
-    const iniciales = `${usuario.nombre?.[0] || ""}${usuario.apellido?.[0] || ""}`.toUpperCase();
-    document.getElementById("avatar-iniciales").textContent = iniciales;
-    document.getElementById("avatar-iniciales-modal").textContent = iniciales;
+        // Badge superior en perfil
+        const badgePerfil = document.getElementById("badge-rol-perfil");
+        if (badgePerfil) {
+          if (esAdmin) {
+            badgePerfil.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-300 rounded-full font-label-code text-xs text-amber-800 font-bold shadow-xs";
+            badgePerfil.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> ADMINISTRADOR (id_rol: 1)`;
+          } else {
+            badgePerfil.className = "inline-flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest border border-surface-container-high rounded-full font-label-code text-xs text-emerald-700 font-bold";
+            badgePerfil.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> CIUDADANO VERIFICADO (id_rol: 2)`;
+          }
+        }
 
-    const inputCorreoActual = document.getElementById("input-correo-actual");
-    if (inputCorreoActual) inputCorreoActual.value = usuario.email;
-  }
+        // Badge pequeño en tab datos
+        const badgeDatosTab = document.getElementById("badge-rol-datos-tab");
+        if (badgeDatosTab) {
+          if (esAdmin) {
+            badgeDatosTab.className = "bg-amber-100 text-amber-800 text-[10px] font-label-code px-2 py-0.5 rounded-full font-bold";
+            badgeDatosTab.textContent = "ADMINISTRADOR (id_rol: 1)";
+          } else {
+            badgeDatosTab.className = "bg-emerald-100 text-emerald-800 text-[10px] font-label-code px-2 py-0.5 rounded-full font-bold";
+            badgeDatosTab.textContent = "VECINO (id_rol: 2)";
+          }
+        }
 
-  document.getElementById("btn-cerrar-sesion").addEventListener("click", function (e) {
-    e.preventDefault();
-    ApiClient.cerrarSesion();
-    window.location.href = "login.html";
-  });
-</script>
+        // Textos de estado de rol
+        const txtRolActual = document.getElementById("txt-rol-actual");
+        const txtRolTab = document.getElementById("txt-rol-tab");
+        const btnToggleRolText = document.getElementById("btn-toggle-rol-text");
+        const btnToggleRolTabText = document.getElementById("btn-toggle-rol-tab-text");
+
+        const statusMsg = esAdmin ? "ADMINISTRADOR (id_rol = 1)" : "VECINO / CIUDADANO (id_rol = 2)";
+        const btnMsg = esAdmin ? "Cambiar id_rol a Vecino (2)" : "Cambiar id_rol a Admin (1)";
+
+        if (txtRolActual) txtRolActual.textContent = `Rol Actual: ${statusMsg}`;
+        if (txtRolTab) txtRolTab.textContent = statusMsg;
+        if (btnToggleRolText) btnToggleRolText.textContent = btnMsg;
+        if (btnToggleRolTabText) btnToggleRolTabText.textContent = btnMsg;
+      }
+
+      function cambiarRolUsuario(nuevoIdRol, alertaEl) {
+        const sesionActual = ApiClient.obtenerSesion();
+        if (!sesionActual || !sesionActual.usuario) return;
+
+        const usuario = sesionActual.usuario;
+        usuario.id_rol = nuevoIdRol;
+        usuario.idRol = nuevoIdRol;
+        usuario.rol = nuevoIdRol === 1 ? "Admin" : "User";
+
+        ApiClient.guardarSesion(sesionActual.token, usuario, true);
+        aplicarRolEnUI(nuevoIdRol);
+
+        if (alertaEl) {
+          const rolNombre = nuevoIdRol === 1 ? "ADMINISTRADOR (id_rol = 1)" : "VECINO / CIUDADANO (id_rol = 2)";
+          alertaEl.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+          alertaEl.innerHTML = `✓ <strong>id_rol</strong> cambiado con éxito a <strong>${rolNombre}</strong> para la demostración.`;
+        }
+      }
+
+      const sesion = ApiClient.obtenerSesion();
+      if (!sesion) {
+        window.location.href = "login.html";
+      } else {
+        const usuario = sesion.usuario;
+        const nombreCompleto = `${usuario.nombre || "Martina"} ${usuario.apellido || "González"}`;
+        
+        const elNombre = document.getElementById("user-display-name");
+        const elNombreModal = document.getElementById("user-display-name-modal");
+        if (elNombre) elNombre.textContent = nombreCompleto;
+        if (elNombreModal) elNombreModal.textContent = nombreCompleto;
+
+        const iniciales = `${usuario.nombre?.[0] || "M"}${usuario.apellido?.[0] || "G"}`.toUpperCase();
+        const avatarEl = document.getElementById("avatar-iniciales");
+        const avatarModalEl = document.getElementById("avatar-iniciales-modal");
+        if (avatarEl) avatarEl.textContent = iniciales;
+        if (avatarModalEl) avatarModalEl.textContent = iniciales;
+
+        const inputCorreoActual = document.getElementById("input-correo-actual");
+        const userDisplayEmail = document.getElementById("user-display-email");
+        if (inputCorreoActual) inputCorreoActual.value = usuario.email || "m.gonzalez@email.com";
+        if (userDisplayEmail) userDisplayEmail.textContent = usuario.email || "m.gonzalez@email.com";
+
+        idRolActual = usuario.id_rol || usuario.idRol || 2;
+        aplicarRolEnUI(idRolActual);
+      }
+
+      // Conectar Botones de cambio de id_rol
+      const btnToggleRol = document.getElementById("btn-toggle-rol");
+      const alertaRolQuick = document.getElementById("alerta-rol-quick");
+      if (btnToggleRol) {
+        btnToggleRol.addEventListener("click", function () {
+          const nuevoId = idRolActual === 1 ? 2 : 1;
+          cambiarRolUsuario(nuevoId, alertaRolQuick);
+        });
+      }
+
+      const btnToggleRolTab = document.getElementById("btn-toggle-rol-tab");
+      const alertaRolTab = document.getElementById("alerta-rol-tab");
+      if (btnToggleRolTab) {
+        btnToggleRolTab.addEventListener("click", function () {
+          const nuevoId = idRolActual === 1 ? 2 : 1;
+          cambiarRolUsuario(nuevoId, alertaRolTab);
+        });
+      }
+
+      // 2. Botón Cerrar Sesión
+      const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
+      if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener("click", function (e) {
+          e.preventDefault();
+          ApiClient.cerrarSesion();
+          window.location.href = "login.html";
+        });
+      }
+
+      // 3. Cálculo Dinámico de Estadísticas desde los Reportes del Usuario
+      function actualizarEstadisticasDesdeFeed() {
+        const posts = document.querySelectorAll("#mis-reportes-feed .reporte-post");
+        const totales = posts.length;
+
+        let resueltas = 0;
+        let proceso = 0;
+        let pendientes = 0;
+        const categoriasConteo = {};
+
+        posts.forEach(function (post) {
+          const estado = post.dataset.estado;
+          if (estado === "resuelta") resueltas++;
+          else if (estado === "proceso") proceso++;
+          else if (estado === "pendiente") pendientes++;
+
+          const catTag = post.querySelector(".font-label-caps");
+          const catNombre = catTag ? catTag.textContent.trim() : "General";
+          categoriasConteo[catNombre] = (categoriasConteo[catNombre] || 0) + 1;
+        });
+
+        // Actualización de Métricas Superiores
+        const elCargados = document.getElementById("stat-cargados");
+        const elSolucionados = document.getElementById("stat-solucionados");
+        const elSolucionadosPct = document.getElementById("stat-solucionados-pct");
+        const elProceso = document.getElementById("stat-proceso");
+        const elPendientes = document.getElementById("stat-pendientes");
+
+        if (elCargados) elCargados.textContent = totales;
+        if (elSolucionados) elSolucionados.textContent = resueltas;
+        if (elProceso) elProceso.textContent = proceso;
+        if (elPendientes) elPendientes.textContent = pendientes;
+
+        const pctSolucionados = totales > 0 ? Math.round((resueltas / totales) * 100) : 0;
+        if (elSolucionadosPct) elSolucionadosPct.textContent = `${pctSolucionados}%`;
+
+        // Actualización de Sección "Estadísticas de Reporte Detalladas"
+        const pctEfectividad = totales > 0 ? ((resueltas / totales) * 100).toFixed(1) : "0.0";
+        const elEfectividad = document.getElementById("stat-efectividad-txt");
+        if (elEfectividad) elEfectividad.textContent = `${pctEfectividad}% Resueltas`;
+
+        const barResueltas = document.getElementById("bar-resueltas");
+        const barProceso = document.getElementById("bar-proceso");
+        const barPendientes = document.getElementById("bar-pendientes");
+
+        const pctRes = totales > 0 ? (resueltas / totales) * 100 : 0;
+        const pctProc = totales > 0 ? (proceso / totales) * 100 : 0;
+        const pctPend = totales > 0 ? (pendientes / totales) * 100 : 0;
+
+        if (barResueltas) barResueltas.style.width = `${pctRes}%`;
+        if (barProceso) barProceso.style.width = `${pctProc}%`;
+        if (barPendientes) barPendientes.style.width = `${pctPend}%`;
+
+        const legRes = document.getElementById("legend-resueltas");
+        const legProc = document.getElementById("legend-proceso");
+        const legPend = document.getElementById("legend-pendientes");
+
+        if (legRes) legRes.innerHTML = `<span class="w-3 h-3 rounded-full bg-emerald-500"></span> Resueltas (${resueltas})`;
+        if (legProc) legProc.innerHTML = `<span class="w-3 h-3 rounded-full bg-amber-500"></span> En Proceso (${proceso})`;
+        if (legPend) legPend.innerHTML = `<span class="w-3 h-3 rounded-full bg-primary-container"></span> Pendientes (${pendientes})`;
+
+        // Categória más reportada
+        let catMasReportada = "Ninguna";
+        let maxConteo = 0;
+        for (const [cat, cnt] of Object.entries(categoriasConteo)) {
+          if (cnt > maxConteo) {
+            maxConteo = cnt;
+            catMasReportada = cat;
+          }
+        }
+
+        const elCatNombre = document.getElementById("detail-cat-nombre");
+        const elCatDesc = document.getElementById("detail-cat-desc");
+        if (elCatNombre) elCatNombre.textContent = catMasReportada;
+        if (elCatDesc) {
+          const pctCat = totales > 0 ? ((maxConteo / totales) * 100).toFixed(1) : "0.0";
+          elCatDesc.textContent = `${maxConteo} reportes (${pctCat}% de tus cargas).`;
+        }
+
+        // Badge de total en Mis Reportes
+        const badgeTotal = document.getElementById("badge-total-reportes");
+        if (badgeTotal) badgeTotal.textContent = `${totales} REPORTES EN TU CUENTA`;
+      }
+
+      actualizarEstadisticasDesdeFeed();
+
+      // 4. Modal Configuración de Perfil (Abrir / Cerrar / Backdrop / Escape / Tabs)
+      const modalConfig = document.getElementById("modal-configuracion");
+      const modalOverlay = document.getElementById("modal-config-overlay");
+      const btnAbrirConfig = document.getElementById("btn-abrir-configuracion");
+      const btnCerrarConfig = document.getElementById("btn-cerrar-configuracion");
+      const tabConfigBtns = document.querySelectorAll(".tab-config");
+      const tabConfigPanels = document.querySelectorAll(".panel-config-tab");
+
+      function abrirConfiguracion() {
+        if (modalConfig) {
+          modalConfig.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        }
+      }
+
+      function cerrarConfiguracion() {
+        if (modalConfig) {
+          modalConfig.classList.add("hidden");
+          document.body.style.overflow = "";
+        }
+      }
+
+      if (btnAbrirConfig) btnAbrirConfig.addEventListener("click", abrirConfiguracion);
+      if (btnCerrarConfig) btnCerrarConfig.addEventListener("click", cerrarConfiguracion);
+      if (modalOverlay) modalOverlay.addEventListener("click", cerrarConfiguracion);
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") cerrarConfiguracion();
+      });
+
+      // Cambio de Pestañas en Modal
+      tabConfigBtns.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const targetTab = tab.dataset.configTab;
+
+          tabConfigBtns.forEach(function (t) {
+            t.classList.remove("active", "bg-primary-container", "text-on-primary", "font-bold");
+            t.classList.add("text-secondary");
+          });
+
+          tab.classList.add("active", "bg-primary-container", "text-on-primary", "font-bold");
+          tab.classList.remove("text-secondary");
+
+          tabConfigPanels.forEach(function (panel) {
+            panel.classList.toggle("hidden", panel.dataset.tabPanel !== targetTab);
+          });
+        });
+      });
+
+      // Formulario Cambiar Correo
+      const formCorreo = document.getElementById("form-cambiar-correo");
+      const alertaCorreo = document.getElementById("alerta-correo");
+
+      if (formCorreo) {
+        formCorreo.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nuevo = document.getElementById("input-correo-nuevo").value.trim();
+          const confirmar = document.getElementById("input-correo-confirmar").value.trim();
+
+          if (nuevo !== confirmar) {
+            alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
+            alertaCorreo.textContent = "❌ Los correos no coinciden. Verificá la información ingresada.";
+            return;
+          }
+
+          document.getElementById("input-correo-actual").value = nuevo;
+          const userDisplayEmail = document.getElementById("user-display-email");
+          if (userDisplayEmail) userDisplayEmail.textContent = nuevo;
+
+          alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+          alertaCorreo.textContent = "✓ Correo electrónico actualizado con éxito.";
+          formCorreo.reset();
+        });
+      }
+
+      // Formulario Cambiar Contraseña
+      const formPassword = document.getElementById("form-cambiar-password");
+      const alertaPassword = document.getElementById("alerta-password");
+
+      if (formPassword) {
+        formPassword.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nueva = document.getElementById("input-pass-nueva").value;
+          const confirmar = document.getElementById("input-pass-confirmar").value;
+
+          if (nueva !== confirmar) {
+            alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
+            alertaPassword.textContent = "❌ Las nuevas contraseñas no coinciden.";
+            return;
+          }
+
+          alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
+          alertaPassword.textContent = "✓ Contraseña actualizada correctamente.";
+          formPassword.reset();
+        });
+      }
+
+      // 5. Acordeones de seguimiento y filtro de reportes
+      document.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const post = btn.closest(".reporte-post");
+          const panel = post.querySelector(".panel-seguimiento");
+          const icon = btn.querySelector(".btn-seguimiento-icon");
+          const label = btn.querySelector(".btn-seguimiento-label");
+          const abierto = !panel.classList.contains("hidden");
+
+          if (abierto) {
+            panel.classList.add("hidden");
+            icon.style.transform = "rotate(0deg)";
+            label.textContent = "Ver seguimiento";
+          } else {
+            panel.classList.remove("hidden");
+            icon.style.transform = "rotate(180deg)";
+            label.textContent = "Ocultar seguimiento";
+          }
+        });
+      });
+
+      const searchInput = document.getElementById("mis-reportes-search");
+      const filtroButtons = document.querySelectorAll(".filtro-estado");
+      const posts = document.querySelectorAll(".reporte-post");
+      const vacioMsg = document.getElementById("mis-reportes-vacio");
+      let estadoActivo = "todos";
+
+      function aplicarFiltros() {
+        const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        let visibles = 0;
+
+        posts.forEach(function (post) {
+          const coincideTexto = post.dataset.busqueda.includes(query);
+          const coincideEstado = estadoActivo === "todos" || post.dataset.estado === estadoActivo;
+          const mostrar = coincideTexto && coincideEstado;
+          post.classList.toggle("hidden", !mostrar);
+          if (mostrar) visibles++;
+        });
+
+        if (vacioMsg) vacioMsg.classList.toggle("hidden", visibles !== 0);
+      }
+
+      if (searchInput) searchInput.addEventListener("input", aplicarFiltros);
+
+      filtroButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          estadoActivo = btn.dataset.estado;
+          filtroButtons.forEach(function (b) {
+            b.classList.remove("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+            b.classList.add("text-secondary");
+          });
+          btn.classList.add("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+          btn.classList.remove("text-secondary");
+          aplicarFiltros();
+        });
+      });
+    </script>
   </body>
 </html>

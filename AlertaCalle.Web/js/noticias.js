@@ -144,7 +144,7 @@
   function inicializarNoticias() {
     const searchInput = document.getElementById("noticias-search");
     const tabsContainer = document.getElementById("noticias-tabs");
-    const grid = document.getElementById("noticias-grid");
+    const grid = document.getElementById("noticias-grid") || document.querySelector(".module-noticias-obras .grid");
     const vacio = document.getElementById("noticias-vacio");
     const overlay = document.getElementById("overlay-noticia");
 

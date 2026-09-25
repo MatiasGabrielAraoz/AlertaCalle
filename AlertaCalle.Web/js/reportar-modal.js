@@ -431,7 +431,7 @@
         throw new Error("Iniciá sesión para poder enviar un reporte.");
       }
 
-      const categoriasResponse = await fetch("http://localhost:5208/categorias");
+      const categoriasResponse = await fetch("http://localhost:8080/categorias");
       if (!categoriasResponse.ok) {
         throw new Error("No se pudieron obtener las categorías de incidencias.");
       }
@@ -447,7 +447,7 @@
         throw new Error("La categoría seleccionada no está disponible en la API.");
       }
 
-      const response = await fetch("http://localhost:5208/incidencias", {
+      const response = await fetch("http://localhost:8080/incidencias", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

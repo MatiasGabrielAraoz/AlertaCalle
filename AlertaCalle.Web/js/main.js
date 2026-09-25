@@ -144,12 +144,44 @@ botonesCategoria.forEach((btn) => {
   });
 });
 
+function actualizarMetricas(lista) {
+  const totalRecibidos = lista.length;
+  let solucionados = 0;
+  let enProceso = 0;
+  let pendientes = 0;
+
+  lista.forEach((item) => {
+    const estadoId = Number(item.idEstado);
+    if (estadoId === 3) solucionados++;
+    else if (estadoId === 2) enProceso++;
+    else if (estadoId === 1) pendientes++;
+  });
+
+  const elRecibidos = document.getElementById("metrica-recibidos");
+  const elSolucionados = document.getElementById("metrica-solucionados");
+  const elSolucionadosPct = document.getElementById("metrica-solucionados-pct");
+  const elProceso = document.getElementById("metrica-proceso");
+  const elPendientes = document.getElementById("metrica-pendientes");
+  const badgeTotal = document.getElementById("metrica-badge-total");
+
+  if (elRecibidos) elRecibidos.textContent = totalRecibidos;
+  if (elSolucionados) elSolucionados.textContent = solucionados;
+  if (elProceso) elProceso.textContent = enProceso;
+  if (elPendientes) elPendientes.textContent = pendientes;
+
+  const pct = totalRecibidos > 0 ? Math.round((solucionados / totalRecibidos) * 100) : 0;
+  if (elSolucionadosPct) elSolucionadosPct.textContent = `${pct}%`;
+
+  if (badgeTotal) badgeTotal.textContent = `${totalRecibidos} REPORTES ACTIVOS AUDITADOS`;
+}
+
 async function cargarIncidencias() {
   try {
     todasLasIncidencias = await ApiClient.obtenerAlertas();
+    actualizarMetricas(todasLasIncidencias);
     aplicarFiltros();
   } catch (err) {
-    alert("Error: " + err);
+    console.error("Error al cargar incidencias:", err);
   }
 }
 
