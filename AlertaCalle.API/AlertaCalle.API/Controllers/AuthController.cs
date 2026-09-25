@@ -37,6 +37,8 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
         
         var result = await authService.RegisterAsync(
             null,
+            request.Name,
+            request.Surname,
             request.Email,
             request.Password,
             cancellationToken);

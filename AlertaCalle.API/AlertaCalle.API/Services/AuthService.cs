@@ -75,6 +75,8 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
 
     public async Task<bool> RegisterAsync(
         int? idRol,
+        string nombre,
+        string apellido,
         string email,
         string password,
         CancellationToken cancellationToken
@@ -84,6 +86,8 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
         
         var user = new Usuario
         {
+            Nombre = nombre,
+            Apellido = apellido,
             Email = email,
             Password = hasher.HashPassword(null!, password),
             FechaCreacion = DateTime.UtcNow,

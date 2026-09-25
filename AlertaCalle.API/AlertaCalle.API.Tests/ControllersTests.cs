@@ -235,7 +235,7 @@ public sealed class ControllersTests : ApiTestBase
             Task.FromResult(ChangePasswordResult);
 
         public Task<bool> RegisterAsync(
-            int? idRol, string email, string password,
+            int? idRol, string nombre, string apellido, string email, string password,
             CancellationToken cancellationToken) =>
             Task.FromResult(RegisterResult);
     }
