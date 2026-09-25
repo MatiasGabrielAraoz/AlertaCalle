@@ -113,33 +113,38 @@
       </div>
     </main>
  
-    <script>
-      // Simulación de registro: valida los campos y redirige a login.html
-      // para que el usuario inicie sesión con su nueva cuenta.
-      document.getElementById("register-form").addEventListener("submit", function (event) {
+    <script type="module">
+      import { ApiClient } from "./js/client.js";
+
+      document.getElementById("register-form").addEventListener("submit", async function (event) {
         event.preventDefault();
- 
+
         const nombre = document.getElementById("reg-nombre").value.trim();
         const apellido = document.getElementById("reg-apellido").value.trim();
         const dni = document.getElementById("reg-dni").value.trim();
         const email = document.getElementById("reg-email").value.trim();
         const password = document.getElementById("reg-password").value.trim();
         const errorMsg = document.getElementById("register-error");
- 
-        const dniValido = /^\d{7,8}$/.test(dni);
- 
-        if (!nombre || !apellido || !dniValido || !email || password.length < 8) {
+        const submitButton = event.currentTarget.querySelector('button[type="submit"]');
+
+        if (!nombre || !apellido || !/^\d{7,8}$/.test(dni) || !email || password.length < 8) {
+          errorMsg.textContent = "Completá todos los campos correctamente.";
           errorMsg.classList.remove("hidden");
           return;
         }
- 
+
         errorMsg.classList.add("hidden");
- 
-        // Acá iría la llamada real de registro (fetch a tu backend).
-        // Por ahora, redirige a login.html para que inicie sesión.
-        window.location.href = "login.html";
+        submitButton.disabled = true;
+
+        try {
+          await ApiClient.registrarse(nombre, apellido, dni, email, password);
+          window.location.href = "login.html";
+        } catch (error) {
+          errorMsg.textContent = error.message;
+          errorMsg.classList.remove("hidden");
+          submitButton.disabled = false;
+        }
       });
     </script>
   </body>
 </html>
- 

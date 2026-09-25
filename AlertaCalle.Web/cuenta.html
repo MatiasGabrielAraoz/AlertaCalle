@@ -23,10 +23,31 @@
     <script src="js/app.js"></script>
 
     <!-- Navbar reutilizable -->
-    <script src="js/navbar.js"></script>
+    <script type="module" src="js/navbar.js"></script>
     
     <!-- Overlay reportar-->
     <script src="js/reportar-modal.js"></script>
+
+    <script type="module">
+    import { ApiClient } from "./js/client.js";
+
+    const sesion = ApiClient.obtenerSesion();
+
+    if (!sesion) {
+      window.location.href = "login.html";
+    } else {
+      const usuario = sesion.usuario;
+      document.getElementById("user-display-name").textContent = `${usuario.nombre} ${usuario.apellido}`;
+      const inputCorreoActual = document.getElementById("input-correo-actual");
+      if (inputCorreoActual) inputCorreoActual.value = usuario.email;
+    }
+
+    document.getElementById("btn-cerrar-sesion").addEventListener("click", function (e) {
+      e.preventDefault();
+      ApiClient.cerrarSesion();
+      window.location.href = "login.html";
+    });
+  </script>
   </head>
   <body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
     <!-- ================= TOP NAV BAR ================= -->
@@ -70,15 +91,15 @@
 
           <div class="px-6 sm:px-8 pb-8">
             <!-- Avatar, identidad y botones principales -->
-            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 -mt-12 sm:-mt-14 mb-6">
-              <div class="flex flex-col sm:flex-row items-start sm:items-end gap-5">
-                <div class="relative">
-                  <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0 shadow-lg">
-                    MG
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6">
+                <div class="flex flex-col sm:flex-row items-start sm:items-end gap-5">
+                  <div class="relative -mt-12 sm:-mt-14">
+                    <div id="avatar-iniciales" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-primary-container text-white flex items-center justify-center font-headline-md text-2xl sm:text-3xl font-extrabold border-4 border-surface-container-lowest glow-red shrink-0 shadow-lg">
+                      MG
+                    </div>
+                    <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-surface-container-lowest" title="Usuario activo"></span>
                   </div>
-                  <span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-500 border-2 border-surface-container-lowest" title="Usuario activo"></span>
-                </div>
-                <div class="space-y-1">
+                  <div class="space-y-1">
                   <div class="flex items-center gap-2.5">
                     <h1 id="user-display-name" class="font-headline-lg text-2xl sm:text-3xl font-extrabold text-on-surface leading-tight">
                       Martina González
@@ -586,7 +607,7 @@
 
               <div class="bg-surface-container-low border border-surface-container-high rounded-xl p-5 space-y-4">
                 <div class="flex items-center gap-4 pb-4 border-b border-surface-container-high">
-                  <div class="w-14 h-14 rounded-xl bg-primary-container text-white flex items-center justify-center font-bold text-xl glow-red">
+                  <div id="avatar-iniciales-modal" class="w-14 h-14 rounded-xl bg-primary-container text-white flex items-center justify-center font-bold text-xl glow-red">
                     MG
                   </div>
                   <div>
@@ -710,160 +731,30 @@
     </footer>
 
     <!-- ================= SCRIPTS DE PÁGINA Y MODAL ================= -->
-    <script>
-      // Toggle de los paneles de seguimiento
-      document.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          const post = btn.closest(".reporte-post");
-          const panel = post.querySelector(".panel-seguimiento");
-          const icon = btn.querySelector(".btn-seguimiento-icon");
-          const label = btn.querySelector(".btn-seguimiento-label");
-          const abierto = !panel.classList.contains("hidden");
+    <script type="module">
+  import { ApiClient } from "./js/client.js";
 
-          if (abierto) {
-            panel.classList.add("hidden");
-            icon.style.transform = "rotate(0deg)";
-            label.textContent = "Ver seguimiento";
-          } else {
-            panel.classList.remove("hidden");
-            icon.style.transform = "rotate(180deg)";
-            label.textContent = "Ocultar seguimiento";
-          }
-        });
-      });
+  const sesion = ApiClient.obtenerSesion();
 
-      // Buscador + filtro de estado en mis reportes
-      const searchInput = document.getElementById("mis-reportes-search");
-      const filtroButtons = document.querySelectorAll(".filtro-estado");
-      const posts = document.querySelectorAll(".reporte-post");
-      const vacioMsg = document.getElementById("mis-reportes-vacio");
-      let estadoActivo = "todos";
+  if (!sesion) {
+    window.location.href = "login.html";
+  } else {
+    const usuario = sesion.usuario;
+    document.getElementById("user-display-name").textContent = `${usuario.nombre} ${usuario.apellido}`;
 
-      function aplicarFiltros() {
-        const query = searchInput.value.trim().toLowerCase();
-        let visibles = 0;
+    const iniciales = `${usuario.nombre?.[0] || ""}${usuario.apellido?.[0] || ""}`.toUpperCase();
+    document.getElementById("avatar-iniciales").textContent = iniciales;
+    document.getElementById("avatar-iniciales-modal").textContent = iniciales;
 
-        posts.forEach(function (post) {
-          const coincideTexto = post.dataset.busqueda.includes(query);
-          const coincideEstado = estadoActivo === "todos" || post.dataset.estado === estadoActivo;
-          const mostrar = coincideTexto && coincideEstado;
-          post.classList.toggle("hidden", !mostrar);
-          if (mostrar) visibles++;
-        });
+    const inputCorreoActual = document.getElementById("input-correo-actual");
+    if (inputCorreoActual) inputCorreoActual.value = usuario.email;
+  }
 
-        vacioMsg.classList.toggle("hidden", visibles !== 0);
-      }
-
-      if (searchInput) searchInput.addEventListener("input", aplicarFiltros);
-
-      filtroButtons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          estadoActivo = btn.dataset.estado;
-          filtroButtons.forEach(function (b) {
-            b.classList.remove("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
-            b.classList.add("text-secondary");
-          });
-          btn.classList.add("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
-          btn.classList.remove("text-secondary");
-          aplicarFiltros();
-        });
-      });
-
-      // ================= MODAL CONFIGURACIÓN DE PERFIL =================
-      const modalConfig = document.getElementById("modal-configuracion");
-      const modalOverlay = document.getElementById("modal-config-overlay");
-      const btnAbrirConfig = document.getElementById("btn-abrir-configuracion");
-      const btnCerrarConfig = document.getElementById("btn-cerrar-configuracion");
-      const tabConfigBtns = document.querySelectorAll(".tab-config");
-      const tabConfigPanels = document.querySelectorAll(".panel-config-tab");
-
-      function abrirConfiguracion() {
-        if (modalConfig) {
-          modalConfig.classList.remove("hidden");
-          document.body.style.overflow = "hidden";
-        }
-      }
-
-      function cerrarConfiguracion() {
-        if (modalConfig) {
-          modalConfig.classList.add("hidden");
-          document.body.style.overflow = "";
-        }
-      }
-
-      if (btnAbrirConfig) btnAbrirConfig.addEventListener("click", abrirConfiguracion);
-      if (btnCerrarConfig) btnCerrarConfig.addEventListener("click", cerrarConfiguracion);
-      if (modalOverlay) modalOverlay.addEventListener("click", cerrarConfiguracion);
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") cerrarConfiguracion();
-      });
-
-      // Cambio de Pestañas del Modal
-      tabConfigBtns.forEach(function (tab) {
-        tab.addEventListener("click", function () {
-          const targetTab = tab.dataset.configTab;
-
-          tabConfigBtns.forEach(function (t) {
-            t.classList.remove("active", "bg-primary-container", "text-on-primary", "font-bold");
-            t.classList.add("text-secondary");
-          });
-
-          tab.classList.add("active", "bg-primary-container", "text-on-primary", "font-bold");
-          tab.classList.remove("text-secondary");
-
-          tabConfigPanels.forEach(function (panel) {
-            panel.classList.toggle("hidden", panel.dataset.tabPanel !== targetTab);
-          });
-        });
-      });
-
-      // Formulario Cambiar Correo
-      const formCorreo = document.getElementById("form-cambiar-correo");
-      const alertaCorreo = document.getElementById("alerta-correo");
-
-      if (formCorreo) {
-        formCorreo.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const nuevo = document.getElementById("input-correo-nuevo").value.trim();
-          const confirmar = document.getElementById("input-correo-confirmar").value.trim();
-
-          if (nuevo !== confirmar) {
-            alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
-            alertaCorreo.textContent = "❌ Los correos no coinciden. Verificá la información ingresada.";
-            return;
-          }
-
-          document.getElementById("input-correo-actual").value = nuevo;
-          document.getElementById("user-display-email").textContent = nuevo;
-
-          alertaCorreo.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
-          alertaCorreo.textContent = "✓ Correo electrónico actualizado con éxito.";
-          formCorreo.reset();
-        });
-      }
-
-      // Formulario Cambiar Contraseña
-      const formPassword = document.getElementById("form-cambiar-password");
-      const alertaPassword = document.getElementById("alerta-password");
-
-      if (formPassword) {
-        formPassword.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const nueva = document.getElementById("input-pass-nueva").value;
-          const confirmar = document.getElementById("input-pass-confirmar").value;
-
-          if (nueva !== confirmar) {
-            alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-red-100 text-red-800 border border-red-200 block";
-            alertaPassword.textContent = "❌ Las nuevas contraseñas no coinciden.";
-            return;
-          }
-
-          alertaPassword.className = "p-3 rounded-lg text-xs font-label-code bg-emerald-100 text-emerald-800 border border-emerald-200 block";
-          alertaPassword.textContent = "✓ Contraseña actualizada correctamente.";
-          formPassword.reset();
-        });
-      }
-    </script>
+  document.getElementById("btn-cerrar-sesion").addEventListener("click", function (e) {
+    e.preventDefault();
+    ApiClient.cerrarSesion();
+    window.location.href = "login.html";
+  });
+</script>
   </body>
 </html>

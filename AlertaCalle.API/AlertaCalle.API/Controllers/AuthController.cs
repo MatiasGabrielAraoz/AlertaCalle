@@ -30,7 +30,7 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
 
     [HttpPost("register"), AllowAnonymous]
     public async Task<IActionResult> Register(
-        PostLoginDto request,
+        RegisterDto request,
         CancellationToken cancellationToken
     )
     {
@@ -87,6 +87,8 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
         return Ok(
             new MeDto(
                 id,
+                User.FindFirstValue("nombre") ?? string.Empty,
+                User.FindFirstValue("apellido") ?? string.Empty,
                 User.FindFirstValue(ClaimTypes.Email)
                     ?? User.FindFirstValue(JwtRegisteredClaimNames.Email)
                     ?? string.Empty,

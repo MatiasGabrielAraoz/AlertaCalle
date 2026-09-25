@@ -39,6 +39,8 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
             new Claim(JwtRegisteredClaimNames.Email, user.Email),
             new Claim(ClaimTypes.Role, user.Rol.Nombre),
             new Claim("permissions", user.Rol.Permisos),
+            new Claim("nombre", user.Nombre),
+            new Claim("apellido", user.Apellido)
         };
         var credentials = new SigningCredentials(
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),

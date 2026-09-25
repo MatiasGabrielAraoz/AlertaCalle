@@ -23,7 +23,7 @@
     <script src="js/app.js"></script>
 
     <!-- Navbar reutilizable: una sola fuente de verdad para todo el sitio -->
-    <script src="js/navbar.js"></script>
+    <script type="module" src="js/navbar.js"></script>
 
     <!-- Overlay reportar-->
     <script src="js/reportar-modal.js"></script>
@@ -42,7 +42,7 @@
         <div class="flex flex-col items-center text-center max-w-4xl mx-auto space-y-6 relative z-10">
           <div class="inline-flex items-center gap-2 bg-surface-container-low border border-surface-container-high rounded-full px-4 py-1.5 font-label-code text-label-code text-on-surface">
             <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
-            <span class="font-bold text-primary">DESAROLLO DE LAS OLIMPIADAS INSTITUCIONALES TECNOLOGICAS PROFECIONALES </span>
+            <span class="font-bold text-primary">DESAROLLO DE LAS OLIMPIADAS INSTITUCIONALES TECNOLOGICAS PROFESIONALES </span>
             <span class="text-secondary">//</span>
             <span class="text-secondary font-medium uppercase tracking-wider">PROGRAMACION</span>
           </div>
@@ -117,11 +117,11 @@
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span class="material-symbols-outlined text-secondary text-base">search</span>
               </div>
-              <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" placeholder="Buscar por código, calle, barrio o descripción..." type="text"/>
+              <input id="filtro-busqueda" class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" placeholder="Buscar por código, calle, barrio o descripción..." type="text"/>
             </div>
             <!-- Selector de Barrio -->
             <div class="shrink-0">
-              <select class="w-full sm:w-auto bg-surface-container-low border border-surface-container-high rounded-lg px-3 py-2 text-xs font-label-code text-on-surface focus:border-primary focus:outline-none">
+              <select id="filtro-barrio" class="w-full sm:w-auto bg-surface-container-low border border-surface-container-high rounded-lg px-3 py-2 text-xs font-label-code text-on-surface focus:border-primary focus:outline-none">
                 <option value="todos">Todos los Barrios</option>
                 <option value="San Andrés Centro">San Andrés Centro</option>
                 <option value="Villa Belgrano">Villa Belgrano</option>
@@ -132,116 +132,34 @@
             <!-- Selector Estado -->
             <div class="flex items-center gap-1 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-label-code shrink-0">
               <span class="px-2 py-0.5 text-secondary text-xs">ESTADO:</span>
-              <button class="px-2 py-0.5 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60">TODOS</button>
-              <button class="px-2 py-0.5 text-secondary hover:text-on-surface transition-colors">PENDIENTES</button>
-              <button class="px-2 py-0.5 text-secondary hover:text-on-surface transition-colors">EN PROCESO</button>
-              <button class="px-2 py-0.5 text-secondary hover:text-on-surface transition-colors">RESUELTAS</button>
+              <button class="filtro-estado-btn px-2 py-0.5 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
+              <button class="filtro-estado-btn px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="1">PENDIENTES</button>
+              <button class="filtro-estado-btn px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="2">EN PROCESO</button>
+              <button class="filtro-estado-btn px-2 py-0.5 text-secondary hover:text-on-surface transition-colors" data-estado="3">RESUELTAS</button>
             </div>
           </div>
           <!-- Categorías Pills -->
           <div class="flex flex-wrap items-center gap-1.5 pt-2 border-t border-surface-container-high">
-            <button class="bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-3 py-1 rounded-lg glow-red-button text-xs font-bold">
+            <button class="filtro-categoria-btn bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-3 py-1 rounded-lg glow-red-button text-xs font-bold" data-categoria="todos">
               Todas [6]
             </button>
-            <button class="bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs">
+            <button class="filtro-categoria-btn bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs" data-categoria="alumbrado">
               💡 Alumbrado
             </button>
-            <button class="bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs">
+            <button class="filtro-categoria-btn bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs" data-categoria="baches">
               🚧 Baches / Calzada
             </button>
-            <button class="bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs">
+            <button class="filtro-categoria-btn bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs" data-categoria="residuos">
               🗑️ Residuos
             </button>
-            <button class="bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs">
+            <button class="filtro-categoria-btn bg-surface hover:bg-surface-container text-on-surface font-label-caps text-label-caps uppercase px-2.5 py-1 rounded-lg border border-surface-container-high transition-colors text-xs" data-categoria="arbolado">
               🌳 Arbolado
             </button>
           </div>
         </div>
-        <!-- MÓDULO DESTACADO: LÍNEA DE TIEMPO DE TRAZABILIDAD CÍVICA -->
-        <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 md:p-8 soft-card-shadow space-y-6">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-container-high pb-4">
-            <div class="space-y-0.5">
-              <span class="text-xs font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
-              <h3 class="font-headline-sm text-base sm:text-lg font-bold text-on-surface">
-                #INC-20481 — Bache profundo en Av. Rivadavia 4520
-              </h3>
-              <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #04 Obras Viales · Vencimiento SLA: 18hs</p>
-            </div>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full font-label-code text-xs font-bold">
-              <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-              EN REPARACIÓN ACTIVA
-            </span>
-          </div>
-          <!-- Línea de tiempo visual -->
-          <div class="relative pt-2 pb-1 overflow-x-auto">
-            <div class="min-w-[650px] flex items-center justify-between relative">
-              <!-- Background connecting line -->
-              <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
-              <!-- Progress completed line -->
-              <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-[78%] z-0 transition-all duration-500"></div>
-              <!-- Paso 1: Reportado -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                  ✓
-                </div>
-                <span class="font-label-code text-xs font-bold text-on-surface">Reportado</span>
-                <span class="text-[10px] text-secondary">Ayer 14:10</span>
-              </div>
-              <!-- Paso 2: Recibido -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                  ✓
-                </div>
-                <span class="font-label-code text-xs font-bold text-on-surface">Recibido</span>
-                <span class="text-[10px] text-secondary">Ayer 14:22</span>
-              </div>
-              <!-- Paso 3: En Revisión -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                  ✓
-                </div>
-                <span class="font-label-code text-xs font-bold text-on-surface">En Revisión</span>
-                <span class="text-[10px] text-secondary">Ayer 16:00</span>
-              </div>
-              <!-- Paso 4: Asignado a Cuadrilla -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                  ✓
-                </div>
-                <span class="font-label-code text-xs font-bold text-on-surface">Asignado</span>
-                <span class="text-[10px] text-secondary">Hoy 08:30</span>
-              </div>
-              <!-- Paso 5: En Reparación (Activo) -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm glow-red ring-4 ring-primary-container/20 animate-pulse">
-                  <span class="material-symbols-outlined text-base">engineering</span>
-                </div>
-                <span class="font-label-code text-xs font-bold text-primary">En Reparación</span>
-                <span class="text-[10px] text-primary font-bold">En curso (Cuadrilla #04)</span>
-              </div>
-              <!-- Paso 6: Solucionado -->
-              <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">
-                  ○
-                </div>
-                <span class="font-label-code text-xs font-secondary font-medium">Solucionado</span>
-                <span class="text-[10px] text-secondary">Pendiente cierre</span>
-              </div>
-            </div>
-          </div>
-          <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-label-code">
-            <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-base text-secondary">history</span>
-              <span class="text-secondary">Última actualización por inspector técnico municipal hace 22 minutos.</span>
-            </div>
-            <a class="text-primary font-bold hover:underline flex items-center gap-1" href="mis-reportes.html">
-              Ver bitácora de obra →
-            </a>
-          </div>
-        </div>
         <!-- GRID DE TARJETAS DE INCIDENCIAS URBANAS -->
         <div id="incidencias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Card 1 -->
+          <!-- Template de tarjeta: se clona por cada incidencia desde js/main.js -->
           <template id="card">
             <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
               <div class="p-6 space-y-4">
@@ -274,41 +192,22 @@
                   Ver seguimiento →
                 </a>
               </div>
+              <!-- Bloque de acciones de admin: oculto por defecto, se muestra desde main.js si el usuario es Admin -->
+              <div class="admin-actions hidden p-3.5 border-t border-surface-container-high flex items-center gap-2">
+                <select class="select-estado flex-1 bg-surface-container-low border border-surface-container-high rounded-lg px-2 py-1.5 text-xs font-label-code">
+                  <option value="1">Sin Resolver</option>
+                  <option value="2">En Proceso</option>
+                  <option value="3">Resuelto</option>
+                </select>
+                <button class="btn-guardar-estado inline-flex items-center gap-1 bg-primary-container text-on-primary px-3 py-1.5 rounded-lg text-xs font-bold" type="button">
+                  <span class="material-symbols-outlined text-sm">save</span>
+                </button>
+                <button class="btn-eliminar-incidencia inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold" type="button">
+                  <span class="material-symbols-outlined text-sm">delete</span>
+                </button>
+              </div>
             </article>
           </template>
-
-          <article class="bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all flex flex-col justify-between">
-              <div class="p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                  <span class="idCard font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
-                  <span class="estado font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                    EN PROCESO
-                  </span>
-                </div>
-                <div class="space-y-1">
-                  <span class="categoria font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                  <h3 class="titulo font-headline-sm text-base font-bold text-on-surface leading-snug">
-                    Luminaria LED intermitente y cable expuesto
-                  </h3>
-                </div>
-                <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                    <span class="direccion font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
-                  </div>
-                  <div class="flex items-center gap-1.5">
-                    <span class="material-symbols-outlined text-sm">schedule</span>
-                    <span class="tiempoRegistrado">Registrado Hoy 09:15 hs</span>
-                  </div>
-                </div>
-              </div>
-              <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-                <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-                <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="mis-reportes.html">
-                  Ver seguimiento →
-                </a>
-              </div>
-            </article>
         </div>
       </section>
 

@@ -13,8 +13,8 @@ public class RegisterDto
     [EmailAddress]
     public string Email { get; init; }
     
-    [Required]
-    public string Dni { get; init; }
+    public string? Dni { get; init; }
+
     [Required]
     public string Password { get; init; }
     

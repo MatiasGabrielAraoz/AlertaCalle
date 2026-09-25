@@ -13,4 +13,4 @@ public sealed class ChangePasswordDto
 
 public sealed record TokenDto(string Token, DateTime ExpiresAt);
 
-public sealed record MeDto(int Id, string Email, string Role, string Permissions);
+public sealed record MeDto(int Id, string Nombre, string Apellido, string Email, string Role, string Permissions);

@@ -1,9 +1,4 @@
-/* ==========================================================================
-   NAVBAR GLOBAL — ALERTACALLE
-   Fuente única del navbar. Para agregar/sacar links se edita NAV_LINKS.
-   Incluye el modo claro/oscuro (se guarda en localStorage) y el botón
-   flotante de "Reportar" que sigue el scroll en todas las páginas.
-   ========================================================================== */
+import { ApiClient } from "./client.js";
 
 (function () {
   const NAV_LINKS = [
@@ -13,7 +8,6 @@
     { label: "Ayuda y FAQ", href: "ayuda.html" },
   ];
 
-  /* ---------------- TEMA CLARO / OSCURO ---------------- */
   const CLAVE_TEMA = "alertacalle-tema";
 
   function temaGuardado() {
@@ -35,7 +29,6 @@
 
   aplicarTema(temaGuardado());
 
-  /* ---------------- NAVBAR ---------------- */
   function paginaActual() {
     const partes = window.location.pathname.split("/");
     let archivo = partes[partes.length - 1];
@@ -47,6 +40,7 @@
     connectedCallback() {
       const actual = paginaActual();
       const miCuentaActivo = actual === "cuenta.html";
+      const sesion = ApiClient.obtenerSesion();
 
       const linksHTML = NAV_LINKS.map(function (link) {
         const activo = link.href === actual;
@@ -60,6 +54,20 @@
         ? "hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-primary text-primary bg-primary/5 font-label-code text-xs font-bold transition-colors"
         : "hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-container-high text-on-surface font-label-code text-xs hover:bg-surface-container-low transition-colors";
       const miCuentaIconoClase = miCuentaActivo ? "material-symbols-outlined text-base text-primary" : "material-symbols-outlined text-base text-secondary";
+
+      const nombreUsuario = sesion?.usuario?.nombre || "Mi Cuenta";
+      const bloqueSesionHTML = sesion
+        ? `<a class="${miCuentaClases} transition-transform duration-200 hover:scale-105" href="cuenta.html">
+             <span class="${miCuentaIconoClase}">account_circle</span>
+             <span>${nombreUsuario}</span>
+           </a>`
+        : `<a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-surface-container-high text-on-surface font-label-code text-xs hover:bg-surface-container-low transition-colors" href="login.html">
+             <span class="material-symbols-outlined text-base text-secondary">login</span>
+             <span>Iniciar Sesión</span>
+           </a>
+           <a class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary font-label-code text-xs font-bold hover:opacity-90 transition-colors" href="register.html">
+             <span>Registrarse</span>
+           </a>`;
 
       this.innerHTML = `
         <header class="site-header-nav w-full bg-surface-container-lowest sticky top-0 z-50 border-b border-surface-container-high/80 backdrop-blur-md">
@@ -81,15 +89,11 @@
                 <span class="hidden sm:inline">REPORTAR INCIDENCIA</span>
                 <span class="sm:hidden">REPORTAR</span>
               </button>
-              <a class="${miCuentaClases} transition-transform duration-200 hover:scale-105" href="cuenta.html">
-                <span class="${miCuentaIconoClase}">account_circle</span>
-                <span>Mi Cuenta</span>
-              </a>
+              ${bloqueSesionHTML}
             </div>
           </div>
         </header>
 
-        <!-- ===== BOTÓN FLOTANTE (FAB) — sigue el scroll, mismo estilo que el navbar ===== -->
         <button
           id="fab-reportar"
           class="btn-abrir-reportar fixed bottom-5 right-5 z-[60] inline-flex items-center gap-2 bg-primary-container text-on-primary px-4 py-3.5 rounded-full shadow-lg glow-red-button font-label-caps text-label-caps uppercase font-bold text-xs
@@ -105,7 +109,6 @@
         </button>
       `;
 
-      // Botón modo claro/oscuro
       const btnTema = this.querySelector(".btn-tema");
       const iconoTema = this.querySelector(".btn-tema-icono");
 

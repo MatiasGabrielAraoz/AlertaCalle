@@ -33,6 +33,18 @@ export const ApiClient = {
     return res.json();
   },
 
+  async registrarse(nombre, apellido, dni, email, password) {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: nombre, surname: apellido, dni, email, password }),
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.message || "No se pudo completar el registro.");
+    }
+  },
+
   async obtenerUsuarioActual(token) {
     const res = await fetch(`${API_BASE_URL}/auth/me`, {
       headers: { Authorization: `Bearer ${token}` },
@@ -97,11 +109,24 @@ export const ApiClient = {
     return res.json();
   },
 
-  async actualizarEstado(id, nuevoEstado) {
-    const res = await fetch(`${API_BASE_URL}/incidencias/${id}/estado`, {
+  async eliminarIncidencia(id) {
+    const sesion = this.obtenerSesion();
+    const res = await fetch(`${API_BASE_URL}/incidencias/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${sesion.token}` },
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+  },
+
+  async cambiarEstadoIncidencia(id, nuevoIdEstado) {
+    const sesion = this.obtenerSesion();
+    const res = await fetch(`${API_BASE_URL}/incidencias/${id}`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ estado: nuevoEstado }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sesion.token}`,
+      },
+      body: JSON.stringify({ idEstado: nuevoIdEstado }),
     });
     if (!res.ok) throw new Error(`Error ${res.status}`);
   },
