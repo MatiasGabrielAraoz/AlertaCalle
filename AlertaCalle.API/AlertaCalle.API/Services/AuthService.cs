@@ -89,6 +89,7 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
             FechaCreacion = DateTime.UtcNow,
             IdRol = idRol ?? 2 // si es null se toma como usuario
             
+            
         };
         
         await db.Usuarios.AddAsync(user, cancellationToken);
