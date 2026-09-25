@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html class="light scroll-smooth" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa de Incidencias — ALERTACALLE</title>
+
+    <!-- Estilos de la aplicación -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+
+    <!-- Fuentes Google: JetBrains Mono y Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Configuración y Navbar -->
+    <script src="js/app.js"></script>
+    <script type="module" src="js/navbar.js"></script>
+    <script src="js/reportar-modal.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+      /* Ajustes visuales para popups y contenedor de Leaflet */
+      #mapa-canvas {
+        z-index: 10;
+        width: 100%;
+        height: 580px;
+      }
+      .leaflet-popup-content-wrapper {
+        background-color: var(--c-surface-container-lowest, #ffffff);
+        color: var(--c-on-surface, #1c1b1f);
+        border-radius: 1rem;
+        border: 1px solid var(--c-surface-container-high, #e6e1e5);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        padding: 0;
+        overflow: hidden;
+      }
+      .leaflet-popup-content {
+        margin: 0;
+        line-height: 1.4;
+      }
+      .leaflet-container a.leaflet-popup-close-button {
+        color: var(--c-secondary, #49454f);
+        padding: 8px;
+        font-size: 16px;
+      }
+      html.dark .leaflet-popup-content-wrapper {
+        background-color: #1e1e24;
+        color: #e6e1e5;
+        border-color: #36343b;
+      }
+      html.dark .leaflet-tile-pane {
+        filter: brightness(0.85) contrast(1.1) invert(0.9) hue-rotate(180deg);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md text-body-md selection:bg-primary-container selection:text-on-primary">
+
+    <!-- ================= NAVBAR GLOBAL ================= -->
+    <alerta-navbar></alerta-navbar>
+
+    <!-- ================= CANVAS PRINCIPAL ================= -->
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Ruta / Breadcrumb -->
+        <div class="flex items-center gap-2 mb-4">
+            <a href="inicio.html" class="font-label-code text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors">
+                Inicio
+            </a>
+            <span class="material-symbols-outlined text-base text-secondary">chevron_right</span>
+            <span class="font-label-code text-xs uppercase tracking-wider text-primary font-bold">
+                Mapa
+            </span>
+        </div>
+
+        <!-- =====================================================
+             CABECERA HERO (estética idéntica a reportes, noticias y faq)
+             ===================================================== -->
+        <section class="relative overflow-hidden bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 sm:p-8 lg:p-10 soft-card-shadow">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-primary" aria-hidden="true"></div>
+
+            <div class="relative z-10 space-y-6">
+                <!-- Identificador -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="inline-flex items-center gap-2 bg-surface-container-low border border-surface-container-high rounded-full px-3.5 py-1.5 font-label-code text-label-code text-secondary">
+                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse" aria-hidden="true"></span>
+                        <span class="text-primary font-bold">GEOREFERENCIACIÓN MUNICIPAL</span>
+                        <span class="text-secondary">//</span>
+                        <span class="uppercase tracking-wider">MAPA INTERACTIVO DE BUENOS AIRES</span>
+                    </span>
+                </div>
+
+                <!-- Título -->
+                <div class="max-w-4xl space-y-3">
+                    <h1 class="font-display-hero text-display-hero-mobile lg:text-display-hero leading-none tracking-tight font-extrabold text-on-surface uppercase">
+                        MAPA DE
+                        <span class="inline-block mt-2 bg-primary-container text-on-primary px-4 sm:px-6 py-1.5 rounded-xl border border-primary/20 glow-red">
+                            INCIDENCIAS.
+                        </span>
+                    </h1>
+
+                    <p class="font-body-lg text-body-md sm:text-body-lg text-secondary max-w-3xl leading-relaxed">
+                        Visualización satelital y cartográfica en tiempo real de reportes urbanos, obras públicas y alertas comunitarias geolocalizadas en la Provincia y Ciudad de Buenos Aires.
+                    </p>
+                </div>
+
+                <div class="border-t border-surface-container-high pt-6"></div>
+
+                <!-- Métricas destacadas del Mapa -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                    <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-primary-container/20 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+                            <span class="material-symbols-outlined text-xl">location_on</span>
+                        </div>
+                        <div>
+                            <span class="font-label-code text-xs text-secondary uppercase block">Reportes Geolocalizados</span>
+                            <span id="mapa-count-total" class="font-headline-sm text-base font-extrabold text-on-surface">6 Puntos Auditados</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500/20 border border-amber-500/20 flex items-center justify-center text-amber-700 shrink-0">
+                            <span class="material-symbols-outlined text-xl">map</span>
+                        </div>
+                        <div>
+                            <span class="font-label-code text-xs text-secondary uppercase block">Radio Operativo</span>
+                            <span class="font-headline-sm text-base font-extrabold text-on-surface">San Martín & CABA</span>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-surface-container-low border border-surface-container-high rounded-xl flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-500/20 flex items-center justify-center text-emerald-700 shrink-0">
+                            <span class="material-symbols-outlined text-xl">verified</span>
+                        </div>
+                        <div>
+                            <span class="font-label-code text-xs text-secondary uppercase block">Verificación GPS</span>
+                            <span class="font-headline-sm text-base font-extrabold text-emerald-700">100% Precisión Satelital</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             SECCIÓN PRINCIPAL: FILTROS Y CONTENEDOR DEL MAPA
+             ===================================================== -->
+        <section class="space-y-6">
+
+            <!-- BARRA DE FILTROS DEL MAPA -->
+            <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-4 sm:p-5 space-y-4 soft-card-shadow">
+                <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+                    
+                    <!-- Buscador por dirección / calle -->
+                    <div class="relative flex-1">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-secondary text-lg">search</span>
+                        </div>
+                        <input
+                            id="mapa-search"
+                            type="text"
+                            placeholder="Buscar por calle, barrio o código (#INC-8492)..."
+                            class="w-full pl-10 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"
+                        />
+                    </div>
+
+                    <!-- Filtros por Estado -->
+                    <div class="flex flex-wrap items-center gap-1.5 border border-surface-container-high p-1 rounded-lg bg-surface-container-low font-label-code text-xs shrink-0">
+                        <span class="px-2 text-secondary font-bold text-[11px] uppercase">ESTADO:</span>
+                        <button class="mapa-filtro-estado px-2.5 py-1 bg-surface-container-lowest rounded font-bold text-on-surface shadow-xs border border-surface-container-high/60" data-estado="todos">TODOS</button>
+                        <button class="mapa-filtro-estado px-2.5 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="1">PENDIENTES</button>
+                        <button class="mapa-filtro-estado px-2.5 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="2">EN PROCESO</button>
+                        <button class="mapa-filtro-estado px-2.5 py-1 text-secondary hover:text-on-surface transition-colors" data-estado="3">RESUELTAS</button>
+                    </div>
+                </div>
+
+                <!-- Categorías de Filtro -->
+                <div class="flex flex-wrap items-center gap-2 pt-2 border-t border-surface-container-high/60">
+                    <span class="font-label-code text-xs uppercase text-secondary font-bold mr-1">CATEGORÍA:</span>
+                    <button class="mapa-filtro-cat px-3 py-1 bg-primary-container text-on-primary font-label-caps text-xs uppercase font-bold rounded-lg glow-red-button cursor-pointer" data-cat="todos">Todas</button>
+                    <button class="mapa-filtro-cat px-3 py-1 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-caps text-xs uppercase rounded-lg border border-surface-container-high transition-colors cursor-pointer" data-cat="alumbrado">💡 Alumbrado</button>
+                    <button class="mapa-filtro-cat px-3 py-1 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-caps text-xs uppercase rounded-lg border border-surface-container-high transition-colors cursor-pointer" data-cat="baches">🚧 Baches</button>
+                    <button class="mapa-filtro-cat px-3 py-1 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-caps text-xs uppercase rounded-lg border border-surface-container-high transition-colors cursor-pointer" data-cat="residuos">🗑️ Residuos</button>
+                    <button class="mapa-filtro-cat px-3 py-1 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-caps text-xs uppercase rounded-lg border border-surface-container-high transition-colors cursor-pointer" data-cat="arbolado">🌳 Arbolado</button>
+                </div>
+            </div>
+
+            <!-- GRID DEL MAPA + FEED LATERAL -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- CONTENEDOR DEL MAPA (2/3 de ancho en desktop) -->
+                <div class="lg:col-span-2 bg-surface-container-lowest border border-surface-container-high rounded-2xl overflow-hidden soft-card-shadow flex flex-col">
+                    <!-- Encabezado del Mapa con Controles -->
+                    <div class="p-4 bg-surface-container-low border-b border-surface-container-high flex flex-wrap items-center justify-between gap-3 font-label-code text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="font-bold text-on-surface uppercase">Visor Cartográfico de Buenos Aires</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button id="btn-recentrar-mapa" type="button" class="px-2.5 py-1 bg-surface-container-lowest border border-surface-container-high rounded-lg text-secondary hover:text-primary transition-colors flex items-center gap-1 font-bold cursor-pointer">
+                                <span class="material-symbols-outlined text-sm">my_location</span>
+                                <span>Recentrar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas de Leaflet -->
+                    <div id="mapa-canvas" class="relative bg-surface-container"></div>
+                </div>
+
+                <!-- FEED LATERAL DE REPORTES GEOREFERENCIADOS (1/3 de ancho) -->
+                <div class="space-y-4 flex flex-col justify-between">
+                    <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-5 soft-card-shadow space-y-4 flex-grow">
+                        <div class="flex items-center justify-between pb-3 border-b border-surface-container-high">
+                            <h3 class="font-headline-sm text-base font-extrabold text-on-surface uppercase">Puntos en el Mapa</h3>
+                            <span id="mapa-badge-visibles" class="bg-primary-container text-on-primary text-[11px] font-label-code px-2 py-0.5 rounded-full font-bold">6 Visibles</span>
+                        </div>
+                        <p class="text-xs text-secondary leading-relaxed">
+                            Hacé clic en cualquier reporte de la lista para animar el mapa e inspeccionar su ubicación exacta:
+                        </p>
+
+                        <!-- Lista scrolleable de reportes geolocalizados -->
+                        <div id="mapa-feed-lista" class="space-y-3 max-h-[460px] overflow-y-auto pr-1">
+                            <!-- Se renderiza dinámicamente mediante JS -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER INSTITUCIONAL ================= -->
+    <footer class="bg-on-surface text-surface border-t-4 border-primary mt-16">
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+            <div class="space-y-3 max-w-xl">
+                <div class="text-headline-md font-headline-md font-extrabold uppercase text-surface border-l-4 border-primary pl-3">
+                    ALERTACALLE
+                </div>
+                <p class="font-label-code text-label-code text-secondary-fixed-dim leading-relaxed">
+                    © 2026 ALERTACALLE — VISOR CARTOGRÁFICO DE INFRAESTRUCTURA URBANA DE BUENOS AIRES.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <div class="flex flex-wrap gap-4 font-label-caps text-label-caps uppercase text-xs">
+                    <a class="text-primary-fixed-dim hover:text-primary-fixed underline transition-colors" href="tel:911">
+                        Línea Emergencia (911)
+                    </a>
+                    <a class="text-surface-variant hover:text-primary underline transition-colors" href="tel:103">
+                        Defensa Civil (103)
+                    </a>
+                    <a class="text-surface-variant hover:text-primary underline transition-colors" href="https://wa.me/">
+                        WhatsApp 24hs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ================= SCRIPT DEL MAPA DE BUENOS AIRES ================= -->
+    <script type="module">
+      import { ApiClient } from "./js/client.js";
+
+      // Estado global del visor de mapa
+      const CENTRO_BSAS = [-34.5730, -58.5340];
+      const ZOOM_INICIAL = 14;
+
+      let map;
+      let markersGroup;
+      let PUNTOS_INCIDENCIAS = [];
+      let estadoFiltro = "todos";
+      let catFiltro = "todos";
+      let queryFiltro = "";
+
+      const ESTADOS_NOMBRES = {
+        1: { nombre: "PENDIENTE", color: "bg-primary-container" },
+        2: { nombre: "EN PROCESO", color: "bg-amber-500" },
+        3: { nombre: "RESUELTA", color: "bg-emerald-700" }
+      };
+
+      function obtenerCoordenadas(item) {
+        const d = (item.direccion || "").toLowerCase();
+        if (d.includes("san martín") || d.includes("san martin")) return [-34.5780, -58.5370];
+        if (d.includes("belgrano")) return [-34.5721, -58.5342];
+        if (d.includes("mitre") || d.includes("urquiza")) return [-34.5755, -58.5398];
+        if (d.includes("parque") || d.includes("moreno")) return [-34.5684, -58.5290];
+        if (d.includes("lavalle")) return [-34.5650, -58.5210];
+        if (d.includes("25 de mayo")) return [-34.5780, -58.5310];
+
+        const offsetLat = ((item.id * 17) % 11 - 5) * 0.0035;
+        const offsetLng = ((item.id * 23) % 11 - 5) * 0.0042;
+        return [-34.5730 + offsetLat, -58.5340 + offsetLng];
+      }
+
+      function transformarIncidenciaDB(item) {
+        const estadoInfo = ESTADOS_NOMBRES[item.idEstado] || { nombre: "PENDIENTE", color: "bg-primary-container" };
+        const coords = obtenerCoordenadas(item);
+        const catNombre = item.categoria?.nombre || "General";
+
+        let catKey = "todos";
+        const catLower = catNombre.toLowerCase();
+        if (catLower.includes("alumbrado")) catKey = "alumbrado";
+        else if (catLower.includes("bache") || catLower.includes("calzada")) catKey = "baches";
+        else if (catLower.includes("residuo") || catLower.includes("higiene")) catKey = "residuos";
+        else if (catLower.includes("arbol") || catLower.includes("árbol") || catLower.includes("plaza")) catKey = "arbolado";
+
+        return {
+          id: item.id,
+          titulo: item.titulo,
+          categoria: catKey,
+          categoriaNombre: catNombre,
+          direccion: item.direccion || "Dirección registrada",
+          idEstado: item.idEstado,
+          estadoNombre: estadoInfo.nombre,
+          estadoColor: estadoInfo.color,
+          lat: coords[0],
+          lng: coords[1],
+          registrado: item.fechaCreacion ? `Registrado: ${new Date(item.fechaCreacion).toLocaleDateString("es-AR")}` : "Registrado recientemente"
+        };
+      }
+
+      function crearIconoMarcador(item) {
+        let colorBg = "#ef4444"; // rojo para pendiente
+        if (item.idEstado === 2) colorBg = "#f59e0b"; // ámbar para proceso
+        if (item.idEstado === 3) colorBg = "#10b981"; // verde para resuelta
+
+        const svgIcon = `
+          <svg width="34" height="42" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 0C7.61116 0 0 7.61116 0 17C0 29.75 17 42 17 42C17 42 34 29.75 34 17C34 7.61116 26.3888 0 17 0Z" fill="${colorBg}"/>
+            <circle cx="17" cy="17" r="8" fill="white"/>
+          </svg>
+        `;
+
+        return L.divIcon({
+          className: "custom-leaflet-marker",
+          html: svgIcon,
+          iconSize: [34, 42],
+          iconAnchor: [17, 42],
+          popupAnchor: [0, -38]
+        });
+      }
+
+      async function inicializarMapa() {
+        const mapaContainer = document.getElementById("mapa-canvas");
+        if (!mapaContainer) return;
+
+        map = L.map("mapa-canvas", {
+          center: CENTRO_BSAS,
+          zoom: ZOOM_INICIAL,
+          scrollWheelZoom: true
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · ALERTACALLE'
+        }).addTo(map);
+
+        markersGroup = L.layerGroup().addTo(map);
+
+        const btnRecentrar = document.getElementById("btn-recentrar-mapa");
+        if (btnRecentrar) {
+          btnRecentrar.addEventListener("click", function () {
+            map.flyTo(CENTRO_BSAS, ZOOM_INICIAL, { duration: 1.2 });
+          });
+        }
+
+        await cargarIncidenciasDesdeDB();
+      }
+
+      async function cargarIncidenciasDesdeDB() {
+        try {
+          const dbData = await ApiClient.obtenerAlertas();
+          PUNTOS_INCIDENCIAS = dbData.map(transformarIncidenciaDB);
+          renderizarMapaYLista();
+        } catch (err) {
+          console.error("Error al obtener datos de la base de datos:", err);
+          PUNTOS_INCIDENCIAS = [];
+          renderizarMapaYLista();
+        }
+      }
+
+      function renderizarMapaYLista() {
+        if (!markersGroup) return;
+        markersGroup.clearLayers();
+
+        const feedLista = document.getElementById("mapa-feed-lista");
+        if (feedLista) feedLista.innerHTML = "";
+
+        const filtrados = PUNTOS_INCIDENCIAS.filter(function (item) {
+          const matchEstado = estadoFiltro === "todos" || item.idEstado === Number(estadoFiltro);
+          const matchCat = catFiltro === "todos" || item.categoria === catFiltro;
+          const text = (item.titulo + " " + item.direccion + " #inc-" + item.id).toLowerCase();
+          const matchQuery = !queryFiltro || text.includes(queryFiltro);
+          return matchEstado && matchCat && matchQuery;
+        });
+
+        const badgeVisibles = document.getElementById("mapa-badge-visibles");
+        const countTotal = document.getElementById("mapa-count-total");
+        if (badgeVisibles) badgeVisibles.textContent = `${filtrados.length} Visibles`;
+        if (countTotal) countTotal.textContent = `${filtrados.length} Puntos Auditados`;
+
+        if (filtrados.length === 0 && feedLista) {
+          feedLista.innerHTML = `
+            <div class="text-center py-8 border border-dashed border-surface-container-high rounded-xl">
+              <span class="material-symbols-outlined text-2xl text-secondary">location_off</span>
+              <p class="text-xs text-secondary mt-1">No hay incidencias registradas en la base de datos para este filtro.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filtrados.forEach(function (item) {
+          const marker = L.marker([item.lat, item.lng], {
+            icon: crearIconoMarcador(item)
+          });
+
+          const popupHTML = `
+            <div class="p-3.5 space-y-2 min-w-[240px]">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-label-code text-[11px] font-bold px-2 py-0.5 rounded bg-surface-container border border-surface-container-high">#INC-${item.id}</span>
+                <span class="font-label-code text-[10px] uppercase font-bold text-white px-2 py-0.5 rounded-full ${item.estadoColor}">${item.estadoNombre}</span>
+              </div>
+              <p class="font-label-caps text-[11px] font-extrabold text-primary">${item.categoriaNombre}</p>
+              <h4 class="font-bold text-xs text-on-surface leading-snug">${item.titulo}</h4>
+              <p class="text-[11px] text-secondary font-medium">📍 ${item.direccion}</p>
+              <div class="pt-2 border-t border-surface-container-high flex justify-end">
+                <a href="reportes.html" class="text-[11px] font-label-caps font-extrabold text-primary hover:underline">Ver ficha completa →</a>
+              </div>
+            </div>
+          `;
+
+          marker.bindPopup(popupHTML);
+          markersGroup.addLayer(marker);
+
+          if (feedLista) {
+            const cardEl = document.createElement("div");
+            cardEl.className = "p-3.5 bg-surface-container-low border border-surface-container-high rounded-xl soft-card-shadow hover:border-primary/50 transition-all space-y-2 cursor-pointer";
+            cardEl.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="font-label-code text-[11px] font-bold text-secondary">#INC-${item.id}</span>
+                <span class="font-label-code text-[10px] uppercase font-bold text-white px-2 py-0.5 rounded-full ${item.estadoColor}">${item.estadoNombre}</span>
+              </div>
+              <h4 class="font-bold text-xs text-on-surface leading-snug">${item.titulo}</h4>
+              <p class="text-[11px] text-secondary flex items-center gap-1">
+                <span class="material-symbols-outlined text-xs text-primary">location_on</span>
+                <span>${item.direccion}</span>
+              </p>
+              <div class="pt-2 flex justify-end border-t border-surface-container-high/60">
+                <button type="button" class="btn-ver-en-mapa font-label-code text-[11px] font-bold text-primary hover:underline inline-flex items-center gap-1">
+                  <span>Ver en mapa</span>
+                  <span class="material-symbols-outlined text-xs">my_location</span>
+                </button>
+              </div>
+            `;
+
+            cardEl.addEventListener("click", function () {
+              map.flyTo([item.lat, item.lng], 16, { duration: 1.2 });
+              marker.openPopup();
+            });
+
+            feedLista.appendChild(cardEl);
+          }
+        });
+      }
+
+      const searchInput = document.getElementById("mapa-search");
+      if (searchInput) {
+        searchInput.addEventListener("input", function (e) {
+          queryFiltro = e.target.value.trim().toLowerCase();
+          renderizarMapaYLista();
+        });
+      }
+
+      document.querySelectorAll(".mapa-filtro-estado").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          estadoFiltro = btn.dataset.estado;
+          document.querySelectorAll(".mapa-filtro-estado").forEach(function (b) {
+            b.classList.remove("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+            b.classList.add("text-secondary");
+          });
+          btn.classList.add("bg-surface-container-lowest", "shadow-xs", "border", "border-surface-container-high/60", "font-bold", "text-on-surface");
+          btn.classList.remove("text-secondary");
+          renderizarMapaYLista();
+        });
+      });
+
+      document.querySelectorAll(".mapa-filtro-cat").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          catFiltro = btn.dataset.cat;
+          document.querySelectorAll(".mapa-filtro-cat").forEach(function (b) {
+            b.classList.remove("bg-primary-container", "text-on-primary", "glow-red-button");
+            b.classList.add("bg-surface-container-low", "text-on-surface", "border", "border-surface-container-high");
+          });
+          btn.classList.add("bg-primary-container", "text-on-primary", "glow-red-button");
+          btn.classList.remove("bg-surface-container-low", "text-on-surface", "border", "border-surface-container-high");
+          renderizarMapaYLista();
+        });
+      });
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", inicializarMapa);
+      } else {
+        inicializarMapa();
+      }
+    </script>
+</body>
+</html>

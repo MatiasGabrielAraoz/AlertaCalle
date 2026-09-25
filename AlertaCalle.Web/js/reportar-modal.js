@@ -124,24 +124,37 @@
               </div>
             </div>
 
-            <div class="paso-panel hidden space-y-6" data-paso="2">
+            <div class="paso-panel hidden space-y-4" data-paso="2">
               <div>
                 <h3 class="font-headline-sm text-lg font-bold text-on-surface">Paso 2: Indicá dónde ocurre el problema</h3>
-                <p class="text-sm text-secondary">Esto nos permite geolocalizar el reclamo y asignar la cuadrilla más cercana.</p>
+                <p class="text-sm text-secondary">Hacé clic en el mapa para colocar la marca de la ubicación exacta del reclamo.</p>
               </div>
-              <div class="space-y-4">
-                <div class="space-y-1.5">
-                  <label class="font-label-code text-label-code uppercase text-secondary" for="modal-direccion">Dirección / Referencia</label>
+
+              <!-- Contenedor del Mapa Interactivo Selector -->
+              <div class="relative w-full rounded-xl overflow-hidden border border-surface-container-high soft-card-shadow">
+                <div id="modal-mapa-picker" class="w-full h-64 bg-surface-container z-10"></div>
+                <div class="absolute bottom-2 left-2 right-2 z-20 bg-surface-container-lowest/95 backdrop-blur border border-surface-container-high rounded-lg p-2 flex items-center justify-between text-xs font-label-code shadow-md">
+                  <div class="flex items-center gap-1.5 overflow-hidden">
+                    <span class="material-symbols-outlined text-primary text-base shrink-0">location_on</span>
+                    <span id="modal-mapa-direccion-preview" class="font-bold text-on-surface truncate">Hacé clic en el mapa para seleccionar la ubicación</span>
+                  </div>
+                  <span class="text-[10px] text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded shrink-0">GPS Activo</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div class="space-y-1">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="modal-direccion">Dirección / Referencia</label>
                   <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <span class="material-symbols-outlined text-secondary text-base">location_on</span>
+                      <span class="material-symbols-outlined text-secondary text-sm">edit_location</span>
                     </div>
-                    <input class="w-full pl-9 pr-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-body-sm text-on-surface focus:outline-none focus:border-primary transition-colors" id="modal-direccion" placeholder="Ej: Av. San Martín 850" type="text"/>
+                    <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-xs text-on-surface focus:outline-none focus:border-primary transition-colors" id="modal-direccion" placeholder="Hacé clic en el mapa para autocompletar" type="text"/>
                   </div>
                 </div>
-                <div class="space-y-1.5">
-                  <label class="font-label-code text-label-code uppercase text-secondary" for="modal-barrio">Barrio</label>
-                  <select class="w-full bg-surface-container-low border border-surface-container-high rounded-lg px-3 py-2.5 text-sm font-body-md text-on-surface focus:border-primary focus:outline-none" id="modal-barrio">
+                <div class="space-y-1">
+                  <label class="font-label-code text-xs uppercase text-secondary" for="modal-barrio">Barrio Comunal</label>
+                  <select class="w-full bg-surface-container-low border border-surface-container-high rounded-lg px-3 py-2 text-xs font-body-md text-on-surface focus:border-primary focus:outline-none" id="modal-barrio">
                     <option value="">Seleccioná tu barrio</option>
                     <option value="San Andrés Centro">San Andrés Centro</option>
                     <option value="Villa Belgrano">Villa Belgrano</option>
@@ -149,14 +162,16 @@
                     <option value="Distrito Sur">Distrito Sur</option>
                   </select>
                 </div>
-                <p class="hidden text-xs font-label-code text-primary" id="modal-error-paso2">Completá la dirección y el barrio para continuar.</p>
               </div>
+
+              <p class="hidden text-xs font-label-code text-primary" id="modal-error-paso2">Completá o seleccioná una ubicación en el mapa para continuar.</p>
+
               <div class="flex justify-between pt-2">
-                <button class="btn-atras-paso inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-label-caps uppercase px-5 py-3 rounded-lg font-bold border border-surface-container-high hover:bg-surface-container-low transition-all" type="button">
+                <button class="btn-atras-paso inline-flex items-center gap-2 bg-surface-container-lowest text-on-surface font-label-caps text-xs uppercase px-5 py-2.5 rounded-lg font-bold border border-surface-container-high hover:bg-surface-container-low transition-all" type="button">
                   <span class="material-symbols-outlined text-sm">arrow_back</span>
                   <span>ATRÁS</span>
                 </button>
-                <button class="btn-siguiente-paso inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-label-caps uppercase px-6 py-3 rounded-lg font-bold glow-red-button transition-all" type="button">
+                <button class="btn-siguiente-paso inline-flex items-center gap-2 bg-primary-container text-on-primary font-label-caps text-xs uppercase px-6 py-2.5 rounded-lg font-bold glow-red-button transition-all" type="button">
                   <span>CONTINUAR A DETALLES</span>
                   <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </button>
@@ -249,6 +264,192 @@
     let pasoActual = 1;
     let contadorIncidencias = 8510;
     let modoEdicion = false;
+    let pickerMap = null;
+    let pickerMarker = null;
+
+    function asegurarLeaflet(callback) {
+      if (window.L) {
+        callback();
+        return;
+      }
+      if (!document.getElementById("leaflet-css")) {
+        const css = document.createElement("link");
+        css.id = "leaflet-css";
+        css.rel = "stylesheet";
+        css.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+        document.head.appendChild(css);
+      }
+      if (!document.getElementById("leaflet-js")) {
+        const js = document.createElement("script");
+        js.id = "leaflet-js";
+        js.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+        js.onload = callback;
+        document.head.appendChild(js);
+      } else {
+        const timer = setInterval(() => {
+          if (window.L) {
+            clearInterval(timer);
+            callback();
+          }
+        }, 100);
+      }
+    }
+
+    function esUbicacionEnBuenosAires(lat, lng) {
+      // Coordenadas límites para CABA, San Martín, AMBA y Provincia de Buenos Aires
+      const MIN_LAT = -35.20;
+      const MAX_LAT = -34.00;
+      const MIN_LNG = -59.30;
+      const MAX_LNG = -57.50;
+
+      return lat >= MIN_LAT && lat <= MAX_LAT && lng >= MIN_LNG && lng <= MAX_LNG;
+    }
+
+    const STREET_NODES = [
+      { lat: -34.5721, lng: -58.5342, calle: "Av. Belgrano 1420", barrio: "San Andrés Centro" },
+      { lat: -34.5780, lng: -58.5370, calle: "Av. San Martín 850", barrio: "San Andrés Centro" },
+      { lat: -34.5755, lng: -58.5398, calle: "Bartolomé Mitre esq. Urquiza", barrio: "San Andrés Centro" },
+      { lat: -34.5684, lng: -58.5290, calle: "Parque Moreno - Senda Norte", barrio: "Parque Norte" },
+      { lat: -34.5650, lng: -58.5210, calle: "Calle Lavalle 850", barrio: "Villa Belgrano" },
+      { lat: -34.5780, lng: -58.5310, calle: "Av. 25 de Mayo 1900", barrio: "San Andrés Centro" },
+      { lat: -34.5810, lng: -58.5420, calle: "Av. San Martín esq. Rivadavia", barrio: "Distrito Sur" },
+      { lat: -34.5700, lng: -58.5300, calle: "Calle 88 (Alvear) 2100", barrio: "Parque Norte" },
+      { lat: -34.5740, lng: -58.5350, calle: "Calle 54 (Ayacucho) 1600", barrio: "San Andrés Centro" }
+    ];
+
+    function generarDireccionSegunCoords(lat, lng) {
+      let minDistance = Infinity;
+      let masCercano = STREET_NODES[0];
+
+      for (const node of STREET_NODES) {
+        const dist = Math.hypot(node.lat - lat, node.lng - lng);
+        if (dist < minDistance) {
+          minDistance = dist;
+          masCercano = node;
+        }
+      }
+
+      if (minDistance < 0.015) {
+        return { calle: masCercano.calle, barrio: masCercano.barrio };
+      }
+
+      const latStr = Math.abs(lat).toFixed(4);
+      const lngStr = Math.abs(lng).toFixed(4);
+      const barrioEst = lat < -34.575 ? "Distrito Sur" : (lng > -58.528 ? "Villa Belgrano" : "San Andrés Centro");
+      return {
+        calle: `Ubicación GPS [${latStr}, ${lngStr}]`,
+        barrio: barrioEst
+      };
+    }
+
+    let clickTimer = null;
+    let clickCount = 0;
+
+    function inicializarMapaPicker() {
+      const container = document.getElementById("modal-mapa-picker");
+      if (!container) return;
+
+      asegurarLeaflet(() => {
+        if (!pickerMap) {
+          const centro = [-34.5730, -58.5340];
+          pickerMap = L.map("modal-mapa-picker", {
+            center: centro,
+            zoom: 14,
+            doubleClickZoom: false,
+            scrollWheelZoom: true
+          });
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap · ALERTACALLE'
+          }).addTo(pickerMap);
+
+          // Control de clic único vs doble clic: el doble clic no pasa al paso 3
+          pickerMap.on("click", function (e) {
+            clickCount++;
+            if (clickCount === 1) {
+              clickTimer = setTimeout(() => {
+                clickCount = 0;
+                const { lat, lng } = e.latlng;
+                colocarMarcadorPicker(lat, lng, true);
+              }, 250);
+            } else {
+              clearTimeout(clickTimer);
+              clickCount = 0;
+              const { lat, lng } = e.latlng;
+              colocarMarcadorPicker(lat, lng, false); // Doble clic: posiciona pin pero NO avanza al paso 3
+            }
+          });
+
+          pickerMap.on("dblclick", function (e) {
+            if (clickTimer) clearTimeout(clickTimer);
+            clickCount = 0;
+          });
+        }
+
+        setTimeout(() => {
+          pickerMap.invalidateSize();
+        }, 200);
+      });
+    }
+
+    function colocarMarcadorPicker(lat, lng, autoAvanzar = false) {
+      if (!window.L || !pickerMap) return;
+
+      const errorPaso2 = document.getElementById("modal-error-paso2");
+      const previewText = document.getElementById("modal-mapa-direccion-preview");
+
+      // 1. Validación de ubicación dentro de Buenos Aires
+      if (!esUbicacionEnBuenosAires(lat, lng)) {
+        if (errorPaso2) {
+          errorPaso2.textContent = "❌ La ubicación seleccionada se encuentra fuera de la Ciudad / Provincia de Buenos Aires.";
+          errorPaso2.classList.remove("hidden");
+        }
+        if (previewText) {
+          previewText.textContent = "❌ Ubicación fuera de cobertura (Buenos Aires)";
+        }
+        return; // Detiene la selección y NO avanza de paso
+      }
+
+      // Ubicación válida
+      if (errorPaso2) errorPaso2.classList.add("hidden");
+
+      if (pickerMarker) {
+        pickerMarker.setLatLng([lat, lng]);
+      } else {
+        const customIcon = L.divIcon({
+          className: "custom-picker-marker",
+          html: `
+            <svg width="34" height="42" viewBox="0 0 34 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17 0C7.61116 0 0 7.61116 0 17C0 29.75 17 42 17 42C17 42 34 29.75 34 17C34 7.61116 26.3888 0 17 0Z" fill="#ef4444"/>
+              <circle cx="17" cy="17" r="8" fill="white"/>
+            </svg>
+          `,
+          iconSize: [34, 42],
+          iconAnchor: [17, 42]
+        });
+
+        pickerMarker = L.marker([lat, lng], { icon: customIcon, draggable: true }).addTo(pickerMap);
+        pickerMarker.on("dragend", function (ev) {
+          const pos = ev.target.getLatLng();
+          colocarMarcadorPicker(pos.lat, pos.lng, false);
+        });
+      }
+
+      const ubi = generarDireccionSegunCoords(lat, lng);
+      const inputDir = document.getElementById("modal-direccion");
+      const inputBarrio = document.getElementById("modal-barrio");
+
+      if (inputDir) inputDir.value = ubi.calle;
+      if (inputBarrio) inputBarrio.value = ubi.barrio;
+      if (previewText) previewText.textContent = `📍 ${ubi.calle} (${ubi.barrio})`;
+
+      if (autoAvanzar) {
+        setTimeout(() => {
+          irAPaso(3);
+        }, 350);
+      }
+    }
 
     function abrirModal() {
       modal.classList.remove("hidden");
@@ -260,6 +461,14 @@
       document.getElementById("modal-descripcion").value = "";
       document.getElementById("modal-error-paso2").classList.add("hidden");
       document.getElementById("modal-error-paso3").classList.add("hidden");
+
+      const previewText = document.getElementById("modal-mapa-direccion-preview");
+      if (previewText) previewText.textContent = "Hacé clic en el mapa para seleccionar la ubicación";
+
+      if (pickerMarker && pickerMap) {
+        pickerMap.removeLayer(pickerMarker);
+        pickerMarker = null;
+      }
 
       document.querySelector('input[name="incident_type"][value="Bache"]').checked = true;
       opcionesTipo.forEach(function (l, i) {
@@ -316,6 +525,10 @@
         label.textContent = (modoEdicion && n < 4) ? "CANCELAR" : b.dataset.labelOriginal;
       });
 
+      if (n === 2) {
+        inicializarMapaPicker();
+      }
+
       if (n === 4) {
         const tipoSeleccionado = document.querySelector('input[name="incident_type"]:checked').value;
         const info = CATEGORIAS[tipoSeleccionado] || { emoji: "⚠️", label: tipoSeleccionado };
@@ -369,10 +582,23 @@
           const barrio = document.getElementById("modal-barrio").value;
           const errorPaso2 = document.getElementById("modal-error-paso2");
           if (!direccion || !barrio) {
-            errorPaso2.classList.remove("hidden");
+            if (errorPaso2) {
+              errorPaso2.textContent = "Completá o seleccioná una ubicación en el mapa para continuar.";
+              errorPaso2.classList.remove("hidden");
+            }
             return;
           }
-          errorPaso2.classList.add("hidden");
+          if (pickerMarker) {
+            const pos = pickerMarker.getLatLng();
+            if (!esUbicacionEnBuenosAires(pos.lat, pos.lng)) {
+              if (errorPaso2) {
+                errorPaso2.textContent = "❌ La ubicación seleccionada se encuentra fuera de la Ciudad / Provincia de Buenos Aires.";
+                errorPaso2.classList.remove("hidden");
+              }
+              return;
+            }
+          }
+          if (errorPaso2) errorPaso2.classList.add("hidden");
         }
         if (pasoActual === 3) {
           const titulo = document.getElementById("modal-titulo").value.trim();

@@ -168,10 +168,6 @@
               ESTADÍSTICAS DE REPORTE DETALLADAS
             </h2>
           </div>
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-lowest border border-surface-container-high font-label-code text-xs text-secondary shadow-xs">
-            <span class="material-symbols-outlined text-primary text-base">analytics</span>
-            <span id="stat-cumplimiento-sla">CUMPLIMIENTO SLA: 87%</span>
-          </div>
         </div>
 
         <div class="bg-surface-container-lowest border border-surface-container-high rounded-2xl p-6 soft-card-shadow space-y-6">
@@ -261,272 +257,8 @@
           </div>
         </div>
 
-        <!-- Feed de reportes propios -->
-        <div class="space-y-5" id="mis-reportes-feed">
-
-          <!-- Post / Reporte 1 -->
-          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="proceso" data-busqueda="inc-8492 av. belgrano 1420 luminaria led intermitente cable expuesto alumbrado">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8492</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-secondary text-on-secondary font-bold rounded-full">
-                  EN PROCESO
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Luminaria LED intermitente y cable expuesto
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Av. Belgrano 1420 (San Andrés Centro)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hoy 09:15 hs</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-secondary">Cuadrilla Asignada #02</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
-                <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-
-            <!-- Panel de seguimiento -->
-            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div class="space-y-0.5">
-                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
-                  <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #02 Electromecánica · Vencimiento SLA: 30hs</p>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary text-on-secondary border border-secondary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
-                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                  EN PROCESO
-                </span>
-              </div>
-
-              <div class="relative pt-2 pb-1 overflow-x-auto">
-                <div class="min-w-[560px] flex items-center justify-between relative">
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-[55%] z-0 transition-all duration-500"></div>
-
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Reportado</span>
-                    <span class="text-[10px] text-secondary">Hoy 09:15</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Recibido</span>
-                    <span class="text-[10px] text-secondary">Hoy 09:40</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-sm ring-4 ring-secondary/20 animate-pulse">
-                      <span class="material-symbols-outlined text-base">engineering</span>
-                    </div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Asignado</span>
-                    <span class="text-[10px] text-on-surface font-bold">Cuadrilla #02</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">En Reparación</span>
-                    <span class="text-[10px] text-secondary">Próximo paso</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">Solucionado</span>
-                    <span class="text-[10px] text-secondary">Pendiente cierre</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
-                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
-                <span class="text-secondary">Última actualización por cuadrilla técnica hace 40 minutos: "Se coordinó recambio de artefacto para mañana a la mañana."</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Post / Reporte 2 -->
-          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="pendiente" data-busqueda="inc-8501 parque moreno senda norte tablero electrico abierto peligro corte alumbrado">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8501</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-primary-container text-on-primary font-bold rounded-full animate-pulse">
-                  PENDIENTE
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">💡 Alumbrado Público</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Tablero eléctrico abierto con peligro de corte
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Parque Moreno - Senda Norte (Parque Norte)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hoy 11:20 hs</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-primary font-bold">CRÍTICO / ENERGÍA</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
-                <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-
-            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div class="space-y-0.5">
-                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
-                  <p class="text-xs font-label-code text-secondary">Barrio Parque Norte · Triage técnico municipal · Vencimiento SLA: 2hs</p>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-primary-container text-on-primary border border-primary/30 rounded-full font-label-code text-[11px] font-bold w-fit">
-                  <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-                  PENDIENTE
-                </span>
-              </div>
-
-              <div class="relative pt-2 pb-1 overflow-x-auto">
-                <div class="min-w-[560px] flex items-center justify-between relative">
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-[10%] z-0 transition-all duration-500"></div>
-
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm glow-red ring-4 ring-primary-container/20 animate-pulse">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-primary">Reportado</span>
-                    <span class="text-[10px] text-primary font-bold">Hoy 11:20</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">Recibido</span>
-                    <span class="text-[10px] text-secondary">En cola</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">Asignado</span>
-                    <span class="text-[10px] text-secondary">Pendiente</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">En Reparación</span>
-                    <span class="text-[10px] text-secondary">Pendiente</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-surface-container-highest text-secondary flex items-center justify-center font-bold text-xs">○</div>
-                    <span class="font-label-code text-[11px] text-secondary font-medium">Solucionado</span>
-                    <span class="text-[10px] text-secondary">Pendiente</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
-                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
-                <span class="text-secondary">Reporte recibido por el sistema, en cola de triage por riesgo eléctrico prioritario.</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Post / Reporte 3 -->
-          <article class="reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all" data-estado="resuelta" data-busqueda="inc-8430 bartolome mitre urquiza cordon cuneta destruido losa desnivelada baches calzadas">
-            <div class="p-6 space-y-4">
-              <div class="flex items-center justify-between">
-                <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-8430</span>
-                <span class="font-label-code text-xs uppercase px-2.5 py-0.5 bg-emerald-700 text-white font-bold rounded-full">
-                  RESUELTA
-                </span>
-              </div>
-              <div class="space-y-1">
-                <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">🚧 Baches y Calzadas</span>
-                <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">
-                  Cordón cuneta destruido y losa desnivelada
-                </h3>
-              </div>
-              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm text-primary">location_on</span>
-                  <span class="font-medium text-on-surface">Bartolomé Mitre esq. Urquiza (San Andrés Centro)</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  <span>Registrado Hace 3 días</span>
-                </div>
-              </div>
-            </div>
-            <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
-              <span class="font-label-code text-secondary">Reparación Hormigón Finalizada</span>
-              <a class="font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" href="reportes.html">
-                <span class="btn-seguimiento-label">Ver seguimiento</span>
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-
-            <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div class="space-y-0.5">
-                  <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
-                  <p class="text-xs font-label-code text-secondary">Barrio San Andrés Centro · Cuadrilla #04 Obras Viales · Cerrado con conformidad</p>
-                </div>
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-700 text-white rounded-full font-label-code text-[11px] font-bold w-fit">
-                  <span class="w-2 h-2 rounded-full bg-white"></span>
-                  RESUELTA
-                </span>
-              </div>
-
-              <div class="relative pt-2 pb-1 overflow-x-auto">
-                <div class="min-w-[560px] flex items-center justify-between relative">
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
-                  <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 w-full z-0 transition-all duration-500"></div>
-
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Reportado</span>
-                    <span class="text-[10px] text-secondary">Hace 3 días</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Recibido</span>
-                    <span class="text-[10px] text-secondary">Hace 3 días</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">Asignado</span>
-                    <span class="text-[10px] text-secondary">Hace 2 días</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">✓</div>
-                    <span class="font-label-code text-[11px] font-bold text-on-surface">En Reparación</span>
-                    <span class="text-[10px] text-secondary">Ayer</span>
-                  </div>
-                  <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
-                    <div class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                      <span class="material-symbols-outlined text-base">check</span>
-                    </div>
-                    <span class="font-label-code text-[11px] font-bold text-emerald-700">Solucionado</span>
-                    <span class="text-[10px] text-emerald-700 font-bold">Hoy 08:10</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
-                <span class="material-symbols-outlined text-base text-secondary shrink-0">history</span>
-                <span class="text-secondary">Cerrado por inspector técnico con foto de verificación final.</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
+        <!-- Feed de reportes propios (Cargados dinámicamente desde la base de datos) -->
+        <div class="space-y-5" id="mis-reportes-feed"></div>
 
         <!-- Estado vacío al filtrar/buscar sin resultados -->
         <div class="hidden text-center py-10 border border-dashed border-surface-container-high rounded-xl" id="mis-reportes-vacio">
@@ -965,18 +697,21 @@
 
         const elCatNombre = document.getElementById("detail-cat-nombre");
         const elCatDesc = document.getElementById("detail-cat-desc");
+        const elBarrioDesc = document.getElementById("detail-barrio-desc");
+
         if (elCatNombre) elCatNombre.textContent = catMasReportada;
         if (elCatDesc) {
           const pctCat = totales > 0 ? ((maxConteo / totales) * 100).toFixed(1) : "0.0";
           elCatDesc.textContent = `${maxConteo} reportes (${pctCat}% de tus cargas).`;
+        }
+        if (elBarrioDesc) {
+          elBarrioDesc.textContent = `${totales} reportes geolocalizados.`;
         }
 
         // Badge de total en Mis Reportes
         const badgeTotal = document.getElementById("badge-total-reportes");
         if (badgeTotal) badgeTotal.textContent = `${totales} REPORTES EN TU CUENTA`;
       }
-
-      actualizarEstadisticasDesdeFeed();
 
       // 4. Modal Configuración de Perfil (Abrir / Cerrar / Backdrop / Escape / Tabs)
       const modalConfig = document.getElementById("modal-configuracion");
@@ -1075,39 +810,172 @@
         });
       }
 
-      // 5. Acordeones de seguimiento y filtro de reportes
-      document.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          const post = btn.closest(".reporte-post");
-          const panel = post.querySelector(".panel-seguimiento");
-          const icon = btn.querySelector(".btn-seguimiento-icon");
-          const label = btn.querySelector(".btn-seguimiento-label");
-          const abierto = !panel.classList.contains("hidden");
+      // 5. Carga dinámica de reportes reales desde la Base de Datos
+      function timeAgo(rawDate) {
+        if (!rawDate) return "Recientemente";
+        const date = new Date(rawDate);
+        const diffMs = new Date().getTime() - date.getTime();
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+        if (diffDays > 0) return `Hace ${diffDays} ${diffDays === 1 ? 'día' : 'días'}`;
+        if (diffHours > 0) return `Hace ${diffHours} ${diffHours === 1 ? 'hora' : 'horas'}`;
+        return "Hace momentos";
+      }
 
-          if (abierto) {
-            panel.classList.add("hidden");
-            icon.style.transform = "rotate(0deg)";
-            label.textContent = "Ver seguimiento";
-          } else {
-            panel.classList.remove("hidden");
-            icon.style.transform = "rotate(180deg)";
-            label.textContent = "Ocultar seguimiento";
-          }
+      function getCategoriaConIcono(nombreCat) {
+        const n = (nombreCat || "").toLowerCase();
+        if (n.includes("alumbrado")) return "💡 Alumbrado Público";
+        if (n.includes("bache") || n.includes("calzada")) return "🚧 Baches y Calzadas";
+        if (n.includes("residuo") || n.includes("higiene") || n.includes("basura")) return "🗑️ Higiene y Residuos";
+        if (n.includes("arbol") || n.includes("árbol") || n.includes("plaza")) return "🌳 Arbolado y Plazas";
+        return "📍 Incidencia Urbana";
+      }
+
+      function crearElementoPostReporte(item) {
+        const estadoId = Number(item.idEstado);
+        let estadoKey = "pendiente";
+        let estadoNombre = "PENDIENTE";
+        let badgeColorClass = "bg-primary-container text-on-primary animate-pulse";
+        let progressWidth = "w-[10%]";
+
+        if (estadoId === 2) {
+          estadoKey = "proceso";
+          estadoNombre = "EN PROCESO";
+          badgeColorClass = "bg-amber-500 text-white";
+          progressWidth = "w-[55%]";
+        } else if (estadoId === 3) {
+          estadoKey = "resuelta";
+          estadoNombre = "RESUELTA";
+          badgeColorClass = "bg-emerald-700 text-white";
+          progressWidth = "w-full";
+        }
+
+        const catNombre = getCategoriaConIcono(item.categoria?.nombre);
+        const busqueda = `inc-${item.id} ${item.titulo} ${item.direccion} ${item.descr || ''}`.toLowerCase();
+
+        const article = document.createElement("article");
+        article.className = "reporte-post bg-surface-container-lowest border border-surface-container-high rounded-xl overflow-hidden soft-card-shadow soft-card-shadow-hover transition-all";
+        article.dataset.estado = estadoKey;
+        article.dataset.busqueda = busqueda;
+
+        article.innerHTML = `
+          <div class="p-6 space-y-4">
+              <div class="flex items-center justify-between">
+                  <span class="font-label-code text-xs px-2.5 py-0.5 bg-surface-container rounded border border-surface-container-high">#INC-${item.id}</span>
+                  <span class="font-label-code text-xs uppercase px-2.5 py-0.5 ${badgeColorClass} font-bold rounded-full">${estadoNombre}</span>
+              </div>
+              <div class="space-y-1">
+                  <span class="font-label-caps text-label-caps uppercase text-primary tracking-wider font-extrabold">${catNombre}</span>
+                  <h3 class="font-headline-sm text-base font-bold text-on-surface leading-snug">${item.titulo}</h3>
+              </div>
+              <div class="space-y-1.5 pt-3 border-t border-surface-container-high font-body-sm text-xs text-secondary">
+                  <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm text-primary">location_on</span>
+                      <span class="font-medium text-on-surface">${item.direccion || 'Ubicación registrada'}</span>
+                  </div>
+                  <div class="flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm">schedule</span>
+                      <span>Registrado ${timeAgo(item.fechaCreacion)}</span>
+                  </div>
+              </div>
+          </div>
+          <div class="p-3.5 bg-surface-container-low border-t border-surface-container-high flex items-center justify-between text-xs">
+              <span class="font-label-code text-secondary">${item.descr ? item.descr.slice(0, 60) : 'Triage Técnico Municipal'}</span>
+              <button class="btn-seguimiento font-label-caps text-label-caps uppercase font-extrabold text-primary hover:text-on-surface transition-colors inline-flex items-center gap-1" type="button">
+                  <span class="btn-seguimiento-label">Ver seguimiento</span>
+                  <span class="material-symbols-outlined text-sm btn-seguimiento-icon transition-transform">expand_more</span>
+              </button>
+          </div>
+
+          <div class="panel-seguimiento hidden border-t border-surface-container-high bg-surface-container-lowest p-6 space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div class="space-y-0.5">
+                      <span class="text-[11px] font-label-code text-primary font-bold">AUDITORÍA PÚBLICA EN TIEMPO REAL</span>
+                      <p class="text-xs font-label-code text-secondary">${item.direccion || 'San Andrés'} · ${estadoNombre}</p>
+                  </div>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 ${badgeColorClass} rounded-full font-label-code text-[11px] font-bold w-fit">
+                      <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                      ${estadoNombre}
+                  </span>
+              </div>
+
+              <div class="relative pt-2 pb-1 overflow-x-auto">
+                  <div class="min-w-[560px] flex items-center justify-between relative">
+                      <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-surface-container-high w-full z-0"></div>
+                      <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 ${progressWidth} z-0 transition-all duration-500"></div>
+
+                      <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                          <div class="w-8 h-8 rounded-full ${estadoId >= 1 ? 'bg-emerald-500 text-white' : 'bg-surface-container-highest text-secondary'} flex items-center justify-center font-bold text-xs">✓</div>
+                          <span class="font-label-code text-[11px] font-bold text-on-surface">Reportado</span>
+                          <span class="text-[10px] text-secondary">Registrado</span>
+                      </div>
+                      <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                          <div class="w-8 h-8 rounded-full ${estadoId >= 2 ? 'bg-emerald-500 text-white' : 'bg-surface-container-highest text-secondary'} flex items-center justify-center font-bold text-xs">${estadoId >= 2 ? '✓' : '○'}</div>
+                          <span class="font-label-code text-[11px] font-bold text-on-surface">Recibido</span>
+                          <span class="text-[10px] text-secondary">En cola</span>
+                      </div>
+                      <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                          <div class="w-8 h-8 rounded-full ${estadoId >= 2 ? 'bg-emerald-500 text-white' : 'bg-surface-container-highest text-secondary'} flex items-center justify-center font-bold text-xs">${estadoId >= 2 ? '✓' : '○'}</div>
+                          <span class="font-label-code text-[11px] font-bold text-on-surface">Asignado</span>
+                          <span class="text-[10px] text-secondary">Cuadrilla</span>
+                      </div>
+                      <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                          <div class="w-8 h-8 rounded-full ${estadoId >= 2 ? 'bg-emerald-500 text-white' : 'bg-surface-container-highest text-secondary'} flex items-center justify-center font-bold text-xs">${estadoId >= 2 ? '✓' : '○'}</div>
+                          <span class="font-label-code text-[11px] font-bold text-on-surface">En Reparación</span>
+                          <span class="text-[10px] text-secondary">En curso</span>
+                      </div>
+                      <div class="relative z-10 flex flex-col items-center gap-1.5 text-center bg-surface-container-lowest px-2">
+                          <div class="w-8 h-8 rounded-full ${estadoId === 3 ? 'bg-emerald-600 text-white' : 'bg-surface-container-highest text-secondary'} flex items-center justify-center font-bold text-xs">${estadoId === 3 ? '✓' : '○'}</div>
+                          <span class="font-label-code text-[11px] font-bold ${estadoId === 3 ? 'text-emerald-700' : 'text-secondary'}">Solucionado</span>
+                          <span class="text-[10px] ${estadoId === 3 ? 'text-emerald-700 font-bold' : 'text-secondary'}">${estadoId === 3 ? 'Finalizado' : 'Pendiente'}</span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="bg-surface-container-low p-3.5 rounded-xl flex flex-col sm:flex-row items-start sm:items-center gap-2 text-xs font-label-code">
+                  <span class="material-symbols-outlined text-base ${estadoId === 3 ? 'text-emerald-700' : 'text-secondary'} shrink-0">${estadoId === 3 ? 'verified' : 'history'}</span>
+                  <span class="text-secondary">${item.descr || 'Sin observaciones adicionales registradas.'}</span>
+              </div>
+          </div>
+        `;
+
+        return article;
+      }
+
+      function bindPostEvents(container) {
+        container.querySelectorAll(".btn-seguimiento").forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            const post = btn.closest(".reporte-post");
+            const panel = post.querySelector(".panel-seguimiento");
+            const icon = btn.querySelector(".btn-seguimiento-icon");
+            const label = btn.querySelector(".btn-seguimiento-label");
+            const abierto = !panel.classList.contains("hidden");
+
+            if (abierto) {
+              panel.classList.add("hidden");
+              if (icon) icon.style.transform = "rotate(0deg)";
+              if (label) label.textContent = "Ver seguimiento";
+            } else {
+              panel.classList.remove("hidden");
+              if (icon) icon.style.transform = "rotate(180deg)";
+              if (label) label.textContent = "Ocultar seguimiento";
+            }
+          });
         });
-      });
+      }
 
       const searchInput = document.getElementById("mis-reportes-search");
       const filtroButtons = document.querySelectorAll(".filtro-estado");
-      const posts = document.querySelectorAll(".reporte-post");
       const vacioMsg = document.getElementById("mis-reportes-vacio");
       let estadoActivo = "todos";
 
       function aplicarFiltros() {
         const query = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        const posts = document.querySelectorAll("#mis-reportes-feed .reporte-post");
         let visibles = 0;
 
         posts.forEach(function (post) {
-          const coincideTexto = post.dataset.busqueda.includes(query);
+          const coincideTexto = (post.dataset.busqueda || "").includes(query);
           const coincideEstado = estadoActivo === "todos" || post.dataset.estado === estadoActivo;
           const mostrar = coincideTexto && coincideEstado;
           post.classList.toggle("hidden", !mostrar);
@@ -1131,6 +999,44 @@
           aplicarFiltros();
         });
       });
+
+      async function cargarReportesCuentaDesdeDB() {
+        const feedContainer = document.getElementById("mis-reportes-feed");
+        if (!feedContainer) return;
+
+        try {
+          const sesionActual = ApiClient.obtenerSesion();
+          const usuarioActual = sesionActual?.usuario;
+          const dbData = await ApiClient.obtenerAlertas();
+
+          let misIncidencias = dbData;
+          if (usuarioActual && (usuarioActual.id || usuarioActual.id_usuario)) {
+            const uId = usuarioActual.id || usuarioActual.id_usuario;
+            const filtradasPorUser = dbData.filter(i => (i.idUsuario || i.id_usuario) === uId);
+            if (filtradasPorUser.length > 0) {
+              misIncidencias = filtradasPorUser;
+            }
+          }
+
+          feedContainer.innerHTML = "";
+
+          if (misIncidencias.length === 0) {
+            if (vacioMsg) vacioMsg.classList.remove("hidden");
+          } else {
+            if (vacioMsg) vacioMsg.classList.add("hidden");
+            misIncidencias.forEach(item => {
+              feedContainer.appendChild(crearElementoPostReporte(item));
+            });
+            bindPostEvents(feedContainer);
+          }
+
+          actualizarEstadisticasDesdeFeed();
+        } catch (err) {
+          console.error("Error al cargar reportes de la cuenta desde la DB:", err);
+        }
+      }
+
+      cargarReportesCuentaDesdeDB();
     </script>
   </body>
 </html>

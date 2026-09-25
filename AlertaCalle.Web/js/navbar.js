@@ -4,6 +4,7 @@ import { ApiClient } from "./client.js";
   const NAV_LINKS = [
     { label: "Inicio", href: "inicio.html" },
     { label: "Reportes de vecinos", href: "reportes.html" },
+    { label: "Mapa", href: "mapa.html" },
     { label: "Noticias", href: "noticias.html" },
     { label: "Ayuda y FAQ", href: "ayuda.html" },
   ];
