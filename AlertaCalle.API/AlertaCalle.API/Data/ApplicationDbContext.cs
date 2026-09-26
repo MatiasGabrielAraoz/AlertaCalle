@@ -38,7 +38,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Nombre).HasMaxLength(100).IsRequired();
-            e.Property(x => x.Descr).HasMaxLength(1000).IsRequired();
+            e.Property(x => x.Descr).HasMaxLength(1000);
         });
         modelBuilder.Entity<Estado>(e =>
         {
