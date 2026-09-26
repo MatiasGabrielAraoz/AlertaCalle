@@ -23,7 +23,7 @@ const botonesEstado = document.querySelectorAll(".filtro-estado-btn");
 const botonesCategoria = document.querySelectorAll(".filtro-categoria-btn");
 
 const sesion = ApiClient.obtenerSesion();
-const esAdmin = sesion?.usuario?.role === "Admin";
+const esAdmin = sesion?.usuario?.idRol === 1;
 
 let todasLasIncidencias = [];
 let estadoActivo = "todos";
