@@ -34,6 +34,7 @@ services:
       Jwt__Issuer: AlertaCalle.API
       Jwt__Audience: AlertaCalle.Client
       Jwt__ExpirationMinutes: 60
+      Jwt__RefreshTokenExpirationDays: 30
     ports:
       - "5208:8080"
 

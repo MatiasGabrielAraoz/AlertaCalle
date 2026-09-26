@@ -13,6 +13,7 @@ namespace AlertaCalle.API.Services;
 public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : IAuthService
 {
     private readonly PasswordHasher<Usuario> hasher = new();
+    private readonly JwtSecurityTokenHandler tokenHandler = new();
 
     public async Task<(TokenDto? Token, Usuario? User)> LoginAsync(
         string email,
@@ -30,28 +31,66 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
             || string.IsNullOrWhiteSpace(options.Key)
         )
             return (null, null);
-        var expires = DateTime.UtcNow.AddMinutes(
-            options.ExpirationMinutes > 0 ? options.ExpirationMinutes : 60
-        );
-        var claims = new[]
+        return (CreateTokenPair(user, DateTime.UtcNow.AddDays(RefreshTokenExpirationDays)), user);
+    }
+
+    public async Task<TokenDto?> RefreshAsync(
+        string refreshToken,
+        CancellationToken cancellationToken
+    )
+    {
+        if (string.IsNullOrWhiteSpace(options.Key) || string.IsNullOrWhiteSpace(refreshToken))
+            return null;
+
+        ClaimsPrincipal principal;
+        SecurityToken validatedToken;
+        try
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(ClaimTypes.Role, user.Rol.Nombre),
-            new Claim("permissions", user.Rol.Permisos),
-        };
-        var credentials = new SigningCredentials(
-            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),
-            SecurityAlgorithms.HmacSha256
-        );
-        var token = new JwtSecurityToken(
-            options.Issuer,
-            options.Audience,
-            claims,
-            expires: expires,
-            signingCredentials: credentials
-        );
-        return (new TokenDto(new JwtSecurityTokenHandler().WriteToken(token), expires), user);
+            principal = tokenHandler.ValidateToken(
+                refreshToken,
+                new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),
+                    ValidateIssuer = !string.IsNullOrWhiteSpace(options.Issuer),
+                    ValidIssuer = options.Issuer,
+                    ValidateAudience = true,
+                    ValidAudience = RefreshAudience,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(1),
+                },
+                out validatedToken
+            );
+        }
+        catch (SecurityTokenException)
+        {
+            return null;
+        }
+        catch (ArgumentException)
+        {
+            return null;
+        }
+        catch (FormatException)
+        {
+            return null;
+        }
+
+        if (
+            principal.FindFirstValue("token_type") != "refresh"
+            || !int.TryParse(
+                principal.FindFirstValue(ClaimTypes.NameIdentifier)
+                    ?? principal.FindFirstValue(JwtRegisteredClaimNames.Sub),
+                out var userId
+            )
+            || validatedToken is not JwtSecurityToken jwt
+            || jwt.ValidTo <= DateTime.UtcNow
+        )
+            return null;
+
+        var user = await db
+            .Usuarios.Include(x => x.Rol)
+            .SingleOrDefaultAsync(x => x.Id == userId, cancellationToken);
+        return user is null ? null : CreateTokenPair(user, jwt.ValidTo);
     }
 
     public async Task<bool> ChangePasswordAsync(
@@ -97,4 +136,53 @@ public sealed class AuthService(ApplicationDbContext db, JwtOptions options) : I
         
         return true;
     }
+
+    private TokenDto CreateTokenPair(Usuario user, DateTime refreshTokenExpiresAt)
+    {
+        var now = DateTime.UtcNow;
+        var expiresAt = now.AddMinutes(options.ExpirationMinutes > 0 ? options.ExpirationMinutes : 60);
+        refreshTokenExpiresAt = DateTimeOffset
+            .FromUnixTimeSeconds(new DateTimeOffset(refreshTokenExpiresAt).ToUnixTimeSeconds())
+            .UtcDateTime;
+        var commonClaims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(ClaimTypes.Role, user.Rol.Nombre),
+            new Claim("permissions", user.Rol.Permisos),
+        };
+        var signingCredentials = new SigningCredentials(
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Key)),
+            SecurityAlgorithms.HmacSha256
+        );
+        var accessToken = new JwtSecurityToken(
+            options.Issuer,
+            options.Audience,
+            commonClaims.Append(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N"))),
+            expires: expiresAt,
+            signingCredentials: signingCredentials
+        );
+        var refreshClaims = commonClaims
+            .Append(new Claim("token_type", "refresh"))
+            .Append(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")));
+        var refreshToken = new JwtSecurityToken(
+            options.Issuer,
+            RefreshAudience,
+            refreshClaims,
+            expires: refreshTokenExpiresAt,
+            signingCredentials: signingCredentials
+        );
+
+        return new TokenDto(
+            tokenHandler.WriteToken(accessToken),
+            expiresAt,
+            tokenHandler.WriteToken(refreshToken),
+            refreshTokenExpiresAt
+        );
+    }
+
+    private string RefreshAudience => $"{options.Audience}:refresh";
+
+    private int RefreshTokenExpirationDays =>
+        options.RefreshTokenExpirationDays > 0 ? options.RefreshTokenExpirationDays : 30;
 }

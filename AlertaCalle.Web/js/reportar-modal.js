@@ -11,6 +11,8 @@
    igual se envía/confirma, simplemente no se agrega ninguna card visual.
    ========================================================================== */
 
+import { ApiClient } from "./client.js";
+
 (function () {
   const CATEGORIAS = {
     "Bache": { emoji: "🕳️", label: "Bache", categoria: "baches" },
@@ -431,25 +433,13 @@
     }
 
     async function enviarReporteAPI(datos, info) {
-      const leerCookie = function (nombre) {
-        const prefijo = nombre + "=";
-        const cookie = document.cookie.split("; ").find(function (item) {
-          return item.indexOf(prefijo) === 0;
-        });
-        return cookie ? decodeURIComponent(cookie.slice(prefijo.length)) : null;
-      };
-      const token = localStorage.getItem("token")
-        || sessionStorage.getItem("token")
-        || leerCookie("alertacalle_token");
-      const usuarioGuardado = localStorage.getItem("usuario")
-        || sessionStorage.getItem("usuario")
-        || leerCookie("alertacalle_usuario");
+      const sesion = ApiClient.obtenerSesion();
+      const token = await ApiClient.obtenerTokenValido();
       let idUsuario = 0;
 
-      if (usuarioGuardado) {
+      if (sesion?.usuario) {
         try {
-          const usuario = JSON.parse(usuarioGuardado);
-          idUsuario = Number(usuario.id || usuario.Id);
+          idUsuario = Number(sesion.usuario.id || sesion.usuario.Id);
         } catch (error) {
           console.warn("No se pudo interpretar el usuario guardado.", error);
         }
@@ -484,27 +474,14 @@
         throw new Error("La categoría seleccionada no está disponible en la API.");
       }
 
-      const response = await fetch("http://localhost:5208/incidencias", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + token
-        },
-        body: JSON.stringify({
-          direccion: datos.direccion + (datos.barrio ? " (" + datos.barrio + ")" : ""),
-          titulo: datos.titulo,
-          descr: datos.descripcion,
-          fotoUrl: "",
-          idCategoria: categoria.id,
-          idUsuario: idUsuario
-        })
+      return ApiClient.crearAlerta({
+        direccion: datos.direccion + (datos.barrio ? " (" + datos.barrio + ")" : ""),
+        titulo: datos.titulo,
+        descr: datos.descripcion,
+        fotoUrl: "",
+        idCategoria: categoria.id,
+        idUsuario: idUsuario
       });
-
-      if (!response.ok) {
-        throw new Error("La API rechazó el reporte (" + response.status + ").");
-      }
-
-      return response.json();
     }
 
     document.querySelector(".btn-enviar-reporte").addEventListener("click", async function (event) {

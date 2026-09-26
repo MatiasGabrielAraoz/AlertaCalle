@@ -9,6 +9,10 @@ public interface IAuthService
         string password,
         CancellationToken cancellationToken
     );
+    Task<TokenDto?> RefreshAsync(
+        string refreshToken,
+        CancellationToken cancellationToken
+    );
     Task<bool> ChangePasswordAsync(
         int userId,
         string currentPassword,
