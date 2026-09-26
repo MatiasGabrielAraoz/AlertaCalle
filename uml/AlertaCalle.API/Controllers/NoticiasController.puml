@@ -1,0 +1,9 @@
+@startuml
+class NoticiasController <<sealed>> {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Noticia>>>
+    + <<async>> ById(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Crear(dto:CrearNoticiaDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Eliminar(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- NoticiasController
+@enduml

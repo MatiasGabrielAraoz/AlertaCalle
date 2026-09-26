@@ -1,0 +1,7 @@
+@startuml
+interface IAuthService {
+    LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+@enduml

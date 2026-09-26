@@ -1,0 +1,10 @@
+@startuml
+class Estado {
+    + Id : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Estado --> "Valor" EstadoValor
+Estado o-> "Incidencias<Incidencia>" "ICollection`1"
+Estado o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+@enduml

@@ -1,0 +1,10 @@
+@startuml
+class CategoriasController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Categoria>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Categoria>>
+    + <<async>> Post(categoria:Categoria, cancellationToken:CancellationToken) : Task<ActionResult<Categoria>>
+    + <<async>> Put(id:int, categoria:Categoria, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- CategoriasController
+@enduml

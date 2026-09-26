@@ -1,0 +1,13 @@
+@startuml
+class Noticia {
+    + Id : int <<get>> <<set>>
+    + Categoria : string <<get>> <<set>>
+    + Titulo : string <<get>> <<set>>
+    + Descr : string <<get>> <<set>>
+    + ImagenUrl : string? <<get>> <<set>>
+    + InfoImportante : string? <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+}
+Noticia --> "FechaCreacion" DateTime
+Noticia o-> "Usuario" Usuario
+@enduml

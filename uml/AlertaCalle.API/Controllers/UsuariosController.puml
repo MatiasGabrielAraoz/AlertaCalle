@@ -1,0 +1,14 @@
+@startuml
+class UsuariosController {
+    + <<async>> GetAll(ct:CancellationToken) : Task<ActionResult<IEnumerable<Usuario>>>
+    + <<async>> Get(id:int, ct:CancellationToken) : Task<ActionResult<Usuario>>
+    + <<async>> Post(x:Usuario, ct:CancellationToken) : Task<ActionResult<Usuario>>
+    + <<async>> Put(id:int, x:Usuario, ct:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, ct:CancellationToken) : Task<IActionResult>
+    + <<async>> SetAdminRole(request:SetAdminPost, ct:CancellationToken) : Task<IActionResult>
+}
+class "PasswordHasher`1"<T> {
+}
+ControllerBase <|-- UsuariosController
+UsuariosController o-> "passwordHasher<Usuario>" "PasswordHasher`1"
+@enduml

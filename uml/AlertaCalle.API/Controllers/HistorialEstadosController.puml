@@ -1,0 +1,10 @@
+@startuml
+class HistorialEstadosController {
+    + <<async>> All(c:CancellationToken) : Task<ActionResult<IEnumerable<HistorialEstado>>>
+    + <<async>> Get(id:int, c:CancellationToken) : Task<ActionResult<HistorialEstado>>
+    + <<async>> Post(x:HistorialEstado, c:CancellationToken) : Task<ActionResult<HistorialEstado>>
+    + <<async>> Put(id:int, x:HistorialEstado, c:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, c:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- HistorialEstadosController
+@enduml

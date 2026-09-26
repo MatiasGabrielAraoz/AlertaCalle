@@ -1,0 +1,5 @@
+@startuml
+abstract class ApiTestBase {
+    # {static} CreateDb(name:string) : ApplicationDbContext
+}
+@enduml

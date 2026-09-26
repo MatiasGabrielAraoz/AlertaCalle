@@ -1,0 +1,21 @@
+@startuml
+class ControllersTests <<sealed>> {
+    + <<async>> Categorias_endpoints_cover_crud_and_missing_records() : Task
+    + <<async>> Estados_endpoints_cover_both_routes_and_crud() : Task
+    + <<async>> Roles_endpoints_cover_crud() : Task
+    + <<async>> Usuarios_endpoints_cover_crud_and_hash_passwords() : Task
+    + <<async>> HistorialEstados_endpoints_cover_crud() : Task
+    + <<async>> Incidencias_endpoints_cover_crud_and_authentication_requirements_at_action_level() : Task
+    + <<async>> Auth_endpoints_delegate_login_register_and_password_change() : Task
+}
+class FakeAuthService <<sealed>> {
+    + RegisterResult : bool <<get>> <<init>>
+    + ChangePasswordResult : bool <<get>> <<init>>
+    + LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    + ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    + RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+ApiTestBase <|-- ControllersTests
+ControllersTests +-- FakeAuthService
+IAuthService <|-- FakeAuthService
+@enduml
