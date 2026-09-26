@@ -37,6 +37,7 @@ Las relaciones principales son:
 - Cada incidencia pertenece a una categoría, un estado y un usuario.
 - El historial relaciona una incidencia con el usuario y el estado involucrados en cada cambio.
 
+
 ### Inicialización
 
 `compose.yml` monta automáticamente estos archivos en el contenedor de PostgreSQL:
@@ -105,6 +106,10 @@ Los controladores REST disponibles son:
 Las operaciones de escritura y las operaciones administrativas que corresponden requieren autenticación JWT. La implementación completa de cada endpoint se encuentra en `AlertaCalle.API/AlertaCalle.API/Controllers`.
 
 En desarrollo, Swagger se habilita desde `Program.cs` y permite explorar y probar el contrato de la API. La configuración de conexión y JWT se encuentra en `appsettings.json`; para Docker se sobreescribe mediante variables de entorno en `compose.yml`.
+
+## DER
+<img width="604" height="472" alt="imagen" src="https://github.com/user-attachments/assets/0e07937c-d586-4744-9032-de4bcd23aa1d" />
+
 
 ## Aplicación web
 
