@@ -279,6 +279,9 @@
     <script type="module">
         import { ApiClient } from "./js/client.js";
 
+        const sesion = ApiClient.obtenerSesion();
+        const esAdmin = sesion?.usuario?.idRol === 1;
+
         function timeAgo(rawDate) {
             if (!rawDate) return "Recientemente";
             const date = new Date(rawDate);
@@ -406,6 +409,46 @@
                     </div>
                 </div>
             `;
+
+            if (esAdmin) {
+                const adminDiv = document.createElement("div");
+                adminDiv.className = "admin-actions p-3.5 border-t border-surface-container-high flex items-center gap-2 bg-surface-container-low";
+                adminDiv.innerHTML = `
+                    <select class="select-estado flex-1 bg-surface-container-lowest border border-surface-container-high rounded-lg px-2 py-1.5 text-xs font-label-code focus:border-primary focus:outline-none">
+                        <option value="1" ${estadoId === 1 ? 'selected' : ''}>Sin Resolver</option>
+                        <option value="2" ${estadoId === 2 ? 'selected' : ''}>En Proceso</option>
+                        <option value="3" ${estadoId === 3 ? 'selected' : ''}>Resuelto</option>
+                    </select>
+                    <button class="btn-guardar-estado inline-flex items-center gap-1 bg-primary-container text-on-primary px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-primary hover:text-white transition-colors" type="button" title="Guardar estado">
+                        <span class="material-symbols-outlined text-sm">save</span>
+                    </button>
+                    <button class="btn-eliminar-incidencia inline-flex items-center gap-1 bg-red-600/10 text-red-600 hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors" type="button" title="Eliminar incidencia">
+                        <span class="material-symbols-outlined text-sm">delete</span>
+                    </button>
+                `;
+
+                adminDiv.querySelector(".btn-guardar-estado").addEventListener("click", async () => {
+                    const selectEstado = adminDiv.querySelector(".select-estado");
+                    try {
+                        await ApiClient.cambiarEstadoIncidencia(item.id, parseInt(selectEstado.value));
+                        cargarReportesPublicos();
+                    } catch (err) {
+                        alert("No se pudo actualizar el estado: " + err.message);
+                    }
+                });
+
+                adminDiv.querySelector(".btn-eliminar-incidencia").addEventListener("click", async () => {
+                    if (!confirm(`¿Eliminar la incidencia #INC-${item.id}?`)) return;
+                    try {
+                        await ApiClient.eliminarIncidencia(item.id);
+                        cargarReportesPublicos();
+                    } catch (err) {
+                        alert("No se pudo eliminar: " + err.message);
+                    }
+                });
+
+                article.appendChild(adminDiv);
+            }
 
             return article;
         }

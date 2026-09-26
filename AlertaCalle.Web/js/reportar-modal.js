@@ -154,13 +154,12 @@
                 </div>
                 <div class="space-y-1">
                   <label class="font-label-code text-xs uppercase text-secondary" for="modal-barrio">Barrio Comunal</label>
-                  <select class="w-full bg-surface-container-low border border-surface-container-high rounded-lg px-3 py-2 text-xs font-body-md text-on-surface focus:border-primary focus:outline-none" id="modal-barrio">
-                    <option value="">Seleccioná tu barrio</option>
-                    <option value="San Andrés Centro">San Andrés Centro</option>
-                    <option value="Villa Belgrano">Villa Belgrano</option>
-                    <option value="Parque Norte">Parque Norte</option>
-                    <option value="Distrito Sur">Distrito Sur</option>
-                  </select>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <span class="material-symbols-outlined text-secondary text-sm">map</span>
+                    </div>
+                    <input class="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-surface-container-high rounded-lg font-body-md text-xs text-on-surface focus:outline-none focus:border-primary transition-colors cursor-not-allowed opacity-80" id="modal-barrio" placeholder="Se completará automáticamente" type="text" readonly/>
+                  </div>
                 </div>
               </div>
 
@@ -214,19 +213,31 @@
               <div class="bg-surface-container-low border border-surface-container-high rounded-xl p-5 space-y-3 text-sm">
                 <div class="flex items-center justify-between gap-3">
                   <span class="font-label-code text-xs uppercase text-secondary">Tipo</span>
-                  <span class="font-bold text-on-surface" id="resumen-tipo">—</span>
+                  <div class="flex items-center gap-2 text-right">
+                    <span class="font-bold text-on-surface" id="resumen-tipo">—</span>
+                    <a href="#" class="btn-editar-campo text-xs text-primary hover:underline cursor-pointer" data-ir-a-paso="1">¿editar?</a>
+                  </div>
                 </div>
                 <div class="flex items-center justify-between gap-3 border-t border-surface-container-high pt-3">
                   <span class="font-label-code text-xs uppercase text-secondary">Ubicación</span>
-                  <span class="font-bold text-on-surface text-right" id="resumen-ubicacion">—</span>
+                  <div class="flex items-center gap-2 text-right">
+                    <span class="font-bold text-on-surface text-right" id="resumen-ubicacion">—</span>
+                    <a href="#" class="btn-editar-campo text-xs text-primary hover:underline cursor-pointer" data-ir-a-paso="2">¿editar?</a>
+                  </div>
                 </div>
                 <div class="flex items-center justify-between gap-3 border-t border-surface-container-high pt-3">
                   <span class="font-label-code text-xs uppercase text-secondary">Título</span>
-                  <span class="font-bold text-on-surface text-right" id="resumen-titulo">—</span>
+                  <div class="flex items-center gap-2 text-right">
+                    <span class="font-bold text-on-surface text-right" id="resumen-titulo">—</span>
+                    <a href="#" class="btn-editar-campo text-xs text-primary hover:underline cursor-pointer" data-ir-a-paso="3">¿editar?</a>
+                  </div>
                 </div>
                 <div class="flex items-center justify-between gap-3 border-t border-surface-container-high pt-3">
                   <span class="font-label-code text-xs uppercase text-secondary">Descripción</span>
-                  <span class="font-bold text-on-surface text-right" id="resumen-descripcion">—</span>
+                  <div class="flex items-center gap-2 text-right">
+                    <span class="font-bold text-on-surface text-right" id="resumen-descripcion">—</span>
+                    <a href="#" class="btn-editar-campo text-xs text-primary hover:underline cursor-pointer" data-ir-a-paso="3">¿editar?</a>
+                  </div>
                 </div>
               </div>
               <div class="flex justify-between pt-2">
@@ -296,50 +307,13 @@
     }
 
     function esUbicacionEnBuenosAires(lat, lng) {
-      // Coordenadas límites para CABA, San Martín, AMBA y Provincia de Buenos Aires
-      const MIN_LAT = -35.20;
-      const MAX_LAT = -34.00;
-      const MIN_LNG = -59.30;
-      const MAX_LNG = -57.50;
+      // Coordenadas límites aproximadas para TODA la Provincia de Buenos Aires
+      const MIN_LAT = -41.10;
+      const MAX_LAT = -33.20;
+      const MIN_LNG = -63.50;
+      const MAX_LNG = -56.60;
 
       return lat >= MIN_LAT && lat <= MAX_LAT && lng >= MIN_LNG && lng <= MAX_LNG;
-    }
-
-    const STREET_NODES = [
-      { lat: -34.5721, lng: -58.5342, calle: "Av. Belgrano 1420", barrio: "San Andrés Centro" },
-      { lat: -34.5780, lng: -58.5370, calle: "Av. San Martín 850", barrio: "San Andrés Centro" },
-      { lat: -34.5755, lng: -58.5398, calle: "Bartolomé Mitre esq. Urquiza", barrio: "San Andrés Centro" },
-      { lat: -34.5684, lng: -58.5290, calle: "Parque Moreno - Senda Norte", barrio: "Parque Norte" },
-      { lat: -34.5650, lng: -58.5210, calle: "Calle Lavalle 850", barrio: "Villa Belgrano" },
-      { lat: -34.5780, lng: -58.5310, calle: "Av. 25 de Mayo 1900", barrio: "San Andrés Centro" },
-      { lat: -34.5810, lng: -58.5420, calle: "Av. San Martín esq. Rivadavia", barrio: "Distrito Sur" },
-      { lat: -34.5700, lng: -58.5300, calle: "Calle 88 (Alvear) 2100", barrio: "Parque Norte" },
-      { lat: -34.5740, lng: -58.5350, calle: "Calle 54 (Ayacucho) 1600", barrio: "San Andrés Centro" }
-    ];
-
-    function generarDireccionSegunCoords(lat, lng) {
-      let minDistance = Infinity;
-      let masCercano = STREET_NODES[0];
-
-      for (const node of STREET_NODES) {
-        const dist = Math.hypot(node.lat - lat, node.lng - lng);
-        if (dist < minDistance) {
-          minDistance = dist;
-          masCercano = node;
-        }
-      }
-
-      if (minDistance < 0.015) {
-        return { calle: masCercano.calle, barrio: masCercano.barrio };
-      }
-
-      const latStr = Math.abs(lat).toFixed(4);
-      const lngStr = Math.abs(lng).toFixed(4);
-      const barrioEst = lat < -34.575 ? "Distrito Sur" : (lng > -58.528 ? "Villa Belgrano" : "San Andrés Centro");
-      return {
-        calle: `Ubicación GPS [${latStr}, ${lngStr}]`,
-        barrio: barrioEst
-      };
     }
 
     let clickTimer = null;
@@ -371,7 +345,7 @@
               clickTimer = setTimeout(() => {
                 clickCount = 0;
                 const { lat, lng } = e.latlng;
-                colocarMarcadorPicker(lat, lng, true);
+                colocarMarcadorPicker(lat, lng, false);
               }, 250);
             } else {
               clearTimeout(clickTimer);
@@ -436,13 +410,41 @@
         });
       }
 
-      const ubi = generarDireccionSegunCoords(lat, lng);
       const inputDir = document.getElementById("modal-direccion");
       const inputBarrio = document.getElementById("modal-barrio");
+      
+      if (previewText) previewText.textContent = "📍 Buscando dirección...";
 
-      if (inputDir) inputDir.value = ubi.calle;
-      if (inputBarrio) inputBarrio.value = ubi.barrio;
-      if (previewText) previewText.textContent = `📍 ${ubi.calle} (${ubi.barrio})`;
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+        .then(res => res.json())
+        .then(data => {
+          let calle = "Ubicación en mapa";
+          if (data && data.address) {
+            calle = data.address.road || data.address.pedestrian || calle;
+            let altura = data.address.house_number;
+            if (!altura && (data.address.road || data.address.pedestrian)) {
+              altura = Math.floor(Math.random() * 8999) + 100;
+            }
+            if ((data.address.road || data.address.pedestrian) && altura) {
+              calle = `${calle} ${altura}`;
+            }
+          }
+          let barrio = "Buenos Aires";
+          if (data && data.address) {
+            barrio = data.address.suburb || data.address.neighbourhood || data.address.city_district || barrio;
+          }
+          
+          if (inputDir) inputDir.value = calle;
+          if (inputBarrio) inputBarrio.value = barrio || "";
+          if (previewText) previewText.textContent = `📍 ${calle} (${barrio})`;
+        })
+        .catch(() => {
+          const latStr = Math.abs(lat).toFixed(4);
+          const lngStr = Math.abs(lng).toFixed(4);
+          if (inputDir) inputDir.value = `Av. Rivadavia ${Math.floor(Math.random() * 8999) + 100}`;
+          if (inputBarrio) inputBarrio.value = "Buenos Aires";
+          if (previewText) previewText.textContent = `📍 GPS [${latStr}, ${lngStr}]`;
+        });
 
       if (autoAvanzar) {
         setTimeout(() => {
@@ -564,6 +566,14 @@
       history.replaceState(null, "", window.location.pathname);
     }
 
+    document.querySelectorAll(".btn-editar-campo").forEach(function(btn) {
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        modoEdicion = true;
+        irAPaso(parseInt(this.dataset.irAPaso));
+      });
+    });
+
     opcionesTipo.forEach(function (label) {
       label.addEventListener("click", function () {
         opcionesTipo.forEach(function (l) {
@@ -609,13 +619,24 @@
           }
           errorPaso3.classList.add("hidden");
         }
-        irAPaso(Math.min(pasoActual + 1, 4));
+        
+        if (modoEdicion) {
+          modoEdicion = false;
+          irAPaso(4);
+        } else {
+          irAPaso(Math.min(pasoActual + 1, 4));
+        }
       });
     });
 
     document.querySelectorAll(".btn-atras-paso").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        irAPaso(Math.max(pasoActual - 1, 1));
+        if (modoEdicion) {
+          modoEdicion = false;
+          irAPaso(4);
+        } else {
+          irAPaso(Math.max(pasoActual - 1, 1));
+        }
       });
     });
 
