@@ -14,3 +14,9 @@ public class Usuario
     public ICollection<HistorialEstado> HistorialEstados { get; set; } =
         new List<HistorialEstado>();
 }
+
+public class SetAdminPost
+{
+    public string email { get; set; } = string.Empty;
+    public string adminSecret { get; set; } = string.Empty;
+}

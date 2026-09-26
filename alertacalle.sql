@@ -135,6 +135,13 @@ CREATE TABLE public.usuarios (
 
 ALTER TABLE public.usuarios OWNER TO postgres;
 
+CREATE SCHEMA security;
+
+CREATE TABLE security.secrets (
+    name TEXT PRIMARY KEY,
+    value_hash TEXT NOT NULL
+);
+
 CREATE SEQUENCE public.usuario_id_seq
     AS integer
     START WITH 1
@@ -171,7 +178,7 @@ COPY public.roles (id, nombre, permisos) FROM stdin;
 \.
 
 COPY public.usuarios (id, nombre, apellido, email, fecha_creacion, password, id_rol) FROM stdin;
-1	Test	User	test@test.com	2026-09-23 02:00:46.195013	AQAAAAIAAYagAAAAEBXxZHAwSSA/mbFghlpFQ0/gu2qfeUoHF+5c62PT2OTBRvJYQwKYtYBrlcSEY/IuUQ==	2
+1	Test	User	test@test.com	2026-09-23 02:00:46.195013	AQAAAAIAAYagAAAAEBXxZHAwSSA/mbFghlpFQ0/gu2qfeUoHF+5c62PT2OTBRvJYQwKYtYBrlcSEY/IuUQ==	1
 \.
 
 
