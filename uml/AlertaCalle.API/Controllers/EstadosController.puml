@@ -1,0 +1,10 @@
+@startuml
+class EstadosController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Estado>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Estado>>
+    + <<async>> Post(estado:Estado, cancellationToken:CancellationToken) : Task<ActionResult<Estado>>
+    + <<async>> Put(id:int, estado:Estado, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- EstadosController
+@enduml

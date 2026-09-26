@@ -1,0 +1,10 @@
+@startuml
+class RolesController {
+    + <<async>> All(c:CancellationToken) : Task<ActionResult<IEnumerable<Rol>>>
+    + <<async>> Get(id:int, c:CancellationToken) : Task<ActionResult<Rol>>
+    + <<async>> Post(x:Rol, c:CancellationToken) : Task<ActionResult<Rol>>
+    + <<async>> Put(id:int, x:Rol, c:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, c:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- RolesController
+@enduml

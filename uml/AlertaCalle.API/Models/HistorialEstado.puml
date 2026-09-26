@@ -1,0 +1,13 @@
+@startuml
+class HistorialEstado {
+    + Id : int <<get>> <<set>>
+    + Comentario : string <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+    + IdEstado : int <<get>> <<set>>
+    + IdIncidencia : int <<get>> <<set>>
+}
+HistorialEstado --> "FechaCambio" DateTime
+HistorialEstado o-> "Usuario" Usuario
+HistorialEstado o-> "Estado" Estado
+HistorialEstado o-> "Incidencia" Incidencia
+@enduml

@@ -1,0 +1,7 @@
+@startuml
+class Rol {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + Permisos : string <<get>> <<set>>
+}
+@enduml

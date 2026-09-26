@@ -65,8 +65,9 @@ public class UsuariosController(ApplicationDbContext db) : ControllerBase
     [HttpPut("admin/set"), Authorize]
     public async Task<IActionResult> SetAdminRole([FromBody] SetAdminPost request, CancellationToken ct)
     {
-        if (request.adminSecret == Environment.GetEnvironmentVariable("ADMIN_SECRET_KEY"))
+        if (request.adminSecret != Environment.GetEnvironmentVariable("ADMIN_SECRET_KEY"))
         {
+            return Unauthorized();
         }
 
         var user = await db.Usuarios.FirstOrDefaultAsync(u => u.Email == request.email, ct);
