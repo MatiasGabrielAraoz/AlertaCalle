@@ -92,8 +92,8 @@ function categoriaKey(nombreCategoria) {
 }
 
 function aplicarFiltros() {
-  const query = inputBusqueda.value.trim().toLowerCase();
-  const barrio = selectBarrio.value;
+  const query = inputBusqueda ? inputBusqueda.value.trim().toLowerCase() : "";
+  const barrio = selectBarrio ? selectBarrio.value : "todos";
 
   const filtradas = todasLasIncidencias.filter((item) => {
     const coincideTexto =
@@ -115,8 +115,8 @@ function aplicarFiltros() {
   renderizarIncidencias(filtradas);
 }
 
-inputBusqueda.addEventListener("input", aplicarFiltros);
-selectBarrio.addEventListener("change", aplicarFiltros);
+if (inputBusqueda) inputBusqueda.addEventListener("input", aplicarFiltros);
+if (selectBarrio) selectBarrio.addEventListener("change", aplicarFiltros);
 
 botonesEstado.forEach((btn) => {
   btn.addEventListener("click", () => {
