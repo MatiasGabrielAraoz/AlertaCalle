@@ -28,6 +28,16 @@ public sealed class AuthController(IAuthService authService) : ControllerBase
             : Ok(result.Token);
     }
 
+    [HttpPost("refresh"), AllowAnonymous]
+    public async Task<IActionResult> Refresh(
+        RefreshTokenRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await authService.RefreshAsync(request.RefreshToken, cancellationToken);
+        return result is null ? Unauthorized() : Ok(result);
+    }
+
     [HttpPost("register"), AllowAnonymous]
     public async Task<IActionResult> Register(
         PostLoginDto request,

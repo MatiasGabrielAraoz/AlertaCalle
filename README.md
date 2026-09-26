@@ -78,6 +78,7 @@ Los endpoints públicos de autenticación son:
 | Método | Ruta | Descripción |
 | --- | --- | --- |
 | `POST` | `/auth/login` | Inicia sesión y devuelve un token JWT. |
+| `POST` | `/auth/refresh` | Renueva el token de acceso usando el refresh token de la sesión. |
 | `POST` | `/auth/register` | Registra un usuario. |
 | `GET` | `/auth/me` | Devuelve los datos del usuario autenticado. |
 | `POST` | `/auth/change-password` | Cambia la contraseña del usuario autenticado. |
@@ -87,6 +88,8 @@ Los endpoints protegidos requieren el encabezado:
 ```http
 Authorization: Bearer <token>
 ```
+
+El frontend renueva el token de acceso unos minutos antes de que expire mientras la aplicación está abierta y al volver a ella. El refresh token tiene una vigencia máxima de 30 días; al vencer, hay que iniciar sesión nuevamente. La opción «Recordarme» conserva el par de tokens en el dispositivo hasta ese límite.
 
 ### Recursos
 

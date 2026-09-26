@@ -119,7 +119,7 @@
           const token = tokenResponse.token;
           const usuario = await ApiClient.obtenerUsuarioActual(token);
 
-          ApiClient.guardarSesion(token, usuario, recordar);
+          ApiClient.guardarSesion(tokenResponse, usuario, recordar);
           window.location.href = "inicio.html";
         } catch (error) {
           errorMsg.textContent = error.message;

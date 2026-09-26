@@ -188,6 +188,7 @@ public sealed class ControllersTests : ApiTestBase
         var service = new FakeAuthService
         {
             LoginResult = (token, new Usuario { Id = 7 }),
+            RefreshResult = token,
             RegisterResult = true,
             ChangePasswordResult = true
         };
@@ -208,6 +209,11 @@ public sealed class ControllersTests : ApiTestBase
             await controller.Login(new PostLoginDto { Email = "ana@example.com", Password = "secret" }, default));
         Assert.IsType<UnauthorizedObjectResult>(
             await new AuthController(new FakeAuthService()).Login(new PostLoginDto(), default));
+        Assert.IsType<OkObjectResult>(
+            await controller.Refresh(new RefreshTokenRequest { RefreshToken = "refresh" }, default));
+        Assert.IsType<UnauthorizedResult>(
+            await new AuthController(new FakeAuthService())
+                .Refresh(new RefreshTokenRequest { RefreshToken = "invalid" }, default));
         Assert.IsType<NoContentResult>(
             await controller.Register(new PostLoginDto { Email = "new@example.com", Password = "secret" }, default));
         Assert.IsType<NoContentResult>(
@@ -222,12 +228,17 @@ public sealed class ControllersTests : ApiTestBase
     private sealed class FakeAuthService : IAuthService
     {
         public (TokenDto? Token, Usuario? User) LoginResult { get; init; }
+        public TokenDto? RefreshResult { get; init; }
         public bool RegisterResult { get; init; }
         public bool ChangePasswordResult { get; init; }
 
         public Task<(TokenDto? Token, Usuario? User)> LoginAsync(
             string email, string password, CancellationToken cancellationToken) =>
             Task.FromResult(LoginResult);
+
+        public Task<TokenDto?> RefreshAsync(
+            string refreshToken, CancellationToken cancellationToken) =>
+            Task.FromResult(RefreshResult);
 
         public Task<bool> ChangePasswordAsync(
             int userId, string currentPassword, string newPassword,
