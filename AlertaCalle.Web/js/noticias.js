@@ -277,11 +277,44 @@ function inicializarNoticias() {
     }
     if (formCrear) formCrear.reset();
     if (alertaCrear) alertaCrear.classList.add("hidden");
+    // Limpiar preview de imagen
+    const preview = document.getElementById("noticia-imagen-preview");
+    if (preview) preview.classList.add("hidden");
   }
 
   if (btnCrearNoticia) btnCrearNoticia.addEventListener("click", abrirModalCrear);
   if (btnCerrarCrear) btnCerrarCrear.addEventListener("click", cerrarModalCrear);
   if (modalCrearOverlay) modalCrearOverlay.addEventListener("click", cerrarModalCrear);
+
+  // Preview de imagen y botón para quitarla
+  const imagenInput = document.getElementById("noticia-imagen");
+  const imagenPreview = document.getElementById("noticia-imagen-preview");
+  const imagenPreviewImg = document.getElementById("noticia-imagen-preview-img");
+  const imagenRemoveBtn = document.getElementById("noticia-imagen-remove");
+
+  if (imagenInput) {
+    imagenInput.addEventListener("change", function () {
+      const file = imagenInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          if (imagenPreviewImg) imagenPreviewImg.src = e.target.result;
+          if (imagenPreview) imagenPreview.classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      } else {
+        if (imagenPreview) imagenPreview.classList.add("hidden");
+      }
+    });
+  }
+
+  if (imagenRemoveBtn) {
+    imagenRemoveBtn.addEventListener("click", function () {
+      if (imagenInput) imagenInput.value = "";
+      if (imagenPreview) imagenPreview.classList.add("hidden");
+      if (imagenPreviewImg) imagenPreviewImg.src = "";
+    });
+  }
 
   if (formCrear) {
     formCrear.addEventListener("submit", async function (e) {
@@ -290,13 +323,20 @@ function inicializarNoticias() {
       const categoria = document.getElementById("noticia-categoria").value;
       const titulo = document.getElementById("noticia-titulo").value.trim();
       const descr = document.getElementById("noticia-descr").value.trim();
-      const imagenUrl = document.getElementById("noticia-imagen").value.trim();
+      const imagenInput = document.getElementById("noticia-imagen");
+      const imagenFile = imagenInput ? imagenInput.files[0] : null;
       const infoImportante = document.getElementById("noticia-info-importante").value.trim();
 
       const submitButton = formCrear.querySelector('button[type="submit"]');
       submitButton.disabled = true;
 
       try {
+        // Si hay una imagen seleccionada, subirla primero
+        let imagenUrl = null;
+        if (imagenFile) {
+          imagenUrl = await ApiClient.uploadImagenNoticia(imagenFile);
+        }
+
         await ApiClient.crearNoticia({
           categoria,
           titulo,

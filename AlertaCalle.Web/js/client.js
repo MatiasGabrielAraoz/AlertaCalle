@@ -162,4 +162,22 @@ export const ApiClient = {
     });
     if (!res.ok) throw new Error(`Error ${res.status}`);
   },
+
+  async uploadImagenNoticia(file) {
+    const sesion = this.obtenerSesion();
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch(`${API_BASE_URL}/noticias/upload-image`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${sesion.token}` },
+      body: formData,
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || "Error al subir la imagen");
+    }
+    const data = await res.json();
+    return data.url;
+  },
 };

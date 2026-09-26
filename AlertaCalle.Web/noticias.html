@@ -105,15 +105,7 @@
 
                     </span>
 
-                    <!-- Botón crear noticia: solo visible para Admin (ver noticias.js) -->
-                    <button
-                        type="button"
-                        id="btn-crear-noticia"
-                        class="hidden items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 rounded-lg font-label-caps text-xs uppercase font-bold glow-red-button transition-all cursor-pointer"
-                    >
-                        <span class="material-symbols-outlined text-sm">add</span>
-                        <span>Crear Noticia</span>
-                    </button>
+
 
                 </div>
 
@@ -277,6 +269,16 @@
                     </p>
 
                 </div>
+
+                <!-- Botón crear noticia: solo visible para Admin (ver noticias.js) -->
+                <button
+                    type="button"
+                    id="btn-crear-noticia"
+                    class="hidden items-center gap-1.5 bg-primary-container text-on-primary px-3.5 py-2 rounded-lg font-label-caps text-xs uppercase font-bold glow-red-button transition-all cursor-pointer"
+                >
+                    <span class="material-symbols-outlined text-sm">add</span>
+                    <span>Crear Noticia</span>
+                </button>
 
             </div>
 
@@ -461,8 +463,15 @@
             </div>
 
             <div class="space-y-1.5">
-              <label class="font-label-code text-xs uppercase text-secondary" for="noticia-imagen">Imagen (URL, opcional)</label>
-              <input type="text" id="noticia-imagen" placeholder="https://... o img/noticias/archivo.jpg" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors"/>
+              <label class="font-label-code text-xs uppercase text-secondary" for="noticia-imagen">Imagen (opcional)</label>
+              <input type="file" id="noticia-imagen" accept=".jpg,.jpeg,.png,.gif,.webp" class="w-full px-4 py-2.5 bg-surface-container-low border border-surface-container-high rounded-lg text-sm text-on-surface focus:outline-none focus:border-primary transition-colors cursor-pointer file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-primary-container file:text-on-primary file:cursor-pointer"/>
+              <!-- Preview de imagen seleccionada -->
+              <div id="noticia-imagen-preview" class="hidden relative inline-block mt-2">
+                <img id="noticia-imagen-preview-img" src="" alt="Preview" class="h-28 w-auto rounded-lg border border-surface-container-high object-cover"/>
+                <button type="button" id="noticia-imagen-remove" class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center shadow-md hover:bg-red-700 transition-colors cursor-pointer" title="Quitar imagen">
+                  <span class="material-symbols-outlined text-sm">close</span>
+                </button>
+              </div>
             </div>
 
             <div class="space-y-1.5">
