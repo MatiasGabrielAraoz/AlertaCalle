@@ -1,0 +1,17 @@
+@startuml
+class ApplicationDbContext {
+    # <<override>> OnModelCreating(modelBuilder:ModelBuilder) : void
+}
+class "DbContextOptions`1"<T> {
+}
+class "DbSet`1"<T> {
+}
+DbContext <|-- ApplicationDbContext
+ApplicationDbContext --> "Usuarios<Usuario>" "DbSet`1"
+ApplicationDbContext --> "Roles<Rol>" "DbSet`1"
+ApplicationDbContext --> "Categorias<Categoria>" "DbSet`1"
+ApplicationDbContext --> "Estados<Estado>" "DbSet`1"
+ApplicationDbContext --> "Incidencias<Incidencia>" "DbSet`1"
+ApplicationDbContext --> "HistorialEstados<HistorialEstado>" "DbSet`1"
+ApplicationDbContext --> "Noticias<Noticia>" "DbSet`1"
+@enduml

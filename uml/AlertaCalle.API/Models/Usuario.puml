@@ -1,0 +1,20 @@
+@startuml
+class Usuario {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + Apellido : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Password : string <<get>> <<set>>
+    + IdRol : int <<get>> <<set>>
+}
+class SetAdminPost {
+    + email : string <<get>> <<set>>
+    + adminSecret : string <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Usuario --> "FechaCreacion" DateTime
+Usuario o-> "Rol" Rol
+Usuario o-> "Incidencias<Incidencia>" "ICollection`1"
+Usuario o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+@enduml

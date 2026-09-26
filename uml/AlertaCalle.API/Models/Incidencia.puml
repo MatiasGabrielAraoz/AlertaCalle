@@ -1,0 +1,20 @@
+@startuml
+class Incidencia {
+    + Id : int <<get>> <<set>>
+    + Direccion : string <<get>> <<set>>
+    + FotoUrl : string? <<get>> <<set>>
+    + Titulo : string <<get>> <<set>>
+    + Descr : string <<get>> <<set>>
+    + IdEstado : int <<get>> <<set>>
+    + IdCategoria : int <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Incidencia --> "FechaCreacion" DateTime
+Incidencia --> "FechaActualizacion" DateTime
+Incidencia o-> "Estado" Estado
+Incidencia o-> "Categoria" Categoria
+Incidencia o-> "Usuario" Usuario
+Incidencia o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+@enduml

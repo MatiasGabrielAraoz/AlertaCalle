@@ -1,0 +1,9 @@
+@startuml
+class JwtOptions <<sealed>> {
+    + <<const>> SectionName : string = "Jwt"
+    + Key : string <<get>> <<init>>
+    + Issuer : string <<get>> <<init>>
+    + Audience : string <<get>> <<init>>
+    + ExpirationMinutes : int <<get>> <<init>> = 60
+}
+@enduml

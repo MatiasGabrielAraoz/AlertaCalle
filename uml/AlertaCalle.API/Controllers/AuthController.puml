@@ -1,0 +1,9 @@
+@startuml
+class AuthController <<sealed>> {
+    + <<async>> Login(request:PostLoginDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Register(request:RegisterDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> ChangePassword(request:ChangePasswordDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + Me() : IActionResult
+}
+ControllerBase <|-- AuthController
+@enduml

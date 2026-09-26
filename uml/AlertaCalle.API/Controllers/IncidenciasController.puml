@@ -1,0 +1,10 @@
+@startuml
+class IncidenciasController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Incidencia>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Incidencia>>
+    + <<async>> Post(dto:PostIncidenciaDto, cancellationToken:CancellationToken) : Task<ActionResult<Incidencia>>
+    + <<async>> Put(id:int, incidenciaDto:PutIncidenciaDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- IncidenciasController
+@enduml

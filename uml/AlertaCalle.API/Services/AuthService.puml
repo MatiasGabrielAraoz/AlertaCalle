@@ -1,0 +1,11 @@
+@startuml
+class AuthService <<sealed>> {
+    + <<async>> LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    + <<async>> ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    + <<async>> RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+class "PasswordHasher`1"<T> {
+}
+IAuthService <|-- AuthService
+AuthService o-> "hasher<Usuario>" "PasswordHasher`1"
+@enduml

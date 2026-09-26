@@ -1,0 +1,10 @@
+@startuml
+class PutIncidenciaDto {
+    + Direccion : string? <<get>> <<set>>
+    + FotoUrl : string? <<get>> <<set>>
+    + Titulo : string? <<get>> <<set>>
+    + Descr : string? <<get>> <<set>>
+    + IdCategoria : int? <<get>> <<set>>
+    + IdEstado : int? <<get>> <<set>>
+}
+@enduml
