@@ -16,6 +16,6 @@ public class RegisterDto
     public string? Dni { get; init; }
 
     [Required]
-    public string Password { get; init; } = null!;
+    public string Password { get; init; } = null!;  
 
 }

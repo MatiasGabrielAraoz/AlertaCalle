@@ -13,6 +13,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Estado> Estados => Set<Estado>();
     public DbSet<Incidencia> Incidencias => Set<Incidencia>();
     public DbSet<HistorialEstado> HistorialEstados => Set<HistorialEstado>();
+    public DbSet<Noticia> Noticias => Set<Noticia>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -93,6 +94,18 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
                 .WithMany(x => x.HistorialEstados)
                 .HasForeignKey(x => x.IdIncidencia)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+        modelBuilder.Entity<Noticia>(e =>
+        {
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Categoria).HasMaxLength(20).IsRequired();
+            e.Property(x => x.Titulo).HasMaxLength(200).IsRequired();
+            e.Property(x => x.Descr).IsRequired();
+            e.Property(x => x.ImagenUrl).HasMaxLength(500);
+            e.HasOne(x => x.Usuario)
+                .WithMany()
+                .HasForeignKey(x => x.IdUsuario)
+                .OnDelete(DeleteBehavior.Restrict);
         });
     }
 }

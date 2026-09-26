@@ -130,4 +130,36 @@ export const ApiClient = {
     });
     if (!res.ok) throw new Error(`Error ${res.status}`);
   },
+
+    async obtenerNoticias() {
+    const res = await fetch(`${API_BASE_URL}/noticias`);
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+    return res.json();
+  },
+
+  async crearNoticia(data) {
+    const sesion = this.obtenerSesion();
+    const res = await fetch(`${API_BASE_URL}/noticias`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${sesion.token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.message || `Error ${res.status}`);
+    }
+    return res.json();
+  },
+
+  async eliminarNoticia(id) {
+    const sesion = this.obtenerSesion();
+    const res = await fetch(`${API_BASE_URL}/noticias/${id}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${sesion.token}` },
+    });
+    if (!res.ok) throw new Error(`Error ${res.status}`);
+  },
 };
