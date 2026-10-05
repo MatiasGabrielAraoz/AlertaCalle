@@ -107,7 +107,22 @@ Las operaciones de escritura y las operaciones administrativas que corresponden 
 
 En desarrollo, Swagger se habilita desde `Program.cs` y permite explorar y probar el contrato de la API. La configuración de conexión y JWT se encuentra en `appsettings.json`; para Docker se sobreescribe mediante variables de entorno en `compose.yml`.
 
+## Diagramas UML
+
+Los 32 diagramas fuente de PlantUML están en [`uml/`](uml/), organizados por proyecto y carpeta (`Controllers`, `Models`, `Services`, etc.). Cada archivo `.puml` tiene su imagen `.png` generada en el mismo directorio, por lo que se pueden consultar las fuentes y las imágenes lado a lado.
+
+- [Diagrama general de clases (PNG)](uml/include.png) y [fuente PlantUML](uml/include.puml).
+- [Diagramas de controladores](uml/AlertaCalle.API/Controllers/), [modelos](uml/AlertaCalle.API/Models/) y [servicios](uml/AlertaCalle.API/Services/).
+- [Diagramas de pruebas](uml/AlertaCalle.API.Tests/).
+
+Para regenerar todas las imágenes, con Java y Graphviz instalados, ejecutá PlantUML sobre las fuentes:
+
+```bash
+find uml -type f -name '*.puml' -print0 | xargs -0 plantuml -tpng -charset UTF-8
+```
+
 ## DER
+
 <img width="604" height="472" alt="imagen" src="https://github.com/user-attachments/assets/0e07937c-d586-4744-9032-de4bcd23aa1d" />
 
 
@@ -187,6 +202,7 @@ dotnet test AlertaCalle.API/AlertaCalle.API.Tests/AlertaCalle.API.Tests.csproj
 │   ├── AlertaCalle.API/        # API, modelos, controladores y servicios
 │   └── AlertaCalle.API.Tests/  # pruebas automatizadas
 ├── AlertaCalle.Web/            # frontend estático
+├── uml/                        # fuentes PlantUML e imágenes PNG generadas
 ├── alertacalle.sql             # esquema PostgreSQL
 ├── seed.sql                    # datos iniciales
 └── compose.yml                 # PostgreSQL + API

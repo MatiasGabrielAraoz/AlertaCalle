@@ -1,0 +1,273 @@
+@startuml
+class "AddDbContext`1"<T> {
+}
+class "Get`1"<T> {
+}
+class "AddScoped`2"<T1,T2> {
+}
+class "Empty`1"<T> {
+}
+abstract class ApiTestBase {
+    # {static} CreateDb(name:string) : ApplicationDbContext
+}
+class ControllersTests <<sealed>> {
+    + <<async>> Categorias_endpoints_cover_crud_and_missing_records() : Task
+    + <<async>> Estados_endpoints_cover_both_routes_and_crud() : Task
+    + <<async>> Roles_endpoints_cover_crud() : Task
+    + <<async>> Usuarios_endpoints_cover_crud_and_hash_passwords() : Task
+    + <<async>> HistorialEstados_endpoints_cover_crud() : Task
+    + <<async>> Incidencias_endpoints_cover_crud_and_authentication_requirements_at_action_level() : Task
+    + <<async>> Auth_endpoints_delegate_login_register_and_password_change() : Task
+}
+class FakeAuthService <<sealed>> {
+    + RegisterResult : bool <<get>> <<init>>
+    + ChangePasswordResult : bool <<get>> <<init>>
+    + LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    + ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    + RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+ApiTestBase <|-- ControllersTests
+ControllersTests +-- FakeAuthService
+IAuthService <|-- FakeAuthService
+class UserService <<sealed>> {
+}
+IUserService <|-- UserService
+interface IAuthService {
+    LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+class AuthService <<sealed>> {
+    + <<async>> LoginAsync(email:string, password:string, cancellationToken:CancellationToken) : Task<(TokenDto? Token, Usuario? User)>
+    + <<async>> ChangePasswordAsync(userId:int, currentPassword:string, newPassword:string, cancellationToken:CancellationToken) : Task<bool>
+    + <<async>> RegisterAsync(idRol:int?, nombre:string, apellido:string, email:string, password:string, cancellationToken:CancellationToken) : Task<bool>
+}
+class "PasswordHasher`1"<T> {
+}
+IAuthService <|-- AuthService
+AuthService o-> "hasher<Usuario>" "PasswordHasher`1"
+interface IUserService {
+}
+class JwtOptions <<sealed>> {
+    + <<const>> SectionName : string = "Jwt"
+    + Key : string <<get>> <<init>>
+    + Issuer : string <<get>> <<init>>
+    + Audience : string <<get>> <<init>>
+    + ExpirationMinutes : int <<get>> <<init>> = 60
+}
+class ApplicationDbContext {
+    # <<override>> OnModelCreating(modelBuilder:ModelBuilder) : void
+}
+class "DbContextOptions`1"<T> {
+}
+class "DbSet`1"<T> {
+}
+DbContext <|-- ApplicationDbContext
+ApplicationDbContext --> "Usuarios<Usuario>" "DbSet`1"
+ApplicationDbContext --> "Roles<Rol>" "DbSet`1"
+ApplicationDbContext --> "Categorias<Categoria>" "DbSet`1"
+ApplicationDbContext --> "Estados<Estado>" "DbSet`1"
+ApplicationDbContext --> "Incidencias<Incidencia>" "DbSet`1"
+ApplicationDbContext --> "HistorialEstados<HistorialEstado>" "DbSet`1"
+ApplicationDbContext --> "Noticias<Noticia>" "DbSet`1"
+class Estado {
+    + Id : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Estado --> "Valor" EstadoValor
+Estado o-> "Incidencias<Incidencia>" "ICollection`1"
+Estado o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+class Categoria {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + Descr : string? <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Categoria o-> "Incidencias<Incidencia>" "ICollection`1"
+class ChangePasswordDto <<sealed>> {
+    + CurrentPassword : string <<get>> <<init>>
+    + NewPassword : string <<get>> <<init>>
+}
+class TokenDto <<sealed>> <<record>> {
+    + Token : string <<get>> <<init>>
+}
+class MeDto <<sealed>> <<record>> {
+    + Id : int <<get>> <<init>>
+    + Nombre : string <<get>> <<init>>
+    + Apellido : string <<get>> <<init>>
+    + Email : string <<get>> <<init>>
+    + Role : string <<get>> <<init>>
+    + Permissions : string <<get>> <<init>>
+}
+TokenDto --> "ExpiresAt" DateTime
+class Incidencia {
+    + Id : int <<get>> <<set>>
+    + Direccion : string <<get>> <<set>>
+    + FotoUrl : string? <<get>> <<set>>
+    + Titulo : string <<get>> <<set>>
+    + Descr : string <<get>> <<set>>
+    + IdEstado : int <<get>> <<set>>
+    + IdCategoria : int <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Incidencia --> "FechaCreacion" DateTime
+Incidencia --> "FechaActualizacion" DateTime
+Incidencia o-> "Estado" Estado
+Incidencia o-> "Categoria" Categoria
+Incidencia o-> "Usuario" Usuario
+Incidencia o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+class CrearNoticiaDto <<sealed>> {
+    + Categoria : string <<get>> <<init>>
+    + Titulo : string <<get>> <<init>>
+    + Descr : string <<get>> <<init>>
+    + ImagenUrl : string? <<get>> <<init>>
+    + InfoImportante : string? <<get>> <<init>>
+}
+class RegisterDto {
+    + Name : string <<get>> <<init>>
+    + Surname : string <<get>> <<init>>
+    + Email : string <<get>> <<init>>
+    + Dni : string? <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+}
+class HistorialEstado {
+    + Id : int <<get>> <<set>>
+    + Comentario : string <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+    + IdEstado : int <<get>> <<set>>
+    + IdIncidencia : int <<get>> <<set>>
+}
+HistorialEstado --> "FechaCambio" DateTime
+HistorialEstado o-> "Usuario" Usuario
+HistorialEstado o-> "Estado" Estado
+HistorialEstado o-> "Incidencia" Incidencia
+class PostLoginDto <<sealed>> {
+    + Email : string <<get>> <<init>>
+    + Password : string <<get>> <<init>>
+}
+class PostIncidenciaDto {
+    + Direccion : string <<get>> <<set>>
+    + FotoUrl : string? <<get>> <<set>>
+    + Titulo : string <<get>> <<set>>
+    + Descr : string <<get>> <<set>>
+    + IdCategoria : int <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+}
+class Rol {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + Permisos : string <<get>> <<set>>
+}
+class PutIncidenciaDto {
+    + Direccion : string? <<get>> <<set>>
+    + FotoUrl : string? <<get>> <<set>>
+    + Titulo : string? <<get>> <<set>>
+    + Descr : string? <<get>> <<set>>
+    + IdCategoria : int? <<get>> <<set>>
+    + IdEstado : int? <<get>> <<set>>
+}
+class Usuario {
+    + Id : int <<get>> <<set>>
+    + Nombre : string <<get>> <<set>>
+    + Apellido : string <<get>> <<set>>
+    + Email : string <<get>> <<set>>
+    + Password : string <<get>> <<set>>
+    + IdRol : int <<get>> <<set>>
+}
+class SetAdminPost {
+    + email : string <<get>> <<set>>
+    + adminSecret : string <<get>> <<set>>
+}
+class "ICollection`1"<T> {
+}
+Usuario --> "FechaCreacion" DateTime
+Usuario o-> "Rol" Rol
+Usuario o-> "Incidencias<Incidencia>" "ICollection`1"
+Usuario o-> "HistorialEstados<HistorialEstado>" "ICollection`1"
+class Noticia {
+    + Id : int <<get>> <<set>>
+    + Categoria : string <<get>> <<set>>
+    + Titulo : string <<get>> <<set>>
+    + Descr : string <<get>> <<set>>
+    + ImagenUrl : string? <<get>> <<set>>
+    + InfoImportante : string? <<get>> <<set>>
+    + IdUsuario : int <<get>> <<set>>
+}
+Noticia --> "FechaCreacion" DateTime
+Noticia o-> "Usuario" Usuario
+class NoticiasController <<sealed>> {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Noticia>>>
+    + <<async>> ById(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Crear(dto:CrearNoticiaDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Eliminar(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- NoticiasController
+class AuthController <<sealed>> {
+    + <<async>> Login(request:PostLoginDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Register(request:RegisterDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> ChangePassword(request:ChangePasswordDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + Me() : IActionResult
+}
+ControllerBase <|-- AuthController
+class HistorialEstadosController {
+    + <<async>> All(c:CancellationToken) : Task<ActionResult<IEnumerable<HistorialEstado>>>
+    + <<async>> Get(id:int, c:CancellationToken) : Task<ActionResult<HistorialEstado>>
+    + <<async>> Post(x:HistorialEstado, c:CancellationToken) : Task<ActionResult<HistorialEstado>>
+    + <<async>> Put(id:int, x:HistorialEstado, c:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, c:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- HistorialEstadosController
+class EstadosController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Estado>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Estado>>
+    + <<async>> Post(estado:Estado, cancellationToken:CancellationToken) : Task<ActionResult<Estado>>
+    + <<async>> Put(id:int, estado:Estado, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- EstadosController
+class RolesController {
+    + <<async>> All(c:CancellationToken) : Task<ActionResult<IEnumerable<Rol>>>
+    + <<async>> Get(id:int, c:CancellationToken) : Task<ActionResult<Rol>>
+    + <<async>> Post(x:Rol, c:CancellationToken) : Task<ActionResult<Rol>>
+    + <<async>> Put(id:int, x:Rol, c:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, c:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- RolesController
+class IncidenciasController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Incidencia>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Incidencia>>
+    + <<async>> Post(dto:PostIncidenciaDto, cancellationToken:CancellationToken) : Task<ActionResult<Incidencia>>
+    + <<async>> Put(id:int, incidenciaDto:PutIncidenciaDto, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- IncidenciasController
+class CategoriasController {
+    + <<async>> All(cancellationToken:CancellationToken) : Task<ActionResult<IEnumerable<Categoria>>>
+    + <<async>> Get(id:int, cancellationToken:CancellationToken) : Task<ActionResult<Categoria>>
+    + <<async>> Post(categoria:Categoria, cancellationToken:CancellationToken) : Task<ActionResult<Categoria>>
+    + <<async>> Put(id:int, categoria:Categoria, cancellationToken:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, cancellationToken:CancellationToken) : Task<IActionResult>
+}
+ControllerBase <|-- CategoriasController
+class UsuariosController {
+    + <<async>> GetAll(ct:CancellationToken) : Task<ActionResult<IEnumerable<Usuario>>>
+    + <<async>> Get(id:int, ct:CancellationToken) : Task<ActionResult<Usuario>>
+    + <<async>> Post(x:Usuario, ct:CancellationToken) : Task<ActionResult<Usuario>>
+    + <<async>> Put(id:int, x:Usuario, ct:CancellationToken) : Task<IActionResult>
+    + <<async>> Delete(id:int, ct:CancellationToken) : Task<IActionResult>
+    + <<async>> SetAdminRole(request:SetAdminPost, ct:CancellationToken) : Task<IActionResult>
+}
+class "PasswordHasher`1"<T> {
+}
+ControllerBase <|-- UsuariosController
+UsuariosController o-> "passwordHasher<Usuario>" "PasswordHasher`1"
+enum EstadoEnum {
+    EnProceso,
+    Resuelto,
+    SinResolver,
+}
+@enduml

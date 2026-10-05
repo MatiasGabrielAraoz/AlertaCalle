@@ -1,0 +1,9 @@
+@startuml
+class CrearNoticiaDto <<sealed>> {
+    + Categoria : string <<get>> <<init>>
+    + Titulo : string <<get>> <<init>>
+    + Descr : string <<get>> <<init>>
+    + ImagenUrl : string? <<get>> <<init>>
+    + InfoImportante : string? <<get>> <<init>>
+}
+@enduml

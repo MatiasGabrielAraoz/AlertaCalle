@@ -1,0 +1,18 @@
+@startuml
+class ChangePasswordDto <<sealed>> {
+    + CurrentPassword : string <<get>> <<init>>
+    + NewPassword : string <<get>> <<init>>
+}
+class TokenDto <<sealed>> <<record>> {
+    + Token : string <<get>> <<init>>
+}
+class MeDto <<sealed>> <<record>> {
+    + Id : int <<get>> <<init>>
+    + Nombre : string <<get>> <<init>>
+    + Apellido : string <<get>> <<init>>
+    + Email : string <<get>> <<init>>
+    + Role : string <<get>> <<init>>
+    + Permissions : string <<get>> <<init>>
+}
+TokenDto --> "ExpiresAt" DateTime
+@enduml

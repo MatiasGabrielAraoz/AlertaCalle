@@ -1,0 +1,7 @@
+@startuml
+enum EstadoEnum {
+    EnProceso,
+    Resuelto,
+    SinResolver,
+}
+@enduml
